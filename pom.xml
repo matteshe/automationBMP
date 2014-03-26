@@ -5,7 +5,8 @@
     <artifactId>de.telekom.testing</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Telekom Testing Main</name>
+    <name>Telekom Testing Main</name>    
+    
     <modules>
         <module>de.telekom.testframework</module>
         <module>de.telekom.bmp</module>

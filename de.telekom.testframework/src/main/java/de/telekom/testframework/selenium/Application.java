@@ -80,7 +80,7 @@ public abstract class Application implements SearchContext, SearchContextWrapper
 
                 getWebDriver().navigate().to(u);
 
-                ActionHandler.waitForPageLoaded(webDriver, this);
+                ActionHandler.waitUntilPageLoaded(webDriver, this);
 
             }
         }, url);

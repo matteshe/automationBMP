@@ -83,7 +83,6 @@
         </action>
         <action>
             <actionName>test.single</actionName>
-            <preAction>build-with-dependencies</preAction>
             <packagings>
                 <packaging>*</packaging>
             </packagings>

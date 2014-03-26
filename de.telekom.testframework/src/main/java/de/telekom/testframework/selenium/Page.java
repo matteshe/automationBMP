@@ -5,6 +5,7 @@ import de.telekom.testframework.selenium.annotations.Path;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Objects;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 
 /**
@@ -24,13 +25,13 @@ public abstract class Page extends Mask {
     }
 
     @Override
-    public String toString() {       
+    public String toString() {
         return super.toString() + "[ path = '" + getPath() + "']";
     }
 
     public boolean isCurrentPage() {
 
-        ActionHandler.waitForPageLoaded(webDriver, this);
+        ActionHandler.waitUntilPageLoaded(webDriver, this);
 
         String u = getWebDriver().getCurrentUrl();
 
@@ -71,5 +72,9 @@ public abstract class Page extends Mask {
 
     public void reportScreenShot() {
         Reporter.reportScreenshot(ActionHandler.getScreenshotAs(this, OutputType.BYTES));
+    }
+
+    public boolean isLoaded() {
+        return ((JavascriptExecutor) getWebDriver()).executeScript("return document.readyState").equals("complete");
     }
 }

@@ -48,7 +48,7 @@ public class ActionHandler {
 
     static boolean isInWaitForPageLoaded = false;
 
-    public static void waitForPageLoaded(WebDriver driver, Object context) {
+    public static void waitUntilPageLoaded(WebDriver driver, Object context) {
         if (isInWaitForPageLoaded) {
             return;
         }
@@ -63,7 +63,7 @@ public class ActionHandler {
             return;
         }
 
-        //Reporter.entering(null, "waitForPageLoaded", context);
+        //Reporter.entering(null, "waitUntilPageLoaded", context);
         isInWaitForPageLoaded = true;
         try {
             Wait.until("Page loaded", driver, new Function<WebDriver, Boolean>() {
@@ -75,7 +75,7 @@ public class ActionHandler {
             });
         } finally {
             isInWaitForPageLoaded = false;
-            //Reporter.exiting(null, "waitForPageLoaded");
+            //Reporter.exiting(null, "waitUntilPageLoaded");
         }
 
     }

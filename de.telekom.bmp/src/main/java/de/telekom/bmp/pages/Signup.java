@@ -17,7 +17,6 @@ import org.openqa.selenium.support.FindBy;
  * @author Daniel
  */
 @Singleton
-@Properties
 @Path("/signup")
 public class Signup extends Page {
 
@@ -25,15 +24,10 @@ public class Signup extends Page {
     public Signup(BmpApplication app) {
         super(app);
     }
-   
-    @FindByProperty
-    public TextField abc;
-    
-    @FindByProperty("emailaddress")
+       
     @FindBy(name = "emailAddress")
     public TextField emailAddress;
 
-    @FindByProperty("signup")
     @FindBy(name = "userSignupButton")
     public Button signup;
 

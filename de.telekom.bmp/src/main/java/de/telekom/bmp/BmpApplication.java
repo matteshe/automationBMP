@@ -14,16 +14,19 @@ import org.openqa.selenium.WebDriver;
 @Singleton
 public class BmpApplication extends Application {
 
-    class MyConfiguration {
+    class MyConfiguration extends Configuration {
 
         @Inject(optional = true)
         @Named("BmpApplication.url")
         public String url = "https://toon:HullyGully@testcloud.bmptest.de";
         //public String url = "https://toon:HullyGully@verbundcloud.bmptest.de";
 
+        public MyConfiguration() {
+            initialize();
+        }
     }
 
-    MyConfiguration configuration = Configuration.create(MyConfiguration.class);
+    MyConfiguration configuration = new MyConfiguration();
 
     @Inject
     public BmpApplication(WebDriver webDriver) {

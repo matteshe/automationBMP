@@ -5,11 +5,15 @@
         <groupId>de.telekom</groupId>
         <artifactId>de.telekom.testing</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
+    
     <groupId>de.telekom.testframework</groupId>
     <artifactId>testframework</artifactId>
     <version>1.0.0</version>
     <name>Telekom Testframework</name>
+    <packaging>jar</packaging>
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>    

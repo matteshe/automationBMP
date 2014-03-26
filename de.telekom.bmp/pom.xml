@@ -5,11 +5,13 @@
         <groupId>de.telekom</groupId>
         <artifactId>de.telekom.testing</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>de.telekom</groupId>
     <artifactId>bmp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>BMP</name>
+    <packaging>jar</packaging>
     <build>
         <plugins>
             <plugin>

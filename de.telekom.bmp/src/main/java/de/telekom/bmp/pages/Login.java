@@ -23,10 +23,10 @@ public class Login extends Page {
         super(app);
     }
  
-    @FindBy
+    @FindBy(id = "username")
     public TextField username;
     
-    @FindBy
+    @FindBy(id = "password")
     public TextField password;
     
     @FindBy(name = "signin")   

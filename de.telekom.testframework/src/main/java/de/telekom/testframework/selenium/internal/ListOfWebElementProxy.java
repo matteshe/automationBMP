@@ -53,7 +53,7 @@ public class ListOfWebElementProxy implements InvocationHandler {
 
     private Object realInvoke(Method method, Object[] objects, boolean catchStale) throws Throwable {
         List<WebElement> elements;
-        ActionHandler.waitForPageLoaded(driver, locator);
+        ActionHandler.waitUntilPageLoaded(driver, locator);
         ActionHandler.needWaitForPageLoad(false);
         try {
             elements = locator.findElements();

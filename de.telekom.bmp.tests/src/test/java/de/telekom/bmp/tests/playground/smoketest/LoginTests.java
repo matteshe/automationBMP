@@ -1,4 +1,4 @@
-package de.telekom.bmp.tests.playground;
+package de.telekom.bmp.tests.playground.smoketest;
 
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
  *
  * @author Daniel
  */
-
+@QCId("5563")
 @UseWebDriver
 public class LoginTests {
 
@@ -37,23 +37,12 @@ public class LoginTests {
     @Inject
     Header header;
 
-    @Inject
-    Portal portal;
-
-    @Inject
-    Listing listing;
-    
     @Test
     public void theTest() {
-        User user = datapool.users()
-                .field("valid").equal(true)
-                .field("registered").equal(true)
-                .field("role").equal(UserRole.USER).get();
-
+        User user = datapool.users().field("registered").equal(true).field("role").equal(UserRole.USER).get();
         assertThat("we have a valid user", user != null);
 
         navigateTo(login);
-        waitUntil(login, isCurrentPage());
 
 //        set(login.username, "tester.bmp+user001@gmail.com");
 //        set(login.password, "tester123");
@@ -62,21 +51,8 @@ public class LoginTests {
 
         click(login.signin);
 
-        //verifyThat(myApps, isCurrentPage());
-        set(header.searchInput, "test");
-        click(header.searchButton);
-
-        waitUntil(listing, isCurrentPage());
-
-        waitUntil(listing.appInfos, not(empty()));
-
-        listing.reportScreenShot();
-
-        for (Listing.AppInfo appinfo : listing.appInfos) {
-            System.out.println(appinfo.appName.getText() + " " + appinfo.prize.getText());
-        }
-
-        click(listing.appInfo.get("Test App 2012_SAK").appName);
+        verifyThat(myApps, is(loaded()));
+        verifyThat(myApps, is(currentPage()));
 
         click(header.account.logout);
     }

@@ -214,6 +214,36 @@ public class Matchers {
             }
         };
     }
+    
+    public static Matcher<Page> loaded(final Matcher<Boolean> matcher) {
+        return new CachedElementTypeSafeMatcher<Page, Boolean>("loaded", matcher) {
+
+            @Override
+            protected Object getValue(Page item) {
+                return item.isLoaded();
+            }
+        };
+    }
+
+    public static Matcher<Page> loaded() {
+        return new CachedElementTypeSafeMatcher<Page, Boolean>("loaded") {
+
+            @Override
+            protected Object getValue(Page item) {
+                return item.isLoaded();
+            }
+        };
+    }
+
+    public static Matcher<Page> isLoaded() {
+        return new CachedElementTypeSafeMatcher<Page, Boolean>("is loaded") {
+
+            @Override
+            protected Object getValue(Page item) {
+                return item.isLoaded();
+            }
+        };
+    }
 
     public static Matcher<Select> selectedItem(final Matcher<WebElement> matcher) {
         return new CachedElementTypeSafeMatcher<Select, WebElement>("selected item", matcher) {
