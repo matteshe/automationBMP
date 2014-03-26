@@ -1,0 +1,3 @@
+de.telekom.testframework.testng.TestNGTestListener
+org.uncommons.reportng.HTMLReporter
+org.uncommons.reportng.JUnitXMLReporter
