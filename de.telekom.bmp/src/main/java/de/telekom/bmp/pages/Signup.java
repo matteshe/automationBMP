@@ -2,9 +2,7 @@ package de.telekom.bmp.pages;
 
 import de.telekom.bmp.BmpApplication;
 import de.telekom.testframework.selenium.Page;
-import de.telekom.testframework.selenium.annotations.FindByProperty;
 import de.telekom.testframework.selenium.annotations.Path;
-import de.telekom.testframework.selenium.annotations.Properties;
 import de.telekom.testframework.selenium.controls.Button;
 import de.telekom.testframework.selenium.controls.TextField;
 import javax.inject.Inject;
