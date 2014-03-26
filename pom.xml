@@ -6,6 +6,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Telekom Testing Main</name>    
+    <url>https://github.com/automationBMP</url>
     
     <modules>
         <module>de.telekom.testframework</module>
