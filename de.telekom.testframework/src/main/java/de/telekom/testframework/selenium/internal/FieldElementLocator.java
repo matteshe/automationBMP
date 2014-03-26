@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Objects;
 import org.openqa.selenium.By;
-import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ByIdOrName;
 import org.openqa.selenium.support.FindBy;
@@ -113,26 +112,20 @@ public class FieldElementLocator implements ElementLocator {
             }
             return super.buildByFromLongFindBy(findBy);
         }
-
     }
 
-    public interface SearchContextWrapper {
-        SearchContext getSearchContext();
-    }
-
-    public final SearchContextWrapper searchContext;
+    public final FieldSearchContextGetter searchContextGetter;
 
     PageResourceLocatorBuilder builder;
-    private Class<?> elementClass = null;
 
     private By by;
 
     public final Field field;
 
-    public FieldElementLocator(SearchContextWrapper searchContext, Class<?> elementClass, By by) {
+    public FieldElementLocator(FieldSearchContextGetter searchContext, By by) {
         Objects.requireNonNull(searchContext);
-        this.searchContext = searchContext;
-        this.elementClass = elementClass;
+        this.searchContextGetter = searchContext;
+
         this.field = null;
         this.by = by;
     }
@@ -144,14 +137,13 @@ public class FieldElementLocator implements ElementLocator {
      * @param field The field on the Page Object that will hold the located
      * value
      */
-    public FieldElementLocator(SearchContextWrapper searchContext, Field field) {
+    public FieldElementLocator(FieldSearchContextGetter searchContext, Field field) {
         Objects.requireNonNull(searchContext);
         Objects.requireNonNull(field);
 
-        this.searchContext = searchContext;
+        this.searchContextGetter = searchContext;
 
         this.field = field;
-        this.elementClass = field.getType();
 
         Annotations annotations = new MyAnnotations(field);
 
@@ -164,13 +156,13 @@ public class FieldElementLocator implements ElementLocator {
      * @param field
      * @param builder
      */
-    public FieldElementLocator(SearchContextWrapper searchContext, Field field, PageResourceLocatorBuilder builder) {
+    public FieldElementLocator(FieldSearchContextGetter searchContext, Field field, PageResourceLocatorBuilder builder) {
         Objects.requireNonNull(searchContext);
         Objects.requireNonNull(field);
         Objects.requireNonNull(builder);
         this.field = field;
-        this.elementClass = field.getType();
-        this.searchContext = searchContext;
+
+        this.searchContextGetter = searchContext;
 
         this.builder = builder;
         this.by = builder.by();
@@ -210,7 +202,7 @@ public class FieldElementLocator implements ElementLocator {
      */
     @Override
     public WebElement findElement() {
-        WebElement element = searchContext.getSearchContext().findElement(getBy());
+        WebElement element = searchContextGetter.getSearchContext().findElement(getBy());
 
         return element;
     }
@@ -222,7 +214,7 @@ public class FieldElementLocator implements ElementLocator {
      */
     @Override
     public List<WebElement> findElements() {
-        List<WebElement> elements = searchContext.getSearchContext().findElements(getBy());
+        List<WebElement> elements = searchContextGetter.getSearchContext().findElements(getBy());
 
         return elements;
     }

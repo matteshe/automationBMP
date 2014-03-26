@@ -2,7 +2,6 @@ package de.telekom.testframework.selenium.controls;
 
 import com.google.common.base.Function;
 import de.telekom.testframework.Wait;
-import de.telekom.testframework.selenium.ActionHandler;
 import de.telekom.testframework.selenium.ElementNotEnabledException;
 import de.telekom.testframework.selenium.internal.FieldElementLocator;
 import org.openqa.selenium.JavascriptExecutor;

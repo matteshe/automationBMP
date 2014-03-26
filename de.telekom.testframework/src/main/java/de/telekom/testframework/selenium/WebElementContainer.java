@@ -6,7 +6,8 @@ import de.telekom.testframework.selenium.controls.DelegatedWebElement;
 import de.telekom.testframework.selenium.internal.ElementLocatorFactoryImpl;
 import de.telekom.testframework.selenium.internal.FieldDecoratorImpl;
 import de.telekom.testframework.selenium.internal.FieldElementLocator;
-import de.telekom.testframework.selenium.internal.FieldElementLocator.SearchContextWrapper;
+import de.telekom.testframework.selenium.internal.FieldSearchContextGetter;
+import de.telekom.testframework.selenium.internal.FieldSearchContextGetter;
 import de.telekom.testframework.selenium.internal.ListOfWebElementProxy;
 import de.telekom.testframework.selenium.internal.WebElementProxy;
 import java.lang.reflect.Constructor;
@@ -67,14 +68,14 @@ public abstract class WebElementContainer implements WebDriverWrapper {
     protected ResourceBundle resourceBundle = null;
     protected Field parentElementField = null;
 
-    FieldElementLocator.SearchContextWrapper defaultSearchContextWrapper = new FieldElementLocator.SearchContextWrapper() {
+    FieldSearchContextGetter defaultSearchContextGetter = new FieldSearchContextGetter() {
         @Override
         public SearchContext getSearchContext() {
             return WebElementContainer.this.getSearchContext();
         }
     };
 
-    FieldElementLocator.SearchContextWrapper simpleSearchContextWrapper = new FieldElementLocator.SearchContextWrapper() {
+    FieldSearchContextGetter simpleSearchContextGetter = new FieldSearchContextGetter() {
         @Override
         public SearchContext getSearchContext() {
             return WebElementContainer.this.searchContext;
@@ -122,7 +123,7 @@ public abstract class WebElementContainer implements WebDriverWrapper {
         return resourceBundle;
     }
 
-    public FieldElementLocator.SearchContextWrapper getSearchContextForField(Field field) {
+    public FieldSearchContextGetter getSearchContextForField(Field field) {
         if (field.isAnnotationPresent(UseParent.class)) {
             String n = field.getAnnotation(UseParent.class).value();
             if (n == null || n.isEmpty()) {
@@ -133,7 +134,7 @@ public abstract class WebElementContainer implements WebDriverWrapper {
                 if (!WebElement.class.isAssignableFrom(f.getType())) {
                     throw new RuntimeException("UseParent annotated field " + f.toString() + " must be of type WebElement");
                 }
-                return new FieldElementLocator.SearchContextWrapper() {
+                return new FieldSearchContextGetter() {
                     @Override
                     public SearchContext getSearchContext() {
                         try {
@@ -156,10 +157,10 @@ public abstract class WebElementContainer implements WebDriverWrapper {
         }
         if (parentElementField != null) {
             if (parentElementField.getName().equals(field.getName())) {
-                return simpleSearchContextWrapper;
+                return simpleSearchContextGetter;
             }
         }
-        return defaultSearchContextWrapper;
+        return defaultSearchContextGetter;
     }
 
     protected final void initElements() {
@@ -206,7 +207,7 @@ public abstract class WebElementContainer implements WebDriverWrapper {
 
             Constructor<?> constructor = WebElementContainer.getDelegatedElementConstructor(clz);
 
-            FieldElementLocator locator = new FieldElementLocator(defaultSearchContextWrapper, clz, by);
+            FieldElementLocator locator = new FieldElementLocator(defaultSearchContextGetter, by);
             WebElement element = WebElementProxy.createProxy(ClassLoader.getSystemClassLoader(), webDriver, locator);
 
             return (T) constructor.newInstance(webDriver, locator, element);
@@ -223,7 +224,7 @@ public abstract class WebElementContainer implements WebDriverWrapper {
     public <T extends WebElement> List<T> findAll(Class<T> clz, By by) {
         Constructor<?> constructor = WebElementContainer.getDelegatedElementConstructor(clz);
 
-        FieldElementLocator locator = new FieldElementLocator(defaultSearchContextWrapper, clz, by);
+        FieldElementLocator locator = new FieldElementLocator(defaultSearchContextGetter, by);
         List<T> list = ListOfWebElementProxy.createProxy(ClassLoader.getSystemClassLoader(), webDriver, constructor, locator);
 
         return list;

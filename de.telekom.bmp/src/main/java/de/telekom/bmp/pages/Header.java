@@ -44,8 +44,8 @@ public class Header extends Page {
 
         @Override
         public void click() {
-            if (locator.searchContext.getSearchContext() instanceof AccountMenu) {
-                ((AccountMenu) locator.searchContext.getSearchContext()).moveTo();
+            if (locator.searchContextGetter.getSearchContext() instanceof AccountMenu) {
+                ((AccountMenu) locator.searchContextGetter.getSearchContext()).moveTo();
             }
             super.click();
         }

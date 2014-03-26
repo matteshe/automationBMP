@@ -38,7 +38,7 @@ public class DelegatedWebElement extends WebElementContainer implements WebEleme
 
         String s = "";
 
-        SearchContext sc = locator.searchContext.getSearchContext();
+        SearchContext sc = locator.searchContextGetter.getSearchContext();
 
         if (sc instanceof DelegatedWebElement) {
             s += ((DelegatedWebElement) sc).toString() + "/";

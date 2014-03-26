@@ -7,7 +7,6 @@ import de.telekom.bmp.data.UserRole;
 import de.telekom.bmp.pages.*;
 
 import static de.telekom.testframework.Actions.*;
-import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import javax.inject.Inject;

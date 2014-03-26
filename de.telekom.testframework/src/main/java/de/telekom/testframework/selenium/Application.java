@@ -1,7 +1,7 @@
 package de.telekom.testframework.selenium;
 
 import de.telekom.testframework.selenium.internal.FieldElementLocator;
-import de.telekom.testframework.selenium.internal.FieldElementLocator.SearchContextWrapper;
+import de.telekom.testframework.selenium.internal.FieldSearchContextGetter;
 import de.telekom.testframework.selenium.internal.ListOfWebElementProxy;
 import de.telekom.testframework.selenium.internal.WebElementProxy;
 import java.lang.reflect.Constructor;
@@ -18,7 +18,7 @@ import org.openqa.selenium.WebElement;
  *
  * @author Daniel
  */
-public abstract class Application implements SearchContext, SearchContextWrapper, WebDriverWrapper {
+public abstract class Application implements SearchContext, FieldSearchContextGetter, WebDriverWrapper {
 
     public Application(WebDriver webDriver) {
         assert webDriver != null : "webDriver is null";
@@ -26,7 +26,7 @@ public abstract class Application implements SearchContext, SearchContextWrapper
         this.webDriver = webDriver;
     }
 
-    private final WebDriver webDriver;
+    final WebDriver webDriver;
 
     /**
      *
@@ -135,7 +135,7 @@ public abstract class Application implements SearchContext, SearchContextWrapper
 
             Constructor<?> constructor = WebElementContainer.getDelegatedElementConstructor(clz);
 
-            FieldElementLocator locator = new FieldElementLocator(this, clz, by);
+            FieldElementLocator locator = new FieldElementLocator(this, by);
             WebElement element = WebElementProxy.createProxy(ClassLoader.getSystemClassLoader(), webDriver, locator);
 
             return (T) constructor.newInstance(webDriver, locator, element);
@@ -152,7 +152,7 @@ public abstract class Application implements SearchContext, SearchContextWrapper
     public <T extends WebElement> List<T> findAll(Class<T> clz, By by) {
         Constructor<?> constructor = WebElementContainer.getDelegatedElementConstructor(clz);
 
-        FieldElementLocator locator = new FieldElementLocator(this, clz, by);
+        FieldElementLocator locator = new FieldElementLocator(this, by);
         List<T> list = ListOfWebElementProxy.createProxy(ClassLoader.getSystemClassLoader(), webDriver, constructor, locator);
 
         return list;
