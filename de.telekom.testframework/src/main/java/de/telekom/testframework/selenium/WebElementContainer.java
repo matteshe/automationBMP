@@ -7,7 +7,6 @@ import de.telekom.testframework.selenium.internal.ElementLocatorFactoryImpl;
 import de.telekom.testframework.selenium.internal.FieldDecoratorImpl;
 import de.telekom.testframework.selenium.internal.FieldElementLocator;
 import de.telekom.testframework.selenium.internal.FieldSearchContextGetter;
-import de.telekom.testframework.selenium.internal.FieldSearchContextGetter;
 import de.telekom.testframework.selenium.internal.ListOfWebElementProxy;
 import de.telekom.testframework.selenium.internal.WebElementProxy;
 import java.lang.reflect.Constructor;

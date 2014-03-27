@@ -189,7 +189,7 @@ class TestNGReportHandler implements ReportHandler {
         StringWriter sw = new StringWriter();
         PrintWriter pw = new PrintWriter(sw);
         t.printStackTrace(pw);
-        s += sw.toString().replaceAll("(?:\\n|\\r)", "<br/>" + System.getProperty("line.separator"));
+        s += sw.toString().replaceAll("\\r?\\n", "<br/>" + System.getProperty("line.separator"));
         s += "</div>\n";
 
         return s;

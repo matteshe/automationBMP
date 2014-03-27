@@ -127,7 +127,7 @@ public abstract class Application implements SearchContext, FieldSearchContextGe
 
     public WebElement find(By by) {
         return find(WebElement.class, by);
-    }
+    } 
 
     @SuppressWarnings("unchecked")
     public <T extends WebElement> T find(Class<T> clz, By by) {
