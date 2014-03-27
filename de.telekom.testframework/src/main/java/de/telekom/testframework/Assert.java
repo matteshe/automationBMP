@@ -20,6 +20,33 @@ import static de.telekom.testframework.Wait.DEFAULT_TIMEOUT;
  */
 public class Assert {
 
+    public static void waitFor(long time, TimeUnit timeUnit) {
+        waitFor(time, timeUnit, null);
+    }
+
+    public static void waitFor(long time, TimeUnit timeUnit, String cause) {
+
+        if (cause != null) {
+            Reporter.entering(null, "wait for", time, timeUnit, cause);
+        } else {
+            Reporter.entering(null, "wait for", time, timeUnit);
+        }
+
+        try {
+            
+            Wait.until(false, new Function<Boolean, Boolean>() {
+                @Override
+                public Boolean apply(Boolean input) {
+                    return false;
+                }
+            }, time, timeUnit);
+        } catch (Throwable ex) {
+
+        } finally {
+            Reporter.exiting(null, "wait for");
+        }
+    }
+
     public static <T> void waitUntil(final T actual, final Matcher<? super T> matcher, long timeOutInSeconds, long sleepInMillis) {
         waitUntil(null, actual, matcher, timeOutInSeconds, sleepInMillis);
     }
@@ -55,9 +82,9 @@ public class Assert {
     public static <T> void waitUntil(String message, final T actual, final Matcher<? super T> matcher, long timeOut, TimeUnit timeOutUnit, long sleep, TimeUnit sleepUnit) {
 
         if (message != null) {
-            Reporter.entering(null, "waitUntil ", message, actual, matcher, timeOut, timeOutUnit, sleep, sleepUnit);
+            Reporter.entering(null, "wait until ", message, actual, matcher, timeOut, timeOutUnit, sleep, sleepUnit);
         } else {
-            Reporter.entering(null, "waitUntil ", actual, matcher, timeOut, timeOutUnit, sleep, sleepUnit);
+            Reporter.entering(null, "wait until ", actual, matcher, timeOut, timeOutUnit, sleep, sleepUnit);
         }
 
         try {
@@ -71,7 +98,7 @@ public class Assert {
 
             throw ex;
         } finally {
-            Reporter.exiting(null, "waitUntil");
+            Reporter.exiting(null, "wait until");
         }
     }
 
@@ -128,7 +155,7 @@ public class Assert {
     }
 
     public static <T> void assertThat(String message, T actual, Matcher<? super T> matcher, long timeOutInSeconds, long sleepInMillis) {
-        Reporter.entering(null, "assertThat", message, actual, matcher);
+        Reporter.entering(null, "assert that", message, actual, matcher);
 
         try {
             boolean result = match(actual, matcher, timeOutInSeconds, sleepInMillis);
@@ -152,7 +179,7 @@ public class Assert {
                 throw ex;
             }
         } finally {
-            Reporter.exiting(null, "assertThat");
+            Reporter.exiting(null, "assert that");
         }
     }
 
@@ -163,9 +190,9 @@ public class Assert {
     public static void assertThat(String message, boolean expression) {
 
         if (message == null) {
-            Reporter.entering(null, "assertThat", expression);
+            Reporter.entering(null, "assert that", expression);
         } else {
-            Reporter.entering(null, "assertThat", message, expression);
+            Reporter.entering(null, "assert that", message, expression);
         }
         try {
             AssertionError ex = null;
@@ -184,7 +211,7 @@ public class Assert {
                 throw ex;
             }
         } finally {
-            Reporter.exiting(null, "assertThat");
+            Reporter.exiting(null, "assert that");
         }
 
     }
@@ -206,7 +233,7 @@ public class Assert {
     }
 
     public static <T> void verifyThat(String message, T actual, Matcher<? super T> matcher, long timeOutInSeconds, long sleepInMillis) {
-        Reporter.entering(null, "verifyThat", message, actual, matcher);
+        Reporter.entering(null, "verify that", message, actual, matcher);
         try {
             boolean result = match(actual, matcher, timeOutInSeconds, sleepInMillis);
 
@@ -227,7 +254,7 @@ public class Assert {
             }
 
         } finally {
-            Reporter.exiting(null, "verifyThat");
+            Reporter.exiting(null, "verify that");
         }
     }
 
@@ -237,9 +264,9 @@ public class Assert {
 
     public static void verifyThat(String message, boolean expression) {
         if (message == null) {
-            Reporter.entering(null, "verifyThat", expression);
+            Reporter.entering(null, "verify that", expression);
         } else {
-            Reporter.entering(null, "verifyThat", message, expression);
+            Reporter.entering(null, "verify that", message, expression);
         }
         try {
             VerificationError ex = expression ? null : message != null ? new VerificationError(message) : new VerificationError();
@@ -250,7 +277,7 @@ public class Assert {
                 Reporter.reportException(ex);
             }
         } finally {
-            Reporter.exiting(null, "verifyThat");
+            Reporter.exiting(null, "verify that");
         }
     }
 }
