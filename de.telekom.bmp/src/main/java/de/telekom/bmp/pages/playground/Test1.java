@@ -57,5 +57,8 @@ public class Test1 extends Page {
      */
     @FindBy(xpath = "//a[contains(text(), '%s')]")
     public Parameterized<List<Link>> paramslinks;
+    
+    @FindBy(xpath = "//a[contains(text(), '%s')]")
+    public Parameterized<List<Link>> paramslinksdsv;
 
 }
