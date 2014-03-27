@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>test page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    </head>
+    <body>
+        <h1>test page</h1>
+
+        <form action="/aaa">
+            <p>               
+                <input type="button" name="ibutton" id="hiButton" onclick="alert('hi')" value="hi" /> 
+                <button type="button" name="obutton" id="hoButton" onclick="">ho</button>
+                <button type="button" name="abutton" id="haButton" onclick="alert('ha')" disabled="disabled" >ha</button>
+
+            </p>
+            <div id="aDiv">
+                <a href="javascript:alert('hi')">a link</a>
+            </div>
+            <div id="anotherDiv">
+                <b>empty</b>
+            </div>
+
+            <p>
+                <select id="aSelect" >
+                    <option>first</option>
+                    <option>second</option>
+                    <option>third</option>
+                    <option>fourth</option>
+                </select>
+            </p>
+
+            <p>
+                <select id="aListSelect" size="5" >
+                    <option>first</option>
+                    <option>second</option>
+                    <option>third</option>
+                    <option>fourth</option>
+                </select>
+                <select id="aMultiSelect" size="5" multiple="multiple">
+                    <option>first</option>
+                    <option>second</option>
+                    <option>third</option>
+                    <option>fourth</option>
+                </select>
+            </p>
+            <p>
+                <select id="aOptGroupSelect" size="10" multiple="multiple">
+                    <optgroup label="Group 1">
+                        <option>Option 1.1</option>
+                    </optgroup> 
+                    <optgroup label="Group 2">
+                        <option value="def">Option 2.1</option>
+                        <option value="abc">Option 2.2</option>
+                    </optgroup>
+                    <optgroup label="Group 3" disabled="disabled">
+                        <option>Option 3.1</option>
+                        <option>Option 3.2</option>
+                        <option>Option 3.3</option>
+                    </optgroup>
+                </select>
+
+            </p>
+            <p>
+                <select id="aOptGroupSelect1" size="10" multiple="multiple">
+                    <optgroup label="Group 1">
+                        <option>Option 1.1</option>
+                    </optgroup> 
+                    <optgroup label="Group 2">
+                        <option value="def"><div>Option 2.1 <b>blash</b></div></option>
+                        <option value="abc">Option 2.2</option>
+                    </optgroup>
+                    <optgroup label="Group 3" disabled="disabled">
+                        <option>Option 3.1</option>
+                        <option>Option 3.2</option>
+                        <option>Option 3.3</option>
+                    </optgroup>
+                </select>
+
+            </p>
+            <input pattern="^[\w\d-_.+]+@[\w\d-_.+]+\.[\w\d-_.+ ]+$" type="email" required="" value="" name="emailAddress" id="idc" class="form-ui-invalid"/>
+        </form>
+
+    </body>
+</html>
