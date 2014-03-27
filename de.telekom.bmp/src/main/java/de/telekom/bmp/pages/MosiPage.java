@@ -2,9 +2,7 @@ package de.telekom.bmp.pages;
 
 import de.telekom.bmp.BmpApplication;
 import de.telekom.testframework.selenium.Page;
-import de.telekom.testframework.selenium.annotations.Path;
 import de.telekom.testframework.selenium.controls.Button;
-import de.telekom.testframework.selenium.controls.Link;
 import de.telekom.testframework.selenium.controls.TextField;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -15,23 +13,23 @@ import org.openqa.selenium.support.FindBy;
  * @author Daniel
  */
 @Singleton
-@Path("/login")
-public class Login extends Page {
+public class MosiPage extends Page {
 
     @Inject
-    public Login(BmpApplication app) {
+    public MosiPage(BmpApplication app) {
         super(app);
     }
- 
-    @FindBy
-    public TextField usernameTxt;
+
+    @Override
+    public String getPath() {
+        return "/mosi/admin";
+    }
     
-    @FindBy
-    public TextField password;
+    @FindBy(xpath = "//*[@id='main']/div/div[1]/button")
+    public Button pingMOSIBtn;
     
-    @FindBy(name = "signin")   
-    public Button signin;
+    @FindBy(xpath = "//*[@id='main']/div/div[2]/ul/li/span")
+    public TextField pingMOSISuccessfullTxt; 
     
-    @FindBy(xpath = "//a[@href='./signup']")    
-    public Link signuplink;
+    
 }

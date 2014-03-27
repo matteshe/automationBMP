@@ -44,12 +44,10 @@ public class Header extends Page {
 
         @Override
         public void click() {
-            
-            if (locator.searchContextGetter.getSearchContext() instanceof AccountMenu) {
-                ((AccountMenu) locator.searchContextGetter.getSearchContext()).moveTo();
+            if (locator.searchContext.getSearchContext() instanceof AccountMenu) {
+                ((AccountMenu) locator.searchContext.getSearchContext()).moveTo();
             }
             super.click();
-       
         }
     }
 
@@ -96,6 +94,6 @@ public class Header extends Page {
 
     @FindBy(xpath = ".//input[@type='submit']|.//button[@type='submit']")
     @UseParent("searchForm")
-    public Button searchBtn;
+    public Button searchButton;
 
 }
