@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
  *
  * @author Daniel
  */
-public class WaitTest {
+public class WaitForTest {
 
     @Test
     public void testWaitFor0Seconds() {
