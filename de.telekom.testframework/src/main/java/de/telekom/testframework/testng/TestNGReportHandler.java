@@ -18,8 +18,7 @@ import org.testng.Reporter;
 import org.testng.util.Strings;
 
 /**
- * The Report Handler
- * 
+ *
  * @author Daniel Biehl
  */
 class TestNGReportHandler implements ReportHandler {
