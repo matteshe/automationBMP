@@ -63,11 +63,11 @@ public class TC003b_Login_as_Normal_User_with_active_Subscriptions {
     public void test_003b_Login_as_User_with_active_Subscriptions() {
 
         try {
-            set(login.usernameTxt,user.email);
+            set(login.usernameInput,user.email);
 
-            set(login.password,user.password);
+            set(login.passwordInput,user.password);
 
-            click(login.signin);
+            click(login.signinBtn);
 
 
 // WORKAROUND

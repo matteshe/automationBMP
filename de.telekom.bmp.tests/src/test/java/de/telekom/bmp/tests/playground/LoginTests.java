@@ -56,10 +56,10 @@ public class LoginTests {
 
 //        set(login.username, "tester.bmp+user001@gmail.com");
 //        set(login.password, "tester123");
-        set(login.usernameTxt, user.email);
-        set(login.password, user.password);
+        set(login.usernameInput, user.email);
+        set(login.passwordInput, user.password);
 
-        click(login.signin);
+        click(login.signinBtn);
 
         //verifyThat(myApps, isCurrentPage());
         set(header.searchInput, "test");

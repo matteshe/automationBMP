@@ -26,6 +26,8 @@ public class CreateOrder extends Page {
         super(app);
     }
     
+    @FindBy(xpath= "//form[contains(@class, 'createOrderForm')]")
+    public Form createOrderForm;
     
     public static class EditionRow extends Control {
 

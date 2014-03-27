@@ -7,8 +7,6 @@ import com.google.code.morphia.query.Query;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.mongodb.Mongo;
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientOptions;
 import com.mongodb.WriteConcern;
 import de.telekom.testframework.configuration.Configuration;
 import java.net.UnknownHostException;
@@ -28,7 +26,7 @@ public class Datapool {
         @Inject(optional = true)
         @Named("BmpDatapool.host")
         public String host = "localhost";
-
+        
         @Inject(optional = true)
         @Named("BmpDatapool.host")
         public String datastore = "bmptest";
@@ -44,11 +42,11 @@ public class Datapool {
 
             // map classes
             morphia.map(User.class);
+            morphia.map(App.class);
 
             try {
-                MongoClient client = new MongoClient(configuration.host);
-
-                dataStore = morphia.createDatastore(client, configuration.datastore);
+                // TODO: configurable database
+                dataStore = morphia.createDatastore(new Mongo(configuration.host), configuration.datastore);
             } catch (UnknownHostException ex) {
                 throw new RuntimeException("cannot create datastore", ex);
             }
@@ -61,6 +59,10 @@ public class Datapool {
 
     public Query<User> users() {
         return getDatastore().find(User.class);
+    }
+    
+    public Query<App> apps() {
+        return getDatastore().find(App.class);
     }
 
     public <T> Key<T> save(T entity) {

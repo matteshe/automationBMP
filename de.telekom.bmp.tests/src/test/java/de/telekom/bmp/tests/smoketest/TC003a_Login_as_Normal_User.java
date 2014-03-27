@@ -58,13 +58,13 @@ public class TC003a_Login_as_Normal_User {
             //click(header.loginBtn);
             
             //login.username.set(user.email);
-            set(login.usernameTxt, user.email);
+            set(login.usernameInput, user.email);
 
             //login.password.set(user.password);
-            set(login.password, user.password);
+            set(login.passwordInput, user.password);
 
             //login.signin.click();
-            click(login.signin);
+            click(login.signinBtn);
 
 // WORKAROUND WEGEN CMS Redirect
             navigateTo(home);
