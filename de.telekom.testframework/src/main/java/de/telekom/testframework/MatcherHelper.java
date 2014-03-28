@@ -1,7 +1,6 @@
 
 package de.telekom.testframework;
 
-import de.telekom.testframework.selenium.matchers.WebElementMatcherMarker;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
@@ -15,12 +14,7 @@ class MatcherHelper {
         Description expectedDescription = new StringDescription();
         expectedDescription.appendValue(actual);
         expectedDescription.appendText(" ");
-        if (matcher instanceof WebElementMatcherMarker) {
-            //expectedDescription.appendText("");
-        } else {
-            expectedDescription.appendText("is");
-        }
-        expectedDescription.appendText(" ");
+        
         matcher.describeTo(expectedDescription);
         String s = (message != null && !message.isEmpty() ? message + ": " : "") + start + expectedDescription;
         if (!result) {

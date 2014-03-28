@@ -58,10 +58,10 @@
                     <argLine>-Dfile.encoding=${project.build.sourceEncoding}</argLine>             
                     <!--skipTests>true</skipTests-->
                     <properties>                        
-                        <property>
+                        <!--property>
                             <name>usedefaultlisteners</name>
                             <value>false</value>
-                        </property>
+                        </property-->
                     </properties>
                 </configuration>
                 
