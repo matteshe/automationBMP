@@ -50,8 +50,10 @@ public class Header extends Page {
             }
             super.click();
        
-        }
+        }        
     }
+    
+    
 
     public static class AccountMenu extends Button {
 
@@ -66,6 +68,25 @@ public class Header extends Page {
         public AccountLink myProfileLnk;
     }
 
+    
+    
+    public static class SettingsLink extends Link {
+
+        public SettingsLink(WebDriver driver, FieldElementLocator locator, WebElement webElement) {
+            super(driver, locator, webElement);
+        }
+
+        @Override
+        public void click() {
+            
+            if (locator.searchContextGetter.getSearchContext() instanceof SettingsMenu) {
+                ((SettingsMenu) locator.searchContextGetter.getSearchContext()).moveTo();
+            }
+            super.click();
+       
+        }        
+    }
+    
     public static class SettingsMenu extends Button {
 
         public SettingsMenu(WebDriver driver, FieldElementLocator locator, WebElement webElement) {
@@ -73,16 +94,30 @@ public class Header extends Page {
         }
 
         @FindBy(xpath = "//*[@id='appdirectnav']//li[2]//div//div//div/ul//li[2]//a")
-        public AccountLink developer;
+        public SettingsLink developer;
 
         @FindBy(xpath = "//*[@id='appdirectnav']//li[2]//div//div//div/ul//li[2]//a")
-        public AccountLink channelUser;
+        public SettingsLink channelUser;
 
         //@FindBy(xpath = "//*[@id='header']//ul[@id='appdirectnav']//li[2]//div//div//div/ul//li[4]//a")
         @FindBy(xpath = "///ul[@id='appdirectnav']/li[2]/a/span/span/div//div//div/ul//li[4]//a")
-        public AccountLink superuser;
+        public SettingsLink superuser;
+        
+        
 
+        
     }
+    
+    //@FindBy(xpath = ".//li[@class='last']/a | .//li[@class='info-parent settings-container']")
+    @FindBy(xpath = "//a[contains(@href, '/einstellungen/')] | .//li[@class='info-parent settings-container']")
+    public Button settingsMenu;
+    
+    @FindBy(xpath = ".//ul[@id='appdirectnav']//a[@id='account'] | .//li[@class='last']//a[@title = 'Unternehmen']")
+        //@FindBy(xpath = ".//a[@title = 'Unternehmen']")
+        public Link accountLnk;
+    
+    @FindBy(xpath = ".//a[@id='myapps']/span | .//div[@class='hlist right']//a")
+    public AccountMenu launchPadLnk;
 
     @FindBy(xpath = ".//div[@class='dropdown-parent' or @id='topbar-login']")
     public AccountMenu accountMenu;
@@ -97,5 +132,7 @@ public class Header extends Page {
     @FindBy(xpath = ".//input[@type='submit']|.//button[@type='submit']")
     @UseParent("searchForm")
     public Button searchBtn;
+    
+    
 
 }

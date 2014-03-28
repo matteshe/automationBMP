@@ -68,7 +68,7 @@ public class PurchaseTest {
         User user = datapool.users()             
                 .field("valid").equal(true)
                 .field("registered").equal(true)
-                .field("role").equal(UserRole.SUPERUSER).get();
+                .field("role").equal(UserRole.USER).get();
 
         assertThat("we have a valid user", user != null);
 
