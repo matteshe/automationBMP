@@ -10,12 +10,12 @@ import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.MyApps;
 import static de.telekom.testframework.Actions.*;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
+import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Guice;
 import org.testng.annotations.Test;
 
-@Guice
+@UseWebDriver
 @Test(groups = {"qcid-5506"})
 public class TC003b_Login_as_Normal_User_with_active_Subscriptions {
     
@@ -70,7 +70,7 @@ public class TC003b_Login_as_Normal_User_with_active_Subscriptions {
             click(login.signinBtn);
 
 
-// WORKAROUND
+// WORKAROUND WEGEN CMS Redirect
             navigateTo(myapps);
             
             assertThat(myapps, isCurrentPage());
