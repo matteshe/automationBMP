@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
     <head>
         <title>test page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -68,8 +67,8 @@
                         <option>Option 1.1</option>
                     </optgroup> 
                     <optgroup label="Group 2">
-                        <option value="def"><div>Option 2.1 <b>blash</b></div></option>
-                        <option value="abc">Option 2.2</option>
+                        <option value="def">Option 2.1 blash</option>
+                    <option value="abc">Option 2.2</option>
                     </optgroup>
                     <optgroup label="Group 3" disabled="disabled">
                         <option>Option 3.1</option>
@@ -79,7 +78,9 @@
                 </select>
 
             </p>
-            <input pattern="^[\w\d-_.+]+@[\w\d-_.+]+\.[\w\d-_.+ ]+$" type="email" required="" value="" name="emailAddress" id="idc" class="form-ui-invalid"/>
+            <p>
+                <input pattern="^[\w\d-_.+]+@[\w\d-_.+]+\.[\w\d-_.+ ]+$" type="email" required="" value="" name="emailAddress" id="idc" class="form-ui-invalid"/>
+            </p>
         </form>
 
     </body>

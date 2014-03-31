@@ -10,7 +10,7 @@ import org.hamcrest.TypeSafeMatcher;
  * @param <E>
  * @param <T>
  */
-public abstract class CachedElementTypeSafeMatcher<E, T> extends TypeSafeMatcher<E> implements WebElementMatcherMarker {
+public abstract class CachedElementTypeSafeMatcher<E, T> extends TypeSafeMatcher<E> {
 
     protected final Matcher<T> matcher;
     protected boolean hasValue = false;
@@ -49,7 +49,13 @@ public abstract class CachedElementTypeSafeMatcher<E, T> extends TypeSafeMatcher
 
     @Override
     protected void describeMismatchSafely(E item, Description mismatchDescription) {
-        mismatchDescription.appendText(name + " was ").appendValue(getCachedValue(item));
+        mismatchDescription.appendText(name);
+        if (matcher == null) {
+            mismatchDescription.appendText(" was ").appendValue(getCachedValue(item));
+        } else {
+            mismatchDescription.appendText(" ");
+            matcher.describeMismatch(value, mismatchDescription);
+        }
     }
 
     @Override

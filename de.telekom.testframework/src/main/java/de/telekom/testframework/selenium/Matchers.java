@@ -15,6 +15,7 @@ import org.openqa.selenium.WebElement;
  */
 public class Matchers {
 
+    @Factory
     public static Matcher<WebElement> attribute(final String attributeName, Matcher<String> matcher) {
         return new CachedElementTypeSafeMatcher<WebElement, String>("attribute '" + attributeName + "'", matcher) {
 
@@ -61,7 +62,8 @@ public class Matchers {
         };
     }
 
-    public static Matcher<WebElement> Displayed() {
+    @Factory
+    public static Matcher<WebElement> displayed() {
         return new CachedElementTypeSafeMatcher<WebElement, Boolean>("displayed") {
 
             @Override
@@ -71,6 +73,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<WebElement> isDisplayed() {
         return new CachedElementTypeSafeMatcher<WebElement, Boolean>("is displayed") {
 
@@ -161,6 +164,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<WebElement> exists() {
         return new CachedElementTypeSafeMatcher<WebElement, Boolean>("exists") {
 
@@ -185,6 +189,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<Page> isCurrentPage(final Matcher<Boolean> matcher) {
         return new CachedElementTypeSafeMatcher<Page, Boolean>("current page", matcher) {
 
@@ -195,6 +200,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<Page> currentPage() {
         return new CachedElementTypeSafeMatcher<Page, Boolean>("current page") {
 
@@ -205,6 +211,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<Page> isCurrentPage() {
         return new CachedElementTypeSafeMatcher<Page, Boolean>("is current page") {
 
@@ -214,7 +221,8 @@ public class Matchers {
             }
         };
     }
-    
+
+    @Factory
     public static Matcher<Page> loaded(final Matcher<Boolean> matcher) {
         return new CachedElementTypeSafeMatcher<Page, Boolean>("loaded", matcher) {
 
@@ -225,6 +233,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<Page> loaded() {
         return new CachedElementTypeSafeMatcher<Page, Boolean>("loaded") {
 
@@ -235,6 +244,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<Page> isLoaded() {
         return new CachedElementTypeSafeMatcher<Page, Boolean>("is loaded") {
 
@@ -245,6 +255,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<Select> selectedItem(final Matcher<WebElement> matcher) {
         return new CachedElementTypeSafeMatcher<Select, WebElement>("selected item", matcher) {
 
@@ -255,6 +266,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<Select> selectedItems(final Matcher<List<WebElement>> matcher) {
         return new CachedElementTypeSafeMatcher<Select, List<WebElement>>("selected items", matcher) {
 
@@ -265,6 +277,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<Select> selectedItemText(final Matcher<String> matcher) {
         return new CachedElementTypeSafeMatcher<Select, String>("selected item text", matcher) {
 
@@ -275,6 +288,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<Select> selectedItemValue(final Matcher<String> matcher) {
         return new CachedElementTypeSafeMatcher<Select, String>("selected item value", matcher) {
 
@@ -285,6 +299,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<Select> selectedItemIndex(final Matcher<Integer> matcher) {
         return new CachedElementTypeSafeMatcher<Select, Integer>("selected item index", matcher) {
 
@@ -295,6 +310,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<Select> item(final String textOrValue, final Matcher<WebElement> matcher) {
         return new CachedElementTypeSafeMatcher<Select, WebElement>("item '" + textOrValue + "'", matcher) {
 
@@ -305,6 +321,7 @@ public class Matchers {
         };
     }
 
+    @Factory
     public static Matcher<Select> item(final int index, final Matcher<WebElement> matcher) {
         return new CachedElementTypeSafeMatcher<Select, WebElement>("item " + index, matcher) {
 
