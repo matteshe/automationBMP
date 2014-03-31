@@ -5,9 +5,9 @@ import de.telekom.bmp.BmpApplication;
 import de.telekom.testframework.selenium.Page;
 import de.telekom.testframework.selenium.controls.Button;
 import de.telekom.testframework.selenium.controls.Link;
+import de.telekom.testframework.selenium.controls.Option;
 import de.telekom.testframework.selenium.controls.TextField;
 import javax.inject.Singleton;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
@@ -28,16 +28,16 @@ public class ProductSettingsForOffice365Page extends Page {
     }
     
     @FindBy(xpath = "//*[@id='mosiDomain']")
-    public TextField mosiDomainTxt;
+    public TextField mosiDomainInput;
     
     @FindBy(xpath = "//button[@id='subContinue']")
     public Button continueBtn;
  
     @FindBy(name = "line1")
-    public TextField line1Txt;
+    public TextField line1Input;
  
     @FindBy(name ="line2")
-    public TextField line2Txt;
+    public TextField line2Input;
 
     @Override
     public String toString() {
@@ -45,16 +45,16 @@ public class ProductSettingsForOffice365Page extends Page {
     }
  
     @FindBy(name = "postalCode")
-    public TextField postalCodeTxt;
+    public TextField postalCodeInput;
  
     @FindBy(name = "city")
-    public TextField cityTxt;
+    public TextField cityInput;
     
     @FindBy(name = "stateBorder:stateBorder_body:statePanel:state")
-    public WebElement provincecBox;
+    public Option provinceCbox;
     
     @FindBy(name = "phoneNumber")
-    public TextField phoneNumberTxt;
+    public TextField phoneNumberInput;
     
     @FindBy(xpath = "//button[@class='account-submit create buttonResponse'")
     public Button continueStep2Btn;   
