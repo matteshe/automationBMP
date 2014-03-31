@@ -69,16 +69,4 @@ public class Dashboard extends Page {
     @FindBy(xpath = ".//form[@class = 'addCoWorkersForm']")
     public Form invitePopup;
     
-    public static class InvitationRow extends Control {
-
-        public InvitationRow(WebDriver driver, FieldElementLocator locator, WebElement webElement) {
-            super(driver, locator, webElement);
-        }
-        @FindBy(xpath = ".//input[@type = 'email']")
-        public Text emailField;
-
-    }
-    
-    @FindBy(xpath= "//div[contains(@class, 'form-row')]")
-    public List<Dashboard.InvitationRow> invitationFields;
 }
