@@ -41,7 +41,8 @@ public class InvitePopup extends Page {
 
     }
     
-    @FindBy(xpath= "//div[contains(@class, 'form-row')]")
+    //@FindBy(xpath= "//div[contains(@class, 'form-row')]")
+    @FindBy(xpath = "//input[@type = 'email']")
     public List<InvitationRow> invitationFields;
     
     @FindBy(xpath= "//div[contains(@class, 'addAnotherEmail')]/a")

@@ -134,5 +134,9 @@ public class Header extends Page {
     public Button searchBtn;
     
     
+    //only for cms homepage
+    @FindBy(xpath = ".//div[@id='topbar-login']|.//button")
+    public Button loginBtn;
+    
 
 }
