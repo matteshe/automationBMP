@@ -3,10 +3,12 @@ package de.telekom.bmp.pages;
 import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.testframework.selenium.Page;
+import de.telekom.testframework.selenium.Parameterized;
 import de.telekom.testframework.selenium.controls.Button;
 import de.telekom.testframework.selenium.controls.Link;
 import de.telekom.testframework.selenium.controls.TextField;
 import javax.inject.Singleton;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
@@ -77,8 +79,11 @@ public class MarketPlacePage extends Page {
     @FindBy(xpath = "//div[@class='modal-footer']/button")
     public Button createFormCompBtn;
     
-//    @FindBy(xpath = "//a[@id='logout']")
-//    public Link logout;
+    @FindBy(xpath="//div[@id='channelMenu']//a[text()='%s']")
+    public Parameterized<Link> leftLinks;
+    
+    @FindBy(xpath = "//li[@class='feedbackPanelINFO']")
+    public WebElement companyCreatedMsg;
 //
 //    @FindBy(xpath = "//div[@id='header']//div[@class='account']")
 //    public Button account;

@@ -22,7 +22,7 @@ public class Home extends Page {
         super(app);
     }    
     
-    @FindBy(xpath = "//a[@href='./signup']")
+    @FindBy(xpath = "//a[@href='./signup' or contains(text(),'Registrieren')]")    
     public Button registerBtn;
     
 }
