@@ -5,6 +5,7 @@ import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.account.Account;
 import de.telekom.bmp.pages.account.Dashboard;
+import de.telekom.bmp.pages.account.Users;
 
 import static de.telekom.testframework.Actions.*;
 
@@ -19,7 +20,7 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
-public class TC006_OverviewDashboard {
+public class TC007_DialogueBenutzerVerwalten {
     
     @Inject
     FunctionalActions functional;
@@ -32,6 +33,9 @@ public class TC006_OverviewDashboard {
     
     @Inject
     Dashboard dashboard;
+    
+    @Inject
+    Users users;
         
     @Test
     public void test1() throws InterruptedException {

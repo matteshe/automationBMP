@@ -1,12 +1,17 @@
 package de.telekom.bmp.pages.account;
 
 import de.telekom.bmp.BmpApplication;
+import de.telekom.bmp.pages.purchase.CreateOrder;
 import de.telekom.testframework.selenium.Page;
 import de.telekom.testframework.selenium.annotations.Path;
 import de.telekom.testframework.selenium.annotations.UseParent;
 import de.telekom.testframework.selenium.controls.*;
+import de.telekom.testframework.selenium.internal.FieldElementLocator;
+import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
@@ -24,7 +29,7 @@ public class Dashboard extends Page {
     } 
     
         
-    @FindBy(xpath = ".//div[contains(@class, 'loadMore')]")
+    @FindBy(xpath = ".//a[contains(@class, 'loadMore')]/span")
     public Link loadMoreBtn;
     
     @FindBy(xpath = ".//div[@id='quickLinks']")
@@ -60,5 +65,8 @@ public class Dashboard extends Page {
     @FindBy(xpath = ".//div[contains(@class, 'headerTop')]//a[contains(@href, '/directories/')]")
     public Link allMembersLnk;
     
-       
+    // Invite popup:
+    @FindBy(xpath = ".//form[@class = 'addCoWorkersForm']")
+    public Form invitePopup;
+    
 }
