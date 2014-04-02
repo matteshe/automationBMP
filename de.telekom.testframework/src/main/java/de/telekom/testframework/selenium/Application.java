@@ -10,9 +10,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 /**
  *
@@ -87,6 +89,23 @@ public abstract class Application implements SearchContext, FieldSearchContextGe
 
     }
 
+    /**
+     * create a new tab in the browser
+     */
+    public void openNewTab() {
+        handle("openNewTab", new Runnable() {
+
+            @Override
+            public void run() {
+                String ctrlT = Keys.chord(Keys.CONTROL, "t");
+                new Actions(getWebDriver()).sendKeys(ctrlT).perform();
+
+                ActionHandler.waitUntilPageLoaded(getWebDriver(), this);
+
+            }
+        });
+    }
+    
     protected URL buildUrl(final String page) throws RuntimeException {
         URL url = null;
 
