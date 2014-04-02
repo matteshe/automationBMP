@@ -331,4 +331,15 @@ public class Matchers {
             }
         };
     }
+    
+    @Factory
+    public static Matcher<Browser> currentUrl(Matcher<String> matcher) {
+        return new CachedElementTypeSafeMatcher<Browser, String>("current url", matcher) {
+
+            @Override
+            protected String getValue(Browser item) {
+                return item.getCurrentUrl();
+            }
+        };
+    }
 }

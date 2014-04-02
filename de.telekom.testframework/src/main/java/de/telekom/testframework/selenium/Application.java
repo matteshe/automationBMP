@@ -75,7 +75,7 @@ public abstract class Application implements SearchContext, FieldSearchContextGe
         }
 
         final URL u = url;
-        handle("navigateTo", new Runnable() {
+        handle("navigate to", new Runnable() {
 
             @Override
             public void run() {
@@ -93,7 +93,7 @@ public abstract class Application implements SearchContext, FieldSearchContextGe
      * create a new tab in the browser
      */
     public void openNewTab() {
-        handle("openNewTab", new Runnable() {
+        handle("open new tab", new Runnable() {
 
             @Override
             public void run() {
@@ -101,11 +101,10 @@ public abstract class Application implements SearchContext, FieldSearchContextGe
                 new Actions(getWebDriver()).sendKeys(ctrlT).perform();
 
                 ActionHandler.waitUntilPageLoaded(getWebDriver(), this);
-
             }
         });
     }
-    
+
     protected URL buildUrl(final String page) throws RuntimeException {
         URL url = null;
 
@@ -146,7 +145,7 @@ public abstract class Application implements SearchContext, FieldSearchContextGe
 
     public WebElement find(By by) {
         return find(WebElement.class, by);
-    } 
+    }
 
     @SuppressWarnings("unchecked")
     public <T extends WebElement> T find(Class<T> clz, By by) {

@@ -33,6 +33,10 @@ public class DelegatedWebElement extends WebElementContainer implements WebEleme
         this.locator = locator;
     }
 
+    public WebElement getWebElement() {
+        return webElement;
+    }
+    
     @Override
     public String toString() {
 

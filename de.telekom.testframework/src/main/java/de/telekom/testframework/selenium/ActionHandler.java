@@ -1,8 +1,10 @@
 package de.telekom.testframework.selenium;
 
 import com.google.common.base.Function;
+import com.google.common.base.Predicate;
 import de.telekom.testframework.Wait;
 import de.telekom.testframework.reporting.Reporter;
+import java.util.concurrent.Callable;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -79,12 +81,28 @@ public class ActionHandler {
 
     }
 
-    public static void handle(WebDriverWrapper wrapper, String contextName, String actionName, Runnable r, Object... args) {
+    public interface RunnableFunction<T> {
+
+        T run();
+    }
+
+    public static void handle(WebDriverWrapper wrapper, String contextName, String actionName, final Runnable r, Object... args) {
+        handle(wrapper, contextName, actionName, new RunnableFunction<Integer>() {
+
+            @Override
+            public Integer run() {
+                r.run();
+                return 0;
+            }
+        }, args);
+    }
+
+    public static <T> T handle(WebDriverWrapper wrapper, String contextName, String actionName, RunnableFunction<T> r, Object... args) {
         Reporter.entering(contextName, actionName, args);
 
         try {
             //Reporter.reportScreenshot(getScreenshotAs(wrapper, OutputType.BYTES));
-            r.run();
+            return r.run();
 
         } catch (Throwable e) {
             Reporter.reportException(e);
