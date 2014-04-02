@@ -6,7 +6,6 @@ import com.google.code.morphia.Morphia;
 import com.google.code.morphia.query.Query;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
-import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 import de.telekom.testframework.configuration.Configuration;

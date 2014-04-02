@@ -7,7 +7,6 @@ import de.telekom.testframework.selenium.annotations.ResetWebDriver;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import de.telekom.testframework.selenium.controls.Select;
 import de.telekom.testframework.selenium.tests.testapplication.TestApplication;
-import static java.util.concurrent.TimeUnit.SECONDS;
 import javax.inject.Inject;
 import static org.hamcrest.Matchers.*;
 import org.openqa.selenium.By;

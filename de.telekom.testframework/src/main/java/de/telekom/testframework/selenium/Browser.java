@@ -100,6 +100,7 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
             public void run() {
 
                 // we create a new window here, because selenium2 has no support for tabs
+                // but maybe later they implement tabs handling
                 new Actions(getWebDriver()).sendKeys(Keys.CONTROL, "n").perform();
 
                 String last = result;
