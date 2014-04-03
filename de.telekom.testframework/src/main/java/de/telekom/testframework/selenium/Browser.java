@@ -153,10 +153,11 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
                 return webDriver.switchTo().frame(frameElement);
             }
 
-            @Override
-            public WebDriver parentFrame() {
-                return webDriver.switchTo().parentFrame();
-            }
+            // FEATURE NOT IN Selenium Version less than 2.41.0. Before not fully tested we use 2.40.0!!!
+//            @Override
+//            public WebDriver parentFrame() {
+//                return webDriver.switchTo().parentFrame();
+//            }
 
             @Override
             public WebDriver window(final String nameOrHandle) {
