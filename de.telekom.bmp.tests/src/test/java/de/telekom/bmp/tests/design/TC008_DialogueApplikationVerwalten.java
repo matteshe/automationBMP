@@ -21,7 +21,7 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
-public class TC007_DialogueBenutzerVerwalten {
+public class TC008_DialogueApplikationVerwalten {
     
     @Inject
     FunctionalActions functional;

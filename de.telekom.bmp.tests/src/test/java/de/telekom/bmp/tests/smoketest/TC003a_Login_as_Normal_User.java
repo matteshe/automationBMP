@@ -7,6 +7,7 @@ import de.telekom.bmp.data.User;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
+import de.telekom.bmp.pages.account.Dashboard;
 import static de.telekom.testframework.Actions.*;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
@@ -25,7 +26,7 @@ public class TC003a_Login_as_Normal_User {
     Login login;
 
     @Inject
-    Home home;
+    Dashboard dashboardPage;
 
     @Inject
     Datapool datapool;
@@ -50,7 +51,7 @@ public class TC003a_Login_as_Normal_User {
     }
 
     @Test
-    public void test_003a_Login_as_Normal_User() {
+    public void test_003a_Login_as_Normal_User() throws InterruptedException {
 
         try {
 
@@ -67,7 +68,7 @@ public class TC003a_Login_as_Normal_User {
             click(login.signinBtn);
 
 // WORKAROUND WEGEN CMS Redirect
-            navigateTo(home);
+            navigateTo(dashboardPage);
             //assertThat(home, isCurrentPage());
 
             //header.account.click();
@@ -75,8 +76,10 @@ public class TC003a_Login_as_Normal_User {
 
             //header.logout.click();
             //click(header.logout);
-
-            assertThat(home, isCurrentPage());
+            Thread.sleep(1000);
+            
+            navigateTo(login);
+            assertThat(login, isCurrentPage());
 
 //            user.valid = true;
         } finally {

@@ -5,6 +5,7 @@ import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.account.Account;
 import de.telekom.bmp.pages.account.Dashboard;
+import de.telekom.bmp.pages.account.InvitePopup;
 
 import static de.telekom.testframework.Actions.*;
 
@@ -32,6 +33,9 @@ public class TC006_OverviewDashboard {
     
     @Inject
     Dashboard dashboard;
+    
+    @Inject 
+    InvitePopup invitePopup;
         
     @Test
     public void test1() throws InterruptedException {
@@ -47,7 +51,7 @@ public class TC006_OverviewDashboard {
        
        verifyThat(dashboard.inviteUsersLnk.isDisplayed());
        click(dashboard.inviteUsersLnk);
-       verifyThat(dashboard.invitePopup.isDisplayed());
+       verifyThat(invitePopup.invitePopup.isDisplayed());
        
        verifyThat(dashboard.assignLnk.isDisplayed());
        click(dashboard.assignLnk);
