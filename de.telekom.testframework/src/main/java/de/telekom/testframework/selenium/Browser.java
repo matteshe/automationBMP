@@ -11,6 +11,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.Set;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -25,13 +26,23 @@ import org.openqa.selenium.interactions.Actions;
  *
  * @author Daniel
  */
+@Singleton
 public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
+
+    @Inject
+    protected static Browser instance = null;
+
+    public static Browser getInstance() {
+        return instance;
+    }
 
     private final WebDriver webDriver;
 
     @Inject
     public Browser(WebDriver driver) {
         this.webDriver = driver;
+
+        //setThisInstance();
     }
 
     void handle(String action, final Runnable r, Object... args) {
@@ -93,46 +104,72 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
     }
 
     public String newTab() {
-        final String result = webDriver.getWindowHandle();
-        handle("new tab", new Runnable() {
+
+        return handle("new tab", new RunnableFunction<String>() {
 
             @Override
-            public void run() {
+            public String run() {
 
                 // we create a new window here, because selenium2 has no support for tabs
                 // but maybe later they implement tabs handling
-                new Actions(getWebDriver()).sendKeys(Keys.CONTROL, "n").perform();
+                new Actions(getWebDriver()).keyDown(Keys.CONTROL).sendKeys("n").keyUp(Keys.CONTROL).build().perform();
 
-                String last = result;
+                String result = null;
 
                 for (String s : webDriver.getWindowHandles()) {
-                    last = s;
+                    result = s;
                 }
-                webDriver.switchTo().window(last);
 
+                webDriver.switchTo().window(result);
+
+                return result;
             }
         });
-        return result;
     }
 
     public String newWindow() {
-        final String result = webDriver.getWindowHandle();
-        handle("new window", new Runnable() {
+
+        return handle("new window", new RunnableFunction<String>() {
 
             @Override
-            public void run() {
+            public String run() {
 
-                new Actions(getWebDriver()).sendKeys(Keys.CONTROL, "n").perform();
+                //new Actions(getWebDriver()).keyDown(Keys.CONTROL).sendKeys(Keys.chord("n")).keyUp(Keys.CONTROL).build().perform();
+                new Actions(getWebDriver()).sendKeys(Keys.chord(Keys.CONTROL, "n")).build().perform();
 
-                String last = result;
+                String result = null;
 
                 for (String s : webDriver.getWindowHandles()) {
-                    last = s;
+                    result = s;
                 }
-                webDriver.switchTo().window(last);
+
+                webDriver.switchTo().window(result);
+
+                return result;
             }
         });
-        return result;
+    }
+
+    public String closeWindow() {
+
+        return handle("close window", new RunnableFunction<String>() {
+
+            @Override
+            public String run() {
+                webDriver.close();
+                Set<String> ws = webDriver.getWindowHandles();
+
+                String result = null;
+                for (String s : ws) {
+                    result = s;
+                }
+                if (result != null) {
+                    switchTo().window(ws.iterator().next());
+                }
+
+                return result;
+            }
+        });
     }
 
     public TargetLocator switchTo() {

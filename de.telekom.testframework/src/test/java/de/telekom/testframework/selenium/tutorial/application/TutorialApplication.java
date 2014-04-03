@@ -1,4 +1,4 @@
-package de.telekom.testframework.selenium.tests.testapplication;
+package de.telekom.testframework.selenium.tutorial.application;
 
 import com.google.inject.Inject;
 import de.telekom.testframework.selenium.Application;
@@ -13,17 +13,17 @@ import org.openqa.selenium.WebDriver;
  *
  * @author Daniel
  */
-public class TestApplication extends Application {
+public class TutorialApplication extends Application {
 
-    public static final Server server = new Server(12345);
+    public static final Server server = new Server(12346);
 
     static {
         if (!server.isRunning()) {
             try {
                 ResourceHandler resourceHandler = new ResourceHandler();
 
-                String rb = TestApplication.class.getResource("pages").toString();
-                        
+                String rb = TutorialApplication.class.getResource("pages").toString();
+                         
                 resourceHandler.setResourceBase(rb);
                 resourceHandler.setDirectoriesListed(true);
                 resourceHandler.setWelcomeFiles(new String[]{"index.html"});
@@ -56,13 +56,13 @@ public class TestApplication extends Application {
     }
 
     @Inject
-    public TestApplication(WebDriver webDriver) {
+    public TutorialApplication(WebDriver webDriver) {
         super(webDriver);
     }
 
     @Override
     public String getURLString() {
-        return "http://localhost:12345";
+        return "http://localhost:12346";
     }
 
 }
