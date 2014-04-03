@@ -23,7 +23,7 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
-public class TC010_DialogueBuchungenVerwalten {
+public class TC011_DialogueZahlungenVerwalten {
     
     @Inject
     FunctionalActions functional;
@@ -37,10 +37,10 @@ public class TC010_DialogueBuchungenVerwalten {
        functional.login("sysadmin4.0@test.com", "password");
        
        navigateTo(bills);
+       click(bills.payments);
        
        click(bills.showFiltersBtn);
        int dropdownOptions = 0;
-       int checkboxOptions = 0;
        int timeOptions = 0;
        int sortingOptions = 0;
        
@@ -48,19 +48,13 @@ public class TC010_DialogueBuchungenVerwalten {
            dropdownOptions++;
            reportMessage(dropdown.getText());
        }
-       
-       for (WebElement checkbox: bills.dropdownFilter) {
-           checkboxOptions++;
-           reportMessage(checkbox.getText());
-       }
-       
+                    
        for (WebElement time: bills.dropdownFilter) {
            timeOptions++;
            reportMessage(time.getText());
        }
        
        verifyThat(dropdownOptions, is(greaterThanOrEqualTo(1)));
-       verifyThat(checkboxOptions, is(greaterThanOrEqualTo(1)));
        verifyThat(timeOptions, is(greaterThanOrEqualTo(1)));
        
        verifyThat(bills.searchInput.isDisplayed());
@@ -71,7 +65,7 @@ public class TC010_DialogueBuchungenVerwalten {
            reportMessage(sorting.getText());
        }
        
-       verifyThat(sortingOptions, is(4));
+       verifyThat(sortingOptions, is(6));
       
        functional.logout();
        

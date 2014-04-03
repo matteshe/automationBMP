@@ -31,7 +31,7 @@ public class Signup extends Page {
     public WebElement registCode;
     
     @FindBy(xpath = "//div[contains(@class, 'DTLink')")
-    public Text alreadyRegistered ;
+    public Text alreadyRegistered;
     
     @FindBy(name = "emailAddress")
     public TextField emailAddress;
