@@ -66,7 +66,11 @@ public class TestNGTestListener implements IExecutionListener, IInvokedMethodLis
             if (webDriver == null || ac.isAnnotationPresent(ResetWebDriver.class)) {
 
                 if (webDriver != null) {
-                    webDriver.quit();
+                    try {
+                        webDriver.quit();
+                    } catch (Throwable e) {
+
+                    }
                 }
 
                 WebDriverModule module = new WebDriverModule();
@@ -159,7 +163,11 @@ public class TestNGTestListener implements IExecutionListener, IInvokedMethodLis
     public void onFinish(ITestContext context) {
         WebDriver webDriver = (WebDriver) context.getAttribute("webDriver");
         if (webDriver != null) {
-            webDriver.quit();
+            try {
+                webDriver.quit();
+            } catch (Throwable e) {
+
+            }
         }
     }
 

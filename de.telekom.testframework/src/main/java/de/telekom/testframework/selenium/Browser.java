@@ -150,16 +150,23 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
         });
     }
 
-    public String closeWindow() {
-
+    public String closeWindow() {        
         return handle("close window", new RunnableFunction<String>() {
 
             @Override
             public String run() {
-                webDriver.close();
-                Set<String> ws = webDriver.getWindowHandles();
+                // don't close the last window
 
+                Set<String> ws = webDriver.getWindowHandles();
+                if (ws.size() == 1) {
+                    throw new CantCloseWindowException("can't close the last browser window");
+                }
+
+                webDriver.close();
+
+                ws = webDriver.getWindowHandles();
                 String result = null;
+
                 for (String s : ws) {
                     result = s;
                 }
@@ -195,7 +202,7 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
 //            public WebDriver parentFrame() {
 //                return webDriver.switchTo().parentFrame();
 //            }
-
+            
             @Override
             public WebDriver window(final String nameOrHandle) {
                 return handle("switch to window", new RunnableFunction<WebDriver>() {

@@ -1,8 +1,8 @@
 package de.telekom.testframework.selenium.tutorial.tests;
 
 import static de.telekom.testframework.Actions.*;
-import static de.telekom.testframework.selenium.Matchers.*;
 
+import de.telekom.testframework.selenium.CantCloseWindowException;
 import de.telekom.testframework.selenium.annotations.ResetWebDriver;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import de.telekom.testframework.selenium.controls.Button;
@@ -58,6 +58,34 @@ public class WindowSwitching {
         set(find(TextField.class, By.name("q")), "abc");
         click(find(Button.class, By.name("btnG")));
 
-        waitFor(15, SECONDS);
+        closeWindow();
+    }
+    
+    @Test
+    @ResetWebDriver
+    public void switchWindows2() {
+        newWindow();
+        newWindow();
+        newWindow();
+        closeWindow();
+        closeWindow();
+        closeWindow();
+       
+        waitFor(5, SECONDS);
+        newWindow();
+        waitFor(5, SECONDS);        
+    }
+    
+    @Test(expectedExceptions = CantCloseWindowException.class)
+    @ResetWebDriver
+    public void cantCloseWindowCheck() {
+        newWindow();
+        newWindow();
+        newWindow();
+        closeWindow();
+        closeWindow();
+        closeWindow();
+       
+        closeWindow();
     }
 }
