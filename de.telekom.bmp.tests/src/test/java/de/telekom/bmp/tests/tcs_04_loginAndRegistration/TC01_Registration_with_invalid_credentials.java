@@ -12,7 +12,7 @@ import static de.telekom.testframework.Actions.click;
 import static de.telekom.testframework.Actions.navigateTo;
 import static de.telekom.testframework.Actions.set;
 import static de.telekom.testframework.Assert.assertThat;
-import static de.telekom.testframework.selenium.Matchers.isDisplayed;
+import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -72,11 +72,11 @@ public class TC01_Registration_with_invalid_credentials {
             click(home.registerBtn);
             
             set(signup.emailAddress, user.email);
-            assertThat(signup.iconInvalid, not(is(not(isDisplayed()))));
+            assertThat(signup.iconInvalid, is(displayed()));
             
             click(signup.signup);  
 //
-//            assertThat(home, isCurrentPage());
+//            assertThat(home, currentPage());
 
 //            user.valid = true;
         } finally {

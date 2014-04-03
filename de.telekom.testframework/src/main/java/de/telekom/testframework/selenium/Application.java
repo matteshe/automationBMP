@@ -91,9 +91,11 @@ public abstract class Application implements SearchContext, FieldSearchContextGe
 
     /**
      * create a new tab in the browser
-     * @deprecated there is no support for Tabs in Selenium, you cannot address Tabs uniquely 
-     * open a new window in the Browser is the same like open a new Tab
-     * use {@link de.telekom.testframework.selenium.Browser#newTab} instead
+     *
+     * @deprecated there is no support for Tabs in Selenium, you cannot address
+     * Tabs uniquely open a new window in the Browser is the same like open a
+     * new Tab use {@link de.telekom.testframework.selenium.Browser#newTab}
+     * instead or the action {@link de.telekom.testframework.Actions#newTab}
      */
     @Deprecated
     public void openNewTab() {

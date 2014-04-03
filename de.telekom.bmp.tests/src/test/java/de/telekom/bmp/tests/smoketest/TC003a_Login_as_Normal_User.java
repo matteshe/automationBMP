@@ -69,7 +69,7 @@ public class TC003a_Login_as_Normal_User {
 
 // WORKAROUND WEGEN CMS Redirect
             navigateTo(dashboardPage);
-            //assertThat(home, isCurrentPage());
+            //assertThat(home, currentPage());
 
             //header.account.click();
             click(header.accountMenu.logoutLnk);

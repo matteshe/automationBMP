@@ -103,6 +103,11 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
         return list;
     }
 
+    /**
+     * Opens a new tab in a browser
+     *
+     * @return the handle of the new tab
+     */
     public String newTab() {
 
         return handle("new tab", new RunnableFunction<String>() {
@@ -127,6 +132,11 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
         });
     }
 
+    /**
+     * Opens a new window in a browser
+     *
+     * @return the handle of the new tab
+     */
     public String newWindow() {
 
         return handle("new window", new RunnableFunction<String>() {
@@ -150,7 +160,13 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
         });
     }
 
-    public String closeWindow() {        
+    /**
+     * Closes the current browser window and activate the next opened window.
+     * Does not close the main browser window.
+     *
+     * @return returns the activated browser windows handle
+     */
+    public String closeWindow() {
         return handle("close window", new RunnableFunction<String>() {
 
             @Override
@@ -202,7 +218,6 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
 //            public WebDriver parentFrame() {
 //                return webDriver.switchTo().parentFrame();
 //            }
-            
             @Override
             public WebDriver window(final String nameOrHandle) {
                 return handle("switch to window", new RunnableFunction<WebDriver>() {

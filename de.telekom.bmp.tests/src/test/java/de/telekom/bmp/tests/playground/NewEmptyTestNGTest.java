@@ -37,8 +37,8 @@ public class NewEmptyTestNGTest {
         verifyThat(test.emailAddress, value(is("abc")));
         verifyThat(test.emailAddress, text(is(not("abc"))));
 
-        verifyThat(test.emailAddress, isDisplayed());
-        verifyThat(test.emailAddress, isDisplayed(is(true)));
+        verifyThat(test.emailAddress, is(displayed()));
+        verifyThat(test.emailAddress, displayed(is(true)));
 
         verifyThat(test.emailAddress, exists(is(true)));
         verifyThat(test.emailAddress, exists());

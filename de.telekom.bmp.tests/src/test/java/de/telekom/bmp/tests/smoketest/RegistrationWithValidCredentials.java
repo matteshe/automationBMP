@@ -46,7 +46,7 @@ public class RegistrationWithValidCredentials {
             click(home.registerBtn);
             
             set(signup.emailAddress, user.email);
-            assertThat(signup.iconValid, not(is(not(isDisplayed()))));
+            assertThat(signup.iconValid, not(is(not(displayed()))));
             
             click(signup.signup);            
             

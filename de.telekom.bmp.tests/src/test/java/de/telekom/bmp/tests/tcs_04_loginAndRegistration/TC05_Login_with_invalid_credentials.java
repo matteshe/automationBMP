@@ -10,10 +10,13 @@ import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.Signup;
 import static de.telekom.testframework.Actions.navigateTo;
+import static de.telekom.testframework.Actions.navigateTo;
 import static de.telekom.testframework.Actions.set;
 import static de.telekom.testframework.Assert.assertThat;
-import static de.telekom.testframework.selenium.Matchers.isDisplayed;
+import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
+import static org.hamcrest.Matchers.is;
+import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -71,7 +74,7 @@ public class TC05_Login_with_invalid_credentials {
 
             set(login.passwordInput, user.password);
             
-            assertThat(login.iconInvalid, isDisplayed());
+            assertThat(login.iconInvalid, is(displayed()));
 
         } finally {
             datapool.save(user);

@@ -13,6 +13,7 @@ import static de.telekom.testframework.Assert.*;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import java.util.Date;
+import static org.hamcrest.Matchers.is;
 import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -106,7 +107,7 @@ public class TC009_Create_Company_as_SSR {
 
             click(marketPlacePage.createFormCompBtn);
 
-            assertThat(marketPlacePage.companyCreatedMsg, isDisplayed());
+            assertThat(marketPlacePage.companyCreatedMsg, is(displayed()));
 
             // before Nested Classed introduced
             //click(header.account);

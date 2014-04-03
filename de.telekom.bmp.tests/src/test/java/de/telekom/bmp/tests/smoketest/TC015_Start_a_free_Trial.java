@@ -86,7 +86,7 @@ public class TC015_Start_a_free_Trial {
             click(createFreeTrialPage.placeOrderBtn);
             click(createFreeTrialPage.goToMyAppsBtn);
 
-            //assertThat(home, isCurrentPage());
+            //assertThat(home, currentPage());
             //click(marketplacepage.evenlogsTab);
             // before Nested Classed introduced
             //click(header.account);

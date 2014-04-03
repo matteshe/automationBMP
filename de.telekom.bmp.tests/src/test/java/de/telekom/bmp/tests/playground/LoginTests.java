@@ -61,7 +61,7 @@ public class LoginTests {
 
         click(login.signinBtn);
 
-        //verifyThat(myApps, isCurrentPage());
+        //verifyThat(myApps, currentPage());
         set(header.searchInput, "test");
         click(header.searchBtn);
 

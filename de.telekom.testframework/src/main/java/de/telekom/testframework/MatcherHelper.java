@@ -3,7 +3,6 @@ package de.telekom.testframework;
 import org.hamcrest.Description;
 import org.hamcrest.Matcher;
 import org.hamcrest.StringDescription;
-import org.hamcrest.core.Is;
 
 /**
  *
@@ -15,11 +14,7 @@ class MatcherHelper {
         Description expectedDescription = new StringDescription();
         expectedDescription.appendValue(actual);
 
-        if (matcher instanceof Is<?>) {
-            expectedDescription.appendText(" ");
-        } else {
-            expectedDescription.appendText(" is ");
-        }
+        expectedDescription.appendText(" ");
 
         matcher.describeTo(expectedDescription);
         String s = (message != null && !message.isEmpty() ? message + ": " : "") + start + expectedDescription;

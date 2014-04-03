@@ -7,6 +7,7 @@ import de.telekom.testframework.selenium.matchers.CachedElementTypeSafeMatcher;
 import java.util.List;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
+import static org.hamcrest.Matchers.is;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -52,7 +53,7 @@ public class Matchers {
     }
 
     @Factory
-    public static Matcher<WebElement> isDisplayed(final Matcher<Boolean> matcher) {
+    public static Matcher<WebElement> displayed(final Matcher<Boolean> matcher) {
         return new CachedElementTypeSafeMatcher<WebElement, Boolean>("displayed", matcher) {
 
             @Override
@@ -74,18 +75,7 @@ public class Matchers {
     }
 
     @Factory
-    public static Matcher<WebElement> isDisplayed() {
-        return new CachedElementTypeSafeMatcher<WebElement, Boolean>("is displayed") {
-
-            @Override
-            protected Object getValue(WebElement item) {
-                return item.isDisplayed();
-            }
-        };
-    }
-
-    @Factory
-    public static Matcher<WebElement> isEnabled(final Matcher<Boolean> matcher) {
+    public static Matcher<WebElement> enabled(final Matcher<Boolean> matcher) {
         return new CachedElementTypeSafeMatcher<WebElement, Boolean>("enabled", matcher) {
 
             @Override
@@ -98,17 +88,6 @@ public class Matchers {
     @Factory
     public static Matcher<WebElement> enabled() {
         return new CachedElementTypeSafeMatcher<WebElement, Boolean>("enabled") {
-
-            @Override
-            protected Object getValue(WebElement item) {
-                return item.isEnabled();
-            }
-        };
-    }
-
-    @Factory
-    public static Matcher<WebElement> isEnabled() {
-        return new CachedElementTypeSafeMatcher<WebElement, Boolean>("is enabled") {
 
             @Override
             protected Object getValue(WebElement item) {
@@ -131,17 +110,6 @@ public class Matchers {
     @Factory
     public static Matcher<WebElement> selected() {
         return new CachedElementTypeSafeMatcher<WebElement, Boolean>("selected") {
-
-            @Override
-            protected Object getValue(WebElement item) {
-                return item.isSelected();
-            }
-        };
-    }
-
-    @Factory
-    public static Matcher<WebElement> isSelected() {
-        return new CachedElementTypeSafeMatcher<WebElement, Boolean>("is selected") {
 
             @Override
             protected Object getValue(WebElement item) {
@@ -190,7 +158,7 @@ public class Matchers {
     }
 
     @Factory
-    public static Matcher<Page> isCurrentPage(final Matcher<Boolean> matcher) {
+    public static Matcher<Page> currentPage(final Matcher<Boolean> matcher) {
         return new CachedElementTypeSafeMatcher<Page, Boolean>("current page", matcher) {
 
             @Override
@@ -211,15 +179,14 @@ public class Matchers {
         };
     }
 
+    /**
+     *
+     * @return @deprecated use {@code is(currentPage))}
+     */
     @Factory
+    //@Deprecated
     public static Matcher<Page> isCurrentPage() {
-        return new CachedElementTypeSafeMatcher<Page, Boolean>("is current page") {
-
-            @Override
-            protected Object getValue(Page item) {
-                return item.isCurrentPage();
-            }
-        };
+        return is(currentPage());
     }
 
     @Factory
@@ -236,17 +203,6 @@ public class Matchers {
     @Factory
     public static Matcher<Page> loaded() {
         return new CachedElementTypeSafeMatcher<Page, Boolean>("loaded") {
-
-            @Override
-            protected Object getValue(Page item) {
-                return item.isLoaded();
-            }
-        };
-    }
-
-    @Factory
-    public static Matcher<Page> isLoaded() {
-        return new CachedElementTypeSafeMatcher<Page, Boolean>("is loaded") {
 
             @Override
             protected Object getValue(Page item) {
@@ -331,7 +287,7 @@ public class Matchers {
             }
         };
     }
-    
+
     @Factory
     public static Matcher<Browser> currentUrl(Matcher<String> matcher) {
         return new CachedElementTypeSafeMatcher<Browser, String>("current url", matcher) {

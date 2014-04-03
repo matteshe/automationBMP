@@ -14,7 +14,6 @@ import de.telekom.testframework.annotations.QCId;
 import de.telekom.testframework.selenium.Browser;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import de.telekom.testframework.selenium.controls.Link;
-import org.hamcrest.Matchers;
 import static org.hamcrest.Matchers.notNullValue;
 import org.testng.Assert;
 import static org.testng.Assert.*;

@@ -97,7 +97,7 @@ public class TC013_Booking_Exchange_Online_Plan_1 {
 
             click(purchasePage.continueBtn);
 
- //           assertThat(productSettingsForOffice365Page, isCurrentPage());
+ //           assertThat(productSettingsForOffice365Page, currentPage());
             set(productSettingsForOffice365Page.mosiDomainInput, "130hfmaxp");
 
             click(productSettingsForOffice365Page.continueBtn);

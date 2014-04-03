@@ -68,7 +68,7 @@ public class TC006b_Login_as_Developer_With_Apps {
 
             click(login.signinBtn);
             
-            //assertThat(myapps, isCurrentPage());
+            //assertThat(myapps, currentPage());
             
 // WORKAROUND BECAUSE OF CMS
             navigateTo(devCreatePg);

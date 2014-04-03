@@ -76,7 +76,7 @@ public class TC022_Invite_Colleague {
             
 //            navigateTo(myApps);
 //
-//            assertThat(myApps, isCurrentPage());
+//            assertThat(myApps, currentPage());
 
 //            click(header.settingsMenu.account);
             
