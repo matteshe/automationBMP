@@ -8,6 +8,7 @@ import de.telekom.testframework.selenium.controls.Link;
 import de.telekom.testframework.selenium.controls.TextField;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
@@ -34,4 +35,14 @@ public class Login extends Page {
     
     @FindBy(xpath = "//a[@href='./signup']")    
     public Link signuplink;
+    
+    @FindBy(xpath = "//span[@class='icon valid']")
+    public WebElement iconValid;
+
+    @FindBy(xpath = "//span[@class='icon invalid']")
+    public WebElement iconInvalid;
+    
+    @FindBy(xpath = "//span[@class='feedbackPanelERROR']")
+    public WebElement errorMsg;    
+    
 }

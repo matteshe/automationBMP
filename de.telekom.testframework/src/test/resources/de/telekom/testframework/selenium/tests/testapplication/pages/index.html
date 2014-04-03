@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8"> 
         <title>test page</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
     <body>
         <h1>test page</h1>
 
-        <form action="/aaa">
+        <form action="/anAction" method="post" enctype="multipart/form-data">
             <p>               
                 <input type="button" name="ibutton" id="hiButton" onclick="alert('hi')" value="hi" /> 
                 <button type="button" name="obutton" id="hoButton" onclick="">ho</button>
@@ -15,7 +16,10 @@
 
             </p>
             <div id="aDiv">
-                <a href="javascript:alert('hi')">a link</a>
+                <a href="javascript:alert('hi')">a javascript link</a>
+            </div>
+            <div id="aDiv1">
+                <a id="annewwindow" href="newwindow.html" target="aNewWindow">a new window link</a>
             </div>
             <div id="anotherDiv">
                 <b>empty</b>
@@ -68,7 +72,7 @@
                     </optgroup> 
                     <optgroup label="Group 2">
                         <option value="def">Option 2.1 blash</option>
-                    <option value="abc">Option 2.2</option>
+                        <option value="abc">Option 2.2</option>
                     </optgroup>
                     <optgroup label="Group 3" disabled="disabled">
                         <option>Option 3.1</option>
@@ -79,8 +83,12 @@
 
             </p>
             <p>
-                <input pattern="^[\w\d-_.+]+@[\w\d-_.+]+\.[\w\d-_.+ ]+$" type="email" required="" value="" name="emailAddress" id="idc" class="form-ui-invalid"/>
+                <input pattern="^[\w\d-_.+]+@[\w\d-_.+]+\.[\w\d-_.+ ]+$" type="email" value="" name="emailAddress" id="idc" />
             </p>
+            <p>
+                <input name="theFileInput" type="file" accept="text/*" />                
+            </p>
+            <p><input type="submit" /></p>
         </form>
 
     </body>

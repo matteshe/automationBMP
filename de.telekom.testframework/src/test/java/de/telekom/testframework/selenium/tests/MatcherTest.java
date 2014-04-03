@@ -75,4 +75,12 @@ public class MatcherTest {
     public void test4() {
         verifyThat(1, one(is(true)));
     }
+    
+    @Test    
+    public void test5() {
+        verifyThat("abc", containsString("a"));
+        verifyThat(1, one(is(true)));
+        verifyThat(1, isOneOf(1,2,3));
+        verifyThat(1, is(not(isOneOf(5,2,3))));
+    }
 }
