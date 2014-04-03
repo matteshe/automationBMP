@@ -2,8 +2,6 @@
 package de.telekom.bmp.tests.design;
 
 import de.telekom.bmp.data.Datapool;
-import de.telekom.bmp.data.User;
-import de.telekom.bmp.data.UserRole;
 
 import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
