@@ -98,9 +98,6 @@ public class TC002_RegistrationWithValidCredentials {
     }
 
     private void checkGoogleMailAccount() throws InterruptedException {
-        app.openNewTab();
-        navigateTo(googlePage);
-        
         browser.navigate().to(GOOGLE_MAIL_URL);
         
         set(googlePage.email, extractEmailFromAlias(user.email));
