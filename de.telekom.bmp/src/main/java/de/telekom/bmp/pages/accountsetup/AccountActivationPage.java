@@ -19,10 +19,10 @@ import org.openqa.selenium.support.FindBy;
  */
 @Singleton
 @Path("/accountSetup")
-public class AccountActivation extends Page{
+public class AccountActivationPage extends Page{
 
     @Inject
-    public AccountActivation(BmpApplication application) {
+    public AccountActivationPage(BmpApplication application) {
         super(application);
     }
     
