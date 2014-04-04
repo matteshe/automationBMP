@@ -6,15 +6,15 @@ import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
 import de.telekom.bmp.pages.ForgotPasswordPage;
-import de.telekom.bmp.pages.GoogleLoginPage;
-import de.telekom.bmp.pages.GoogleReadMailPage;
 import de.telekom.bmp.pages.Login;
+import de.telekom.bmp.pages.ResetPasswordPage;
 import de.telekom.bmp.tests.GoogleMailAccount;
 import static de.telekom.testframework.Actions.*;
 import static de.telekom.testframework.Actions.navigateTo;
 import de.telekom.testframework.selenium.Browser;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
-import static org.testng.Assert.assertNotNull;
+import static org.hamcrest.Matchers.notNullValue;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -41,24 +41,28 @@ public class TC10_Login_forgotten {
     Login login;
     
     @Inject
-    GoogleLoginPage loginPage;
-    
-    @Inject
-    GoogleReadMailPage readMailPage;
+    GoogleMailAccount mailAccount;
     
     @Inject
     ForgotPasswordPage forgotPwPage;
+    
+    @Inject
+    ResetPasswordPage resetPwPage;
     
     private User user;
 
     @BeforeTest
     public void setup() {
         // get registered users
-        user = db.users().field("registered").equal(true).get();
-        
-        assertNotNull(user, "user not available");
+        user = db.users().field("registered").equal(true).field("email").equal("mybmptestuser+1396600497570@gmail.com").get();
+        assertThat(user, notNullValue());
 
         navigateTo(login);
+    }
+    
+    @AfterTest
+    public void tearDown() {
+        db.save(user);
     }
 
     @Test
@@ -68,10 +72,8 @@ public class TC10_Login_forgotten {
         set(forgotPwPage.email, user.email);
         click(forgotPwPage.sendMailBtn);
         
-        GoogleMailAccount mailAccount = new GoogleMailAccount(user.email, GoogleMailAccount.MAIL_PASSWORD)
-                .browser(browser)
-                .loginPage(loginPage)
-                .readMailPage(readMailPage);
+        mailAccount.setUsername(user.email);
+        mailAccount.setPassword(GoogleMailAccount.MAIL_PASSWORD);
         
         String setNewPasswordLink = mailAccount.checkGoogleMailAccountAndExtractConfirmLink();
         
@@ -79,6 +81,9 @@ public class TC10_Login_forgotten {
         setNewPasswordLink = addHtaccessCredentials(setNewPasswordLink);
         
         browser.navigate().to(setNewPasswordLink);
+        
+        resetPassword();
+        
         try {
             Thread.sleep(5000);
         } catch (InterruptedException ex) {
@@ -88,5 +93,18 @@ public class TC10_Login_forgotten {
 
     private String addHtaccessCredentials(String link) {
         return link.replaceFirst("//", "//" + HTACCESS_CREDENTIALS + "@");
+    }
+
+    private void resetPassword() {
+        if (user.password == null || "".equals(user.password))
+        {
+            user.password = "1234!QAY";
+        } else {
+            user.password = new StringBuilder(user.password).reverse().toString();
+        }
+        
+        set(resetPwPage.password,user.password);
+        set(resetPwPage.confirmPassword, user.password);
+        click(resetPwPage.submitBtn);
     }
 }
