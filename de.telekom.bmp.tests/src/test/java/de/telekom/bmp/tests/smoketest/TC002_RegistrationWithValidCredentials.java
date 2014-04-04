@@ -14,9 +14,8 @@ import de.telekom.testframework.annotations.QCId;
 import de.telekom.testframework.selenium.Browser;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import de.telekom.testframework.selenium.controls.Link;
+import java.util.Date;
 import static org.hamcrest.Matchers.notNullValue;
-import org.testng.Assert;
-import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -61,10 +60,14 @@ public class TC002_RegistrationWithValidCredentials {
 
     @BeforeTest
     public void setup() {
+        // create a valid and not registered user
+        user = createUser();
+        datapool.save(user);
+        
         user = datapool.users().field("valid").equal(true)
                 .field("registered").equal(false).get();
         
-        assertNotNull(user, "cannot find a valid user");
+        assertThat(user, notNullValue());
         
         navigateTo(app);
     }
@@ -90,8 +93,8 @@ public class TC002_RegistrationWithValidCredentials {
             
             checkGoogleMailAccount();
             
-//            user.registered = true;
-//            user.valid = true;
+            user.registered = true;
+            user.valid = true;
         } finally {            
             datapool.save(user);
         }
@@ -143,5 +146,19 @@ public class TC002_RegistrationWithValidCredentials {
         assertThat(reallyConfirm, notNullValue());
         
         return reallyConfirm;
+    }
+
+    private User createUser() {
+        User newUser = new User();
+        newUser.email = createMailAlias();
+        newUser.registered = false;
+        newUser.valid = true;
+        
+        return newUser;
+    }
+
+    private String createMailAlias() {
+        long alias = (new Date()).getTime();
+        return "mybmptestuser+" + alias + "@gmail.com";
     }
 }
