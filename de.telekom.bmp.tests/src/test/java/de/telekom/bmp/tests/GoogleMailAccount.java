@@ -16,37 +16,28 @@ import static org.hamcrest.Matchers.notNullValue;
  *
  * @author Mathias Herkt
  */
-@UseWebDriver
 public class GoogleMailAccount {
     public static final String GOOGLE_MAIL_URL = "mail.google.com";
     public static final String MAIL_PASSWORD = "galerien3?";
     
-    private final String mail;
-    private final String password;
+    private String mail = "";
+    private String password = "";
     
+    @Inject
+    Browser browser;
+    
+    @Inject
+    GoogleLoginPage googlePage;
 
-    private Browser browser;
-    private GoogleLoginPage googlePage;
-    private GoogleReadMailPage readMailPage;
+    @Inject
+    GoogleReadMailPage readMailPage;
     
-    public GoogleMailAccount(String login, String pw) {
+    public void setUsername(String login) {
         this.mail = login;
+    }
+    
+    public void setPassword(String pw) {
         this.password = pw;
-    }
-    
-    public GoogleMailAccount browser(Browser browser) {
-        this.browser = browser;
-        return this;
-    }
-    
-    public GoogleMailAccount loginPage(GoogleLoginPage page) {
-        this.googlePage = page;
-        return this;
-    }
-    
-    public GoogleMailAccount readMailPage(GoogleReadMailPage page) {
-        this.readMailPage = page;
-        return this;
     }
     
     public String checkGoogleMailAccountAndExtractConfirmLink() {
