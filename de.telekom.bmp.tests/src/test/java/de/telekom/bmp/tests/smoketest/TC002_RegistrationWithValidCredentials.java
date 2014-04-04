@@ -9,11 +9,11 @@ import de.telekom.bmp.pages.GoogleReadMailPage;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Signup;
 import de.telekom.bmp.pages.accountsetup.AccountActivation;
+import de.telekom.bmp.tests.GoogleMailAccount;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
 import de.telekom.testframework.selenium.Browser;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
-import de.telekom.testframework.selenium.controls.Link;
 import java.util.Date;
 import static org.hamcrest.Matchers.notNullValue;
 import org.testng.annotations.BeforeTest;
@@ -22,14 +22,10 @@ import org.testng.annotations.Test;
 @UseWebDriver
 @QCId("123456")
 public class TC002_RegistrationWithValidCredentials {
-
-    public static final String MAIL_PASSWORD = "galerien3?";
     
     public static final String APP_DOMAIN = "testcloud.bmptest.de";
     
     public static final String HTACCESS_CREDENTIALS = "toon:HullyGully";
-            
-    public static final String GOOGLE_MAIL_URL = "mail.google.com";
     
     @Inject
     BmpApplication app;
@@ -47,17 +43,17 @@ public class TC002_RegistrationWithValidCredentials {
     User user;
     
     @Inject
-    GoogleLoginPage googlePage;
+    Browser browser;
+        
+    @Inject
+    AccountActivation accountActivation;
     
     @Inject
-    Browser browser;
+    GoogleLoginPage loginPage;
     
     @Inject
     GoogleReadMailPage readMailPage;
     
-    @Inject
-    AccountActivation accountActivation;
-
     @BeforeTest
     public void setup() {
         // create a valid and not registered user
@@ -86,18 +82,22 @@ public class TC002_RegistrationWithValidCredentials {
             // button to register
             click(signup.signup);
             
-            user.registered = checkGoogleMailAccountAndConfirmRegistration();
+            
+            
+            user.registered = registerUser();
         } finally {            
             datapool.save(user);
         }
     }
 
-    private boolean checkGoogleMailAccountAndConfirmRegistration() throws InterruptedException {
-        browser.navigate().to(GOOGLE_MAIL_URL);
+    private boolean registerUser() throws InterruptedException {
+        GoogleMailAccount mailAccount = new GoogleMailAccount(user.email, GoogleMailAccount.MAIL_PASSWORD)
+                .browser(browser)
+                .loginPage(loginPage)
+                .readMailPage(readMailPage);
         
-        loginIntoGoogleMailAccount();
-
-        String confirmLink = readMailAndFindConfirmLink();        
+        String confirmLink = mailAccount.checkGoogleMailAccountAndExtractConfirmLink();
+        assertThat(confirmLink, !confirmLink.equals(""));
         confirmLink = addHtaccessCredentials(confirmLink);
         
         browser.navigate().to(confirmLink);
@@ -106,12 +106,6 @@ public class TC002_RegistrationWithValidCredentials {
         return true;
     }
     
-    private String extractEmailFromAlias(String emailAdress) {
-        String mailName = emailAdress.substring(0, emailAdress.indexOf("+"));
-        String domainName = emailAdress.substring(emailAdress.indexOf("@"));
-        return mailName + domainName;
-    }
-
     private void fillActivationForm() {
         set(accountActivation.firstName, "max");
         set(accountActivation.lastName, "mustermann" + 12345623);
@@ -120,23 +114,6 @@ public class TC002_RegistrationWithValidCredentials {
         set(accountActivation.confirmPassword, "12345!QAY");        
         click(accountActivation.termsAndCondition);        
         click(accountActivation.createAccountBtn);
-    }
-
-    private void loginIntoGoogleMailAccount() {
-        set(googlePage.email, extractEmailFromAlias(user.email));
-        set(googlePage.password, MAIL_PASSWORD);
-        click(googlePage.loginBtn);
-    }
-
-    private String readMailAndFindConfirmLink() {
-        Link confirmRegLnk = readMailPage.emailLinks.get(0);
-        assertThat(confirmRegLnk, notNullValue());
-        click(confirmRegLnk);
-        
-        String reallyConfirm = readMailPage.confirmLink.get(APP_DOMAIN).getHref();
-        assertThat(reallyConfirm, notNullValue());
-        
-        return reallyConfirm;
     }
 
     private User createUser() {
