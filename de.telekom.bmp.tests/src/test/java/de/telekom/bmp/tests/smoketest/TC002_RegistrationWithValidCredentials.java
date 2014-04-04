@@ -100,22 +100,13 @@ public class TC002_RegistrationWithValidCredentials {
     private void checkGoogleMailAccount() throws InterruptedException {
         browser.navigate().to(GOOGLE_MAIL_URL);
         
-        set(googlePage.email, extractEmailFromAlias(user.email));
-        set(googlePage.password, MAIL_PASSWORD);
+        loginIntoGoogleMailAccount();
+
+        String confirmLink = readMailAndFindConfirmLink();
         
-        click(googlePage.loginBtn);
+        confirmLink = confirmLink.replaceFirst("//", "//" + HTACCESS_CREDENTIALS + "@");
         
-        Link confirmRegLnk = readMailPage.emailLinks.get(0);
-        assertThat(confirmRegLnk, notNullValue());
-        Assert.assertNotNull(confirmRegLnk);
-        click(confirmRegLnk);
-        
-        String reallyConfirm = readMailPage.confirmLink.get(APP_DOMAIN).getHref();
-        assertThat(reallyConfirm, notNullValue());
-        
-        reallyConfirm = reallyConfirm.replaceFirst("//", "//" + HTACCESS_CREDENTIALS + "@");
-        
-        browser.navigate().to(reallyConfirm);
+        browser.navigate().to(confirmLink);
         fillActivationForm();
         
         Thread.sleep(8000);
@@ -135,5 +126,22 @@ public class TC002_RegistrationWithValidCredentials {
         set(accountActivation.confirmPassword, "12345!QAY");        
         click(accountActivation.termsAndCondition);        
         click(accountActivation.createAccountBtn);
+    }
+
+    private void loginIntoGoogleMailAccount() {
+        set(googlePage.email, extractEmailFromAlias(user.email));
+        set(googlePage.password, MAIL_PASSWORD);
+        click(googlePage.loginBtn);
+    }
+
+    private String readMailAndFindConfirmLink() {
+        Link confirmRegLnk = readMailPage.emailLinks.get(0);
+        assertThat(confirmRegLnk, notNullValue());
+        click(confirmRegLnk);
+        
+        String reallyConfirm = readMailPage.confirmLink.get(APP_DOMAIN).getHref();
+        assertThat(reallyConfirm, notNullValue());
+        
+        return reallyConfirm;
     }
 }
