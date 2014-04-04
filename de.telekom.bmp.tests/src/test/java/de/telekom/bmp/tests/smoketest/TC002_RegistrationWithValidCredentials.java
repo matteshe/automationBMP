@@ -61,12 +61,7 @@ public class TC002_RegistrationWithValidCredentials {
     @BeforeTest
     public void setup() {
         // create a valid and not registered user
-        user = createUser();
-        datapool.save(user);
-        
-        user = datapool.users().field("valid").equal(true)
-                .field("registered").equal(false).get();
-        
+        user = createUser();        
         assertThat(user, notNullValue());
         
         navigateTo(app);
@@ -91,28 +86,24 @@ public class TC002_RegistrationWithValidCredentials {
             // button to register
             click(signup.signup);
             
-            checkGoogleMailAccount();
-            
-            user.registered = true;
-            user.valid = true;
+            user.registered = checkGoogleMailAccountAndConfirmRegistration();
         } finally {            
             datapool.save(user);
         }
     }
 
-    private void checkGoogleMailAccount() throws InterruptedException {
+    private boolean checkGoogleMailAccountAndConfirmRegistration() throws InterruptedException {
         browser.navigate().to(GOOGLE_MAIL_URL);
         
         loginIntoGoogleMailAccount();
 
-        String confirmLink = readMailAndFindConfirmLink();
-        
-        confirmLink = confirmLink.replaceFirst("//", "//" + HTACCESS_CREDENTIALS + "@");
+        String confirmLink = readMailAndFindConfirmLink();        
+        confirmLink = addHtaccessCredentials(confirmLink);
         
         browser.navigate().to(confirmLink);
         fillActivationForm();
-        
-        Thread.sleep(8000);
+        Thread.sleep(500);
+        return true;
     }
     
     private String extractEmailFromAlias(String emailAdress) {
@@ -160,5 +151,9 @@ public class TC002_RegistrationWithValidCredentials {
     private String createMailAlias() {
         long alias = (new Date()).getTime();
         return "mybmptestuser+" + alias + "@gmail.com";
+    }
+
+    private String addHtaccessCredentials(String link) {
+        return link.replaceFirst("//", "//" + HTACCESS_CREDENTIALS + "@");
     }
 }
