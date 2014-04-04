@@ -43,6 +43,8 @@ public class Login extends Page {
     public WebElement iconInvalid;
     
     @FindBy(xpath = "//span[@class='feedbackPanelERROR']")
-    public WebElement errorMsg;    
+    public WebElement errorMsg;
     
+    @FindBy(xpath = "//a[@href='./forgotPassword']")    
+    public Link forgotPasswordLnk;
 }
