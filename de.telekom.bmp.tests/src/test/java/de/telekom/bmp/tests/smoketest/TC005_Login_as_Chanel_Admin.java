@@ -63,11 +63,9 @@ public class TC005_Login_as_Chanel_Admin {
             set(login.passwordInput, user.password);
 
             click(login.signinBtn);
+            
+            click(header.settingsMenu.channelUserLnk);
 
-// WORKAROUND NORMALES VERHALTEN
-//             
-//            click(header.settings);
-//            click(header.channelUser);
 
 // WORKAROUND
             navigateTo(marketplacepage);

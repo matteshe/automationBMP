@@ -64,22 +64,14 @@ public class TC007_Login_as_Chanel_Support {
 
             click(login.signinBtn);
             
-// WORKAROUND BECAUSE OF CMS Redirect
-            navigateTo(marketplacepage);
+            click(header.settingsMenu.channelUserLnk);
             
-// WORKAROUND NORMALES VERHALTEN
-//             
-//            click(header.settings);
-//           click(header.channelUser);
-
-
+// WORKAROUND BECAUSE OF CMS Redirect
+//            navigateTo(marketplacepage);
+            
             assertThat(marketplacepage,isCurrentPage());
             
             click(marketplacepage.evenlogsTab);            
-            
-            // before Nested Classed introduced
-            //click(header.account);
-            //click(header.logout);
             
             click(header.accountMenu.logoutLnk);
 

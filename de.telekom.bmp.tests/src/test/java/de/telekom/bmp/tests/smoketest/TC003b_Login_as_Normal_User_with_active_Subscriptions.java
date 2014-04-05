@@ -70,8 +70,8 @@ public class TC003b_Login_as_Normal_User_with_active_Subscriptions {
             click(login.signinBtn);
 
 
-// WORKAROUND WEGEN CMS Redirect
-            navigateTo(myapps);
+// WORKAROUND Because of CMS Redirect
+//            navigateTo(myapps);
             
             assertThat(myapps, isCurrentPage());
 

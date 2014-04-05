@@ -61,7 +61,7 @@ public class TC004_Login_as_Superuser {
     }
     
     @Test
-    public void test_004_Login_as_Superuser() {
+    public void test_004_Login_as_Superuser() throws InterruptedException {
 
         try {
             set(login.usernameInput,user.email);
@@ -70,23 +70,18 @@ public class TC004_Login_as_Superuser {
 
             click(login.signinBtn);
             
-// WORKAROUND NORMALES VERHALTEN
-//             
-//            click(header.settings);
-//            click(header.superuser);
-
-// WORKAROUND
-            navigateTo(dashboardpage);
+         
+            click(header.settingsMenu.superuserLnk);
+            
+            
+ // WORKAROUND
+//            navigateTo(dashboardpage);
             
             assertThat(dashboardpage,isCurrentPage());
             
             
             click(dashboardpage.exceptionsTab);
             
-            
-            // before Nested Classed introduced
-            //click(header.account);
-            //click(header.logout);
             
             click(header.accountMenu.logoutLnk);
 

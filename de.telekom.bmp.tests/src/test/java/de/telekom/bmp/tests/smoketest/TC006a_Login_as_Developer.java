@@ -66,14 +66,12 @@ public class TC006a_Login_as_Developer {
 
             click(login.signinBtn);
             
-// WORKAROUND WEGEN CMS Redirect
-//             
-//            click(header.settings);
-//            click(header.developer);
+            click(header.settingsMenu.developerLnk);
+            
 
 // WORKAROUND
             
-            navigateTo(createproductpage);
+//            navigateTo(createproductpage);
             
             
             assertThat(createproductpage,isCurrentPage());
