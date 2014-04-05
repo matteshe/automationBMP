@@ -30,4 +30,11 @@ public class FunctionalActions {
     public void logout() {
         click(header.accountMenu.logoutLnk);
     }
+    
+    public void ensureGermLanguageIsSet(){
+        if (!header.toogle_EN_LanguageLnk.isDisplayed()) {
+            click(header.toogle_EN_LanguageLnk);
+        }
+
+    }
 }
