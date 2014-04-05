@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
@@ -20,6 +21,9 @@ import org.testng.annotations.Test;
 public class TC003a_Login_as_Normal_User {
 
     @Inject
+    FunctionalActions functionalAct;
+
+    @Inject
     BmpApplication app;
 
     @Inject
@@ -33,6 +37,9 @@ public class TC003a_Login_as_Normal_User {
 
     @Inject
     Header header;
+
+    @Inject
+    Home home;
 
     // Needed user
     User user;
@@ -48,6 +55,9 @@ public class TC003a_Login_as_Normal_User {
 //        user.valid = false;
         navigateTo(login);
 
+        //sets the german language in the browser instance
+        functionalAct.ensureGermLanguageIsSet();
+
     }
 
     @Test
@@ -55,10 +65,6 @@ public class TC003a_Login_as_Normal_User {
 
         try {
 
-            // verlangt Passwort über https://portal.bmptest.de von Aussen
-            //click(header.loginBtn);
-            
-            //login.username.set(user.email);
             set(login.usernameInput, user.email);
 
             //login.password.set(user.password);
@@ -68,22 +74,16 @@ public class TC003a_Login_as_Normal_User {
             click(login.signinBtn);
 
 // WORKAROUND WEGEN CMS Redirect
-            navigateTo(dashboardPage);
-            //assertThat(home, currentPage());
+//          navigateTo(home);
+            assertThat(home, isCurrentPage());
 
             //header.account.click();
             click(header.accountMenu.logoutLnk);
 
-            //header.logout.click();
-            //click(header.logout);
-            Thread.sleep(1000);
-            
-            navigateTo(login);
-            assertThat(login, isCurrentPage());
+            assertThat(home, isCurrentPage());
 
 //            user.valid = true;
         } finally {
-            user.registered = true;
             datapool.save(user);
         }
 
