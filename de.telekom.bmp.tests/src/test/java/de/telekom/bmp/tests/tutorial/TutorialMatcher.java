@@ -1,4 +1,4 @@
-package de.telekom.bmp.tests.playground.tutorial;
+package de.telekom.bmp.tests.tutorial;
 
 
 import de.telekom.bmp.pages.playground.PlayLogin;
