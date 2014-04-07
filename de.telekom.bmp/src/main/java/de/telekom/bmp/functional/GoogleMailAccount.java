@@ -45,14 +45,27 @@ public class GoogleMailAccount {
         
         loginIntoGoogleMailAccount();
 
-        return readMailAndFindConfirmLink(linkDomain);   
+        String confirmLink = readMailAndFindConfirmLink(linkDomain);
+        
+        logoutMailAccount();
+        
+        return confirmLink;
     }
     
     private void loginIntoGoogleMailAccount() {
         set(googlePage.email, extractEmailFromAlias(this.mail));
         set(googlePage.password, this.password);
+        if (googlePage.stayLoggedIn.isSelected()) {
+            click(googlePage.stayLoggedIn);
+        }
+        
         click(googlePage.loginBtn);
     }
+    
+    private void logoutMailAccount() {
+        browser.navigate().to(googlePage.signoutLink.get("").getHref());
+    }
+    
     private String extractEmailFromAlias(final String emailAddress) {
         String newMailAddress = emailAddress;
         if (emailAddress.contains("+")) {

@@ -31,6 +31,10 @@ public class MySqlDatapool {
 		public String host = "localhost";
 
 		@Inject(optional = true)
+		@Named("mysql.port")
+		public short port = 3306;
+
+		@Inject(optional = true)
 		@Named("mysql.database")
 		public String datastore = "appdirect";
 
@@ -38,12 +42,10 @@ public class MySqlDatapool {
 		@Named("mysql.uname")
 		public String uname = "root";
 
-		
 		@Inject(optional = true)
 		@Named("mysql.password")
 		public String password = "";
 
-		
 		@Inject(optional = true)
 		@Named("mysql.driver")
 		public String driver = "com.mysql.jdbc.Driver";
@@ -57,7 +59,15 @@ public class MySqlDatapool {
 
 			try {
 				Class.forName(conf.driver).newInstance();
-				dataStore = DriverManager.getConnection(conf.host, conf.uname, conf.password);
+
+				StringBuilder url = new StringBuilder();
+				url.append("jdbc:mysql://");
+				url.append(conf.host).append(":");
+				url.append(conf.port).append("/");
+				url.append(conf.datastore);
+
+				dataStore = DriverManager.getConnection(url.toString(),
+						conf.uname, conf.password);
 			} catch (InstantiationException e) {
 				LOG.severe("Problem to instanciate the mysql driver.\n"
 						+ e.getMessage());
@@ -66,10 +76,21 @@ public class MySqlDatapool {
 			} catch (ClassNotFoundException e) {
 				LOG.severe("Couln't find driver class.\n" + e.getMessage());
 			} catch (SQLException e) {
-				LOG.severe("Probelm to get the connection.\n"+ e.getMessage());
+				LOG.severe("Probelm to get the connection.\n" + e.getMessage());
 			}
 		}
-		Assert.assertThat("MySQL database connection should be established", dataStore != null);
+		Assert.assertThat("MySQL database connection should be established",
+				dataStore != null);
 		return dataStore;
+	}
+
+	public void close() {
+		try {
+			if (this.dataStore != null) {
+				this.dataStore.close();
+			}
+		} catch (SQLException e) {
+			LOG.warning("Problem to close db connection.\n" + e.getMessage());
+		}
 	}
 }

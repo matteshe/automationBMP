@@ -40,5 +40,14 @@ public class MyApps extends Page {
     @UseParent("appsGrid")
     public Link oneApp;
     
+    @FindBy(xpath = "//div[@class = 'icon help']")
+    public Button helpBtn;
+    
+    @FindBy(xpath = "//div[@class = 'helpText']/span")
+    public Text helpText;
+    
+    @FindBy(xpath = "//div[@class = 'icon remove']")
+    public Button closeHelpBtn;
+    
     
 }

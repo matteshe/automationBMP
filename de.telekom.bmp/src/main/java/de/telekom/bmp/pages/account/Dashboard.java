@@ -29,8 +29,17 @@ public class Dashboard extends Page {
     } 
     
         
+    @FindBy(xpath = ".//button[contains(@id, 'everyone')]")
+    public Button everyoneBtn;
+    
+    @FindBy(xpath = ".//button[contains(@id, 'justMe')]")
+    public Button justMeBtn;
+    
+    @FindBy(xpath = ".//div[contains(@class, 'activity_section')]")
+    public Form activities;
+    
     @FindBy(xpath = ".//a[contains(@class, 'loadMore')]/span")
-    public Link loadMoreBtn;
+    public Button loadMoreBtn;
     
     @FindBy(xpath = ".//div[@id='quickLinks']")
     Link quickLinks;
@@ -64,6 +73,9 @@ public class Dashboard extends Page {
     
     @FindBy(xpath = ".//div[contains(@class, 'headerTop')]//a[contains(@href, '/directories/')]")
     public Link allMembersLnk;
+    
+    @FindBy(xpath = ".//div[contains(@class, 'account-cont teambox')]//div[contains(@class, 'teammember')]")
+    public List<Link> allMembers;
     
     // Invite popup:
     @FindBy(xpath = ".//form[@class = 'addCoWorkersForm']")
