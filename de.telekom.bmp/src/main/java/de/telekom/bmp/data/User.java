@@ -4,8 +4,11 @@ import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 import com.google.code.morphia.annotations.Indexed;
 import com.google.code.morphia.annotations.Version;
+
+import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
+
 import org.bson.types.ObjectId;
 
 /**
@@ -22,6 +25,11 @@ public class User {
     long version;
     
     public String name;
+    
+    public String firstName;
+    
+    public String company;
+    
     
     @Indexed(unique = true)
     public String email;
@@ -72,6 +80,29 @@ public class User {
     public void setApps(Set<String> apps) {
         this.apps = apps;
     }
+
+    /**
+     * Create a user object with some default data
+     * @return a user instance
+     */
+    public static User createUser(String mailPrefix) {
+        User newUser = new User();
+        newUser.email = createMailAlias(mailPrefix);
+        newUser.password = "12345!QAY";
+        newUser.firstName = "max";
+        newUser.name = "mustermann";
+        newUser.company = "companyName";
+        newUser.registered = false;
+        newUser.valid = true;
+
+        return newUser;
+    }
     
-    
+    private static String createMailAlias(String mailPrefix) {
+        long alias = (new Date()).getTime();
+        if ("".equals(mailPrefix)) {
+        	mailPrefix = "mybmptestuser";
+        }
+        return mailPrefix + "+" + alias + "@gmail.com";
+    }
 }
