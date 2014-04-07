@@ -34,7 +34,7 @@ public class TC012_DialogueAbrechnungsdaten {
        click(bills.paymentDetails);
        
        verifyThat(bills.title.isDisplayed());
-       System.out.println(bills.title.getAttribute("required"));
+       //System.out.println(bills.title);
        //verifyThat(bills.title.getAttribute("required"), is(null));
        verifyThat(bills.companyInput.isDisplayed());
        verifyThat(bills.nameInput.isDisplayed());
