@@ -1,57 +1,75 @@
 package de.telekom.bmp.data;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Logger;
 
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 
+import de.telekom.testframework.Assert;
 import de.telekom.testframework.configuration.Configuration;
 
 /**
  * This class provides a connection to a MySQL database
+ * 
  * @author Mathias Herkt
  */
 public class MySqlDatapool {
+	private static final Logger LOG = Logger.getLogger(MySqlDatapool.class
+			.getSimpleName());
 
-    class MyConfiguration extends Configuration {
+	class MyConfiguration extends Configuration {
 
-        MyConfiguration() {
-            initialize();
-        }
+		MyConfiguration() {
+			initialize();
+		}
 
-        @Inject(optional = true)
-        @Named("mysql.host")
-        public String host = "localhost";
+		@Inject(optional = true)
+		@Named("mysql.host")
+		public String host = "localhost";
 
-        @Inject(optional = true)
-        @Named("mysql.database")
-        public String datastore = "appdirect";
-        
-        @Inject(optional = true)
-        @Named("mysql.driver")
-        public String driver = "com.mysql.jdbc.Driver";
-    }
+		@Inject(optional = true)
+		@Named("mysql.database")
+		public String datastore = "appdirect";
 
-    MyConfiguration configuration = new MyConfiguration();
-    private Connection dataStore = null;
+		@Inject(optional = true)
+		@Named("mysql.uname")
+		public String uname = "root";
 
-    public Connection getDatastore() {
-        if (dataStore == null) {
+		
+		@Inject(optional = true)
+		@Named("mysql.password")
+		public String password = "";
 
-        	try {
-				Class.forName(configuration.driver).newInstance();
+		
+		@Inject(optional = true)
+		@Named("mysql.driver")
+		public String driver = "com.mysql.jdbc.Driver";
+	}
+
+	MyConfiguration conf = new MyConfiguration();
+	private Connection dataStore = null;
+
+	public Connection getDatastore() {
+		if (dataStore == null) {
+
+			try {
+				Class.forName(conf.driver).newInstance();
+				dataStore = DriverManager.getConnection(conf.host, conf.uname, conf.password);
 			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.severe("Problem to instanciate the mysql driver.\n"
+						+ e.getMessage());
 			} catch (IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.severe("Database Access problems.\n" + e.getMessage());
 			} catch (ClassNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				LOG.severe("Couln't find driver class.\n" + e.getMessage());
+			} catch (SQLException e) {
+				LOG.severe("Probelm to get the connection.\n"+ e.getMessage());
 			}
-        	//dataStore = DriverManager.getConnection(url, userName, password);
-        }
-        return dataStore;
-    }
+		}
+		Assert.assertThat("MySQL database connection should be established", dataStore != null);
+		return dataStore;
+	}
 }
