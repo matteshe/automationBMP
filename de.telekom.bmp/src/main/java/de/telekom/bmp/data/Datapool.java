@@ -28,7 +28,7 @@ public class Datapool {
         public String host = "localhost";
 
         @Inject(optional = true)
-        @Named("BmpDatapool.host")
+        @Named("BmpDatapool.host") // TODO 20140407 this property is probably wrong?
         public String datastore = "bmptest";
     }
 
