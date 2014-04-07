@@ -1,23 +1,34 @@
 
 package de.telekom.bmp.tests.tcs_04_loginAndRegistration;
 
+import static de.telekom.testframework.Actions.click;
+import static de.telekom.testframework.Actions.navigateTo;
+import static de.telekom.testframework.Actions.set;
+import static de.telekom.testframework.Assert.assertThat;
+import static de.telekom.testframework.Assert.verifyThat;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import org.openqa.selenium.NoSuchElementException;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
 import com.google.inject.Inject;
 
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.functional.AccountHandling;
 import de.telekom.bmp.functional.GoogleMailAccount;
 import de.telekom.bmp.pages.ForgotPasswordPage;
+import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.ResetPasswordPage;
-import static de.telekom.testframework.Actions.*;
+import de.telekom.testframework.annotations.QCId;
 import de.telekom.testframework.selenium.Browser;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
-import static org.hamcrest.Matchers.notNullValue;
-
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 
 /**
  *
@@ -25,11 +36,13 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
-@Test(groups = {"qcid-3566"})
+@QCId("3566")
 public class TC10_Login_forgotten {
     private static final String HTACCESS_CREDENTIALS = "toon:HullyGully";
 
     private static final String APP_DOMAIN = "testcloud.bmptest.de";
+    
+    private static final String MAIL_PREFIX = "mybmptestuser";
     
     @Inject
     Browser browser;
@@ -39,6 +52,9 @@ public class TC10_Login_forgotten {
 
     @Inject
     Datapool db;
+    
+    @Inject
+    AccountHandling accHandling;
     
     @Inject
     Login login;
@@ -52,28 +68,38 @@ public class TC10_Login_forgotten {
     @Inject
     ResetPasswordPage resetPwPage;
     
+    @Inject
+    Home homePage;
+    
     private User user;
 
     @BeforeTest
     public void setup() {
-        // get registered users
-        user = db.users().field("registered").equal(true).field("email").equal("mybmptestuser+1396600497570@gmail.com").get();
-        assertThat(user, notNullValue());
-
+        user = User.createUser(MAIL_PREFIX);
+        assertThat("User must not be null", user != null);
+        
+        try {
+            accHandling.registerAccount(user);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TC10_Login_forgotten.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         navigateTo(login);
     }
     
     @AfterTest
     public void tearDown() {
-        db.save(user);
     }
 
     @Test
-    public void askForPasswordReset() {
+    public void askForPasswordReset() throws InterruptedException {
         click(login.forgotPasswordLnk);
         
         set(forgotPwPage.email, user.email);
         click(forgotPwPage.sendMailBtn);
+        
+        // wait to mail delivery
+        Thread.sleep(1000);
         
         mailAccount.setUsername(user.email);
         mailAccount.setPassword(GoogleMailAccount.MAIL_PASSWORD);
@@ -88,7 +114,7 @@ public class TC10_Login_forgotten {
         resetPassword();
         
         try {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
         } catch (InterruptedException ex) {
             // do nothing
         }
@@ -109,5 +135,11 @@ public class TC10_Login_forgotten {
         set(resetPwPage.password,user.password);
         set(resetPwPage.confirmPassword, user.password);
         click(resetPwPage.submitBtn);
+        
+        try {
+            verifyThat(homePage.feedbackMessage.isDisplayed());
+        } catch (NoSuchElementException e) {
+            assertThat("Positiv feedback Message isn't shown.", false);
+        }
     }
 }
