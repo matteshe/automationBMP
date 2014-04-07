@@ -89,28 +89,23 @@ public class Header extends Page {
             super(driver, locator, webElement);
         }
 
-        @FindBy(xpath = "//a[contains(text(),'Partner')]")
+        @FindBy(xpath = "//a[text()='Partner')]")
         public SettingsLink developerLnk;
 
-        @FindBy(xpath = "//a[contains(text(),'Channel')]")
+        @FindBy(xpath = "//a[text()='Channel')]")
         public SettingsLink channelUserLnk;
 
-        //@FindBy(xpath = "//*[@id='header']//ul[@id='appdirectnav']//li[2]//div//div//div/ul//li[4]//a")
-        //@FindBy(xpath = "//ul[@id='appdirectnav']/li[2]/a/span/span/div//div//div/ul//li[4]//a")
-        @FindBy(xpath = "//a[contains(text(),'Superbenutzer')]")
+        @FindBy(xpath = "//a[text()='Superbenutzer')]")
         public SettingsLink superuserLnk;
 
-        @FindBy(xpath = "//a[contains(text(),'Unternehmen')]")
-        public SettingsLink partnerLnk;
+        //@FindBy(xpath = ".//ul[@id='appdirectnav']//a[@id='account'] | .//li[@class='last']//a[@title = 'Unternehmen']")
+        @FindBy(xpath = "//a[text()='Unternehmen']")
+        public SettingsLink accountLnk;
     }
 
     //@FindBy(xpath = ".//li[@class='last']/a | .//li[@class='info-parent settings-container']")
     @FindBy(xpath = "//a[contains(@href, '/einstellungen/')] | .//li[@class='info-parent settings-container']")
     public SettingsMenu settingsMenu;
-
-    @FindBy(xpath = ".//ul[@id='appdirectnav']//a[@id='account'] | .//li[@class='last']//a[@title = 'Unternehmen']")
-    //@FindBy(xpath = ".//a[@title = 'Unternehmen']")
-    public Link accountLnk;
 
     @FindBy(xpath = ".//a[@id='myapps']/span | .//div[@class='hlist right']//a")
     public AccountMenu launchPadLnk;
