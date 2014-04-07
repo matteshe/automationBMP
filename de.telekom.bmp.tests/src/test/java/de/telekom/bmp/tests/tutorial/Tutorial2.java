@@ -1,16 +1,15 @@
-package de.telekom.bmp.tests.playground.tutorial;
+package de.telekom.bmp.tests.tutorial;
+
+import javax.inject.Inject;
+
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
 
 import de.telekom.bmp.pages.playground.FunctionalActions;
 import de.telekom.testframework.annotations.QCId;
 import de.telekom.testframework.selenium.annotations.ResetWebDriver;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
-import javax.inject.Inject;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
-
-import static de.telekom.testframework.Actions.*;
-import static de.telekom.testframework.selenium.Matchers.*;
 
 /**
  *

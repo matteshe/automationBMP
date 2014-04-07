@@ -1,19 +1,23 @@
 package de.telekom.bmp.tests.smoketest;
 
 import com.google.inject.Inject;
+
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.functional.GoogleMailAccount;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Signup;
 import de.telekom.bmp.pages.accountsetup.AccountActivationPage;
-import de.telekom.bmp.tests.GoogleMailAccount;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
 import de.telekom.testframework.selenium.Browser;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
+
 import java.util.Date;
+
 import static org.hamcrest.Matchers.notNullValue;
+
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -22,9 +26,9 @@ import org.testng.annotations.Test;
 @QCId("123456")
 public class TC002_RegistrationWithValidCredentials {
 
-    public static final String APP_DOMAIN = "testcloud.bmptest.de";
+    private static final String APP_DOMAIN = "testcloud.bmptest.de";
 
-    public static final String HTACCESS_CREDENTIALS = "toon:HullyGully";
+    private static final String HTACCESS_CREDENTIALS = "toon:HullyGully";
 
     @Inject
     BmpApplication app;
@@ -86,7 +90,7 @@ public class TC002_RegistrationWithValidCredentials {
         mailAccount.setUsername(user.email);
         mailAccount.setPassword(GoogleMailAccount.MAIL_PASSWORD);
 
-        String confirmLink = mailAccount.checkGoogleMailAccountAndExtractConfirmLink();
+        String confirmLink = mailAccount.checkGoogleMailAccountAndExtractConfirmLink(APP_DOMAIN);
         assertThat(confirmLink, !confirmLink.equals(""));
         confirmLink = addHtaccessCredentials(confirmLink);
 
