@@ -1,16 +1,16 @@
-package de.telekom.bmp.tests;
+package de.telekom.bmp.functional;
 
-import com.google.inject.Inject;
-import de.telekom.bmp.pages.GoogleLoginPage;
-import de.telekom.bmp.pages.GoogleReadMailPage;
-import static de.telekom.bmp.tests.smoketest.TC002_RegistrationWithValidCredentials.APP_DOMAIN;
 import static de.telekom.testframework.Actions.click;
 import static de.telekom.testframework.Actions.set;
 import static de.telekom.testframework.Assert.assertThat;
-import de.telekom.testframework.selenium.Browser;
-import de.telekom.testframework.selenium.annotations.UseWebDriver;
-import de.telekom.testframework.selenium.controls.Link;
 import static org.hamcrest.Matchers.notNullValue;
+
+import com.google.inject.Inject;
+
+import de.telekom.bmp.pages.GoogleLoginPage;
+import de.telekom.bmp.pages.GoogleReadMailPage;
+import de.telekom.testframework.selenium.Browser;
+import de.telekom.testframework.selenium.controls.Link;
 
 /**
  *
@@ -40,12 +40,12 @@ public class GoogleMailAccount {
         this.password = pw;
     }
     
-    public String checkGoogleMailAccountAndExtractConfirmLink() {
+    public String checkGoogleMailAccountAndExtractConfirmLink(String linkDomain) {
         browser.navigate().to(GOOGLE_MAIL_URL);
         
         loginIntoGoogleMailAccount();
 
-        return readMailAndFindConfirmLink();   
+        return readMailAndFindConfirmLink(linkDomain);   
     }
     
     private void loginIntoGoogleMailAccount() {
@@ -64,12 +64,12 @@ public class GoogleMailAccount {
         return newMailAddress;
     }
     
-    private String readMailAndFindConfirmLink() {
+    private String readMailAndFindConfirmLink(String linkDomain) {
         Link confirmRegLnk = readMailPage.emailLinks.get(0);
         assertThat(confirmRegLnk, notNullValue());
         click(confirmRegLnk);
         
-        String reallyConfirm = readMailPage.confirmLink.get(APP_DOMAIN).getHref();
+        String reallyConfirm = readMailPage.confirmLink.get(linkDomain).getHref();
         assertThat(reallyConfirm, notNullValue());
         
         return reallyConfirm;
