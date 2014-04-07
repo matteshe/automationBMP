@@ -10,14 +10,15 @@ import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.account.Dashboard;
 import static de.telekom.testframework.Actions.*;
+import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+@QCId("123456")
 @UseWebDriver
-@Test(groups = {"qcid-5506"})
 public class TC003a_Login_as_Normal_User {
 
     @Inject

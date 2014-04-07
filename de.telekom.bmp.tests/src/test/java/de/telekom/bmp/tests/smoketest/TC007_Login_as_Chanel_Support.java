@@ -9,14 +9,15 @@ import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.MarketPlacePage;
 import static de.telekom.testframework.Actions.*;
+import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+@QCId("123456")
 @UseWebDriver
-@Test(groups = {"qcid-5506"})
 public class TC007_Login_as_Chanel_Support {
     
     @Inject

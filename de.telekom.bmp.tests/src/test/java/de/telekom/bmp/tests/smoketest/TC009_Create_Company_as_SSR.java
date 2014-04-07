@@ -10,6 +10,7 @@ import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.MarketPlacePage;
 import static de.telekom.testframework.Actions.*;
 import static de.telekom.testframework.Assert.*;
+import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import java.util.Date;
@@ -18,8 +19,8 @@ import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+@QCId("123456")
 @UseWebDriver
-@Test(groups = {"qcid-5506"})
 public class TC009_Create_Company_as_SSR {
 
     @Inject

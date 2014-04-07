@@ -10,14 +10,15 @@ import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.MyApps;
 
 import static de.telekom.testframework.Actions.*;
+import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+@QCId("5145")
 @UseWebDriver
-@Test(groups = {"qcid-5506"})
 public class TC022_Invite_Colleague {
 
     @Inject
@@ -39,10 +40,11 @@ public class TC022_Invite_Colleague {
     Datapool datapool;
 
 // Needed user
-    User user;
+    private User user;
 
     @BeforeTest
     public void setup() {
+        // Login with a normal User
         user = datapool.users().field("valid").equal(true)
                 .field("registered").notEqual(false)
                 .field("email").equal("mybmptestuser+normaluser@gmail.com").get();
@@ -64,16 +66,9 @@ public class TC022_Invite_Colleague {
 
             click(login.signinBtn);
 
-//            click(header.settingsMenu.account);
-// WORKAROUND NORMAL BEHAVIOUR
-//             
-//            click(header.settings);
-//            click(header.developer);
+            click(header.settingsMenu.accountLnk);
+
 // WORKAROUND BECAUSE OF CMS
-            
-            
-            
-            
 //            navigateTo(myApps);
 //
 //            assertThat(myApps, currentPage());

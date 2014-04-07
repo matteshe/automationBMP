@@ -9,6 +9,7 @@ import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
 import static de.telekom.testframework.Actions.*;
+import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,8 +17,8 @@ import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+@QCId("123456")
 @UseWebDriver
-@Test(groups = {"qcid-5506"})
 public class TC004_Login_as_Superuser {
     
     @Inject

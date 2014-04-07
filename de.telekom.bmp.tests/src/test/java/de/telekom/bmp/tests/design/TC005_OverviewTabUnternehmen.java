@@ -52,8 +52,12 @@ public class TC005_OverviewTabUnternehmen {
 //        functional.login(user.email, user.password);
 
         
-       moveTo(header.settingsMenu);
-       click(header.accountLnk);
+//       moveTo(header.settingsMenu);
+//       click(header.accountLnk);
+       
+//       
+       click(header.settingsMenu.accountLnk);
+       
        
        System.out.println(account.getWebDriver().getCurrentUrl());
        verifyThat( account.getWebDriver().getCurrentUrl(), containsString(account.getPath() + "/home")); 

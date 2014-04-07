@@ -10,14 +10,15 @@ import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.MarketPlacePage;
 import static de.telekom.testframework.Actions.*;
 import static de.telekom.testframework.Assert.*;
+import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+@QCId("123456")
 @UseWebDriver
-@Test(groups = {"qcid-5506"})
 public class TC005_Login_as_Chanel_Admin {
 
     @Inject
@@ -68,7 +69,7 @@ public class TC005_Login_as_Chanel_Admin {
 
 
 // WORKAROUND
-            navigateTo(marketplacepage);
+//            navigateTo(marketplacepage);
             
             
             assertThat(marketplacepage, isCurrentPage());
