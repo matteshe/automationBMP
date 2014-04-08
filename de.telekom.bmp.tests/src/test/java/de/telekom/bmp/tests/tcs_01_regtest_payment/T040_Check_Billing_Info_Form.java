@@ -47,7 +47,7 @@ public class T040_Check_Billing_Info_Form {
 	FunctionalActions fa;
 
 	@Inject
-	Header header;
+	Header headerPage;
 
 	private User user;
 
@@ -71,7 +71,7 @@ public class T040_Check_Billing_Info_Form {
 		fa.login(user.email, user.password);
 
 		// einstellungen->unternehmen
-		click(header.settingsMenu.accountLnk);
+		click(headerPage.settingsMenu.accountLnk);
 
 		click(accountPage.billsLnk);
 		click(billPage.paymentDetails);
