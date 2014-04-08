@@ -27,6 +27,7 @@ import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.ResetPasswordPage;
 import de.telekom.testframework.annotations.QCId;
+import de.telekom.testframework.reporting.Reporter;
 import de.telekom.testframework.selenium.Browser;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 
@@ -76,25 +77,32 @@ public class TC10_Login_forgotten {
 	@BeforeTest
 	public void setup() {
 		user = db.users().field("registered").equal(true).field("valid")
-				.equal(true).field("role").equal(UserRole.USER).get();
+				.equal(true).field("role").equal(UserRole.USER).field("name")
+				.contains("PW RESET").get();
+
 		if (user == null) {
-			User.createUser(MAIL_PREFIX);
+			user = User.createUser(MAIL_PREFIX);
+			user.name = "User for PW RESET";
 			db.save(user);
+			Reporter.reportMessage("created new user");
+
+			try {
+				accHandling.registerAccount(user);
+			} catch (InterruptedException ex) {
+				Logger.getLogger(TC10_Login_forgotten.class.getName()).log(
+						Level.SEVERE, null, ex);
+			}
+		} else {
+			Reporter.reportMessage("user from test db");
 		}
 		assertThat("User must not be null", user != null);
-
-		try {
-			accHandling.registerAccount(user);
-		} catch (InterruptedException ex) {
-			Logger.getLogger(TC10_Login_forgotten.class.getName()).log(
-					Level.SEVERE, null, ex);
-		}
 
 		navigateTo(login);
 	}
 
 	@AfterTest
 	public void tearDown() {
+		db.save(user);
 	}
 
 	@Test
@@ -110,7 +118,8 @@ public class TC10_Login_forgotten {
 		mailAccount.setMailAccount(user.email);
 
 		String setNewPasswordLink = mailAccount
-				.checkGoogleMailAccountAndExtractConfirmLink(APP_DOMAIN);
+				.checkGoogleMailAccountAndExtractConfirmLink(APP_DOMAIN,
+						GoogleMailAccount.PW_RESET);
 
 		assertThat(setNewPasswordLink, !setNewPasswordLink.equals(""));
 		setNewPasswordLink = addHtaccessCredentials(setNewPasswordLink);
