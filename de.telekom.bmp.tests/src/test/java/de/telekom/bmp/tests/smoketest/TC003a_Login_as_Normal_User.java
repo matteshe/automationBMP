@@ -17,7 +17,7 @@ import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-@QCId("123456")
+@QCId("4123")
 @UseWebDriver
 public class TC003a_Login_as_Normal_User {
 

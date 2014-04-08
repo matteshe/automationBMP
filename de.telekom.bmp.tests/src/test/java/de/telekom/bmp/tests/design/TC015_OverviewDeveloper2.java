@@ -2,19 +2,13 @@
 package de.telekom.bmp.tests.design;
 
 import de.telekom.bmp.functional.FunctionalActions;
-import de.telekom.bmp.pages.developer.DeveloperCreatePage;
-import de.telekom.bmp.pages.account.Bills;
-import de.telekom.bmp.pages.account.CompanySettings;
 import de.telekom.bmp.pages.developer.Products;
 
 import static de.telekom.testframework.Actions.*;
-import static de.telekom.testframework.reporting.Reporter.reportMessage;
-import de.telekom.testframework.selenium.Application;
+import de.telekom.testframework.annotations.QCId;
 
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import javax.inject.Inject;
-import static org.hamcrest.Matchers.*;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
 /**
@@ -23,6 +17,7 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
+@QCId("3570")
 public class TC015_OverviewDeveloper2 {
     
     @Inject
