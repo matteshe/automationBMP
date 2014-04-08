@@ -10,7 +10,6 @@ import de.telekom.bmp.pages.account.Dashboard;
 import de.telekom.bmp.pages.settings.Directories;
 
 import static de.telekom.testframework.Actions.*;
-import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.reporting.Reporter.reportMessage;
 
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
@@ -25,7 +24,6 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
-@QCId("3710")
 public class TC043_SeeAllTeamMembers {
     
     @Inject

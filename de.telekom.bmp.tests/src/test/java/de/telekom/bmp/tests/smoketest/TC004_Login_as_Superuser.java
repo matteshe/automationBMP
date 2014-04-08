@@ -17,9 +17,8 @@ import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-
+@QCId("123456")
 @UseWebDriver
-@QCId("5496")
 public class TC004_Login_as_Superuser {
     
     @Inject

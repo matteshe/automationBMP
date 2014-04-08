@@ -9,7 +9,6 @@ import de.telekom.bmp.pages.account.Dashboard;
 import de.telekom.bmp.pages.account.Users;
 
 import static de.telekom.testframework.Actions.*;
-import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.reporting.Reporter.reportMessage;
 
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
@@ -24,7 +23,6 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
-@QCId("3799")
 public class TC011_DialogueZahlungenVerwalten {
     
     @Inject

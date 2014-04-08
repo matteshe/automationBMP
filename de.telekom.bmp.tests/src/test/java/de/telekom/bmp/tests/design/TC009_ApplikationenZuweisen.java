@@ -8,7 +8,6 @@ import de.telekom.bmp.pages.account.Dashboard;
 import de.telekom.bmp.pages.account.Users;
 
 import static de.telekom.testframework.Actions.*;
-import de.telekom.testframework.annotations.QCId;
 
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import javax.inject.Inject;
@@ -21,7 +20,6 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
-@QCId("3797")
 public class TC009_ApplikationenZuweisen {
     
     @Inject
@@ -42,7 +40,8 @@ public class TC009_ApplikationenZuweisen {
     @Test
     public void test1() throws InterruptedException {
         
-              
+        
+        
         
        functional.login("sysadmin4.0@test.com", "password");
        

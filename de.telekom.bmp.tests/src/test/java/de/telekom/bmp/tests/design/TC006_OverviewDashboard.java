@@ -8,7 +8,6 @@ import de.telekom.bmp.pages.account.Dashboard;
 import de.telekom.bmp.pages.account.InvitePopup;
 
 import static de.telekom.testframework.Actions.*;
-import de.telekom.testframework.annotations.QCId;
 
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import javax.inject.Inject;
@@ -21,7 +20,6 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
-@QCId("3730")
 public class TC006_OverviewDashboard {
     
     @Inject

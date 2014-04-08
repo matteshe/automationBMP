@@ -5,7 +5,6 @@ import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.account.CompanySettings;
 
 import static de.telekom.testframework.Actions.*;
-import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.reporting.Reporter.reportMessage;
 
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
@@ -20,7 +19,6 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
-@QCId("3801")
 public class TC013_DialogueUnternehmenseinstellungen {
     
     @Inject

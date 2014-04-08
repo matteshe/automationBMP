@@ -5,7 +5,6 @@ import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.developer.DeveloperCreatePage;
 
 import static de.telekom.testframework.Actions.*;
-import de.telekom.testframework.annotations.QCId;
 
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import javax.inject.Inject;
@@ -17,7 +16,6 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
-@QCId("3569")
 public class TC014_OverviewDeveloper1 {
     
     @Inject

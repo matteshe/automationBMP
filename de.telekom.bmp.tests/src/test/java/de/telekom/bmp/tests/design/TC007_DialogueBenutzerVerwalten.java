@@ -9,7 +9,6 @@ import de.telekom.bmp.pages.account.Roles;
 import de.telekom.bmp.pages.account.Users;
 
 import static de.telekom.testframework.Actions.*;
-import de.telekom.testframework.annotations.QCId;
 
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import javax.inject.Inject;
@@ -22,7 +21,6 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
-@QCId("3711")
 public class TC007_DialogueBenutzerVerwalten {
     
     @Inject

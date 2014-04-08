@@ -9,7 +9,6 @@ import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.MyApps;
 
 import static de.telekom.testframework.Actions.*;
-import de.telekom.testframework.annotations.QCId;
 
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import javax.inject.Inject;
@@ -22,7 +21,6 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
-@QCId("3699")
 public class TC029_TooltipOnOverviewTab {
     
     @Inject
