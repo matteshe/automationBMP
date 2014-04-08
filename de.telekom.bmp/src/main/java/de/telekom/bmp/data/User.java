@@ -94,16 +94,20 @@ public class User {
 		newUser.name = "mustermann";
 		newUser.company = "companyName";
 		newUser.registered = false;
+		newUser.role = UserRole.USER;
 		newUser.valid = false;
 
 		return newUser;
 	}
 
 	private static String createMailAlias(String mailPrefix) {
-		long alias = (new Date()).getTime();
 		if ("".equals(mailPrefix)) {
 			mailPrefix = "mybmptestuser";
 		}
-		return mailPrefix + "+" + alias + "@gmail.com";
+		return mailPrefix + "+" + createMailAlias() + "@gmail.com";
+	}
+
+	private static long createMailAlias() {
+		return (new Date()).getTime();
 	}
 }
