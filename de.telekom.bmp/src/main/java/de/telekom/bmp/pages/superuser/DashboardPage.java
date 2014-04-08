@@ -1,4 +1,4 @@
-package de.telekom.bmp.pages;
+package de.telekom.bmp.pages.superuser;
 
 import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
