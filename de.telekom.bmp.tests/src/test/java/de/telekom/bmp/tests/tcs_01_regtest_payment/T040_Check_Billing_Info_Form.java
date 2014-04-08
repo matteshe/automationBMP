@@ -82,6 +82,8 @@ public class T040_Check_Billing_Info_Form {
 		if (billPage.feedbackPanelInfo.isDisplayed()) {
 			Assert.assertThat("Setup payment details was successful", true);
 		}
+
+		fa.logout();
 	}
 
 	private void setupPaymentDetails() {
