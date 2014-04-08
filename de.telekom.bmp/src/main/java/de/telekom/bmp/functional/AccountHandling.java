@@ -14,6 +14,7 @@ import de.telekom.bmp.data.User;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Signup;
 import de.telekom.bmp.pages.accountsetup.AccountActivationPage;
+import de.telekom.testframework.reporting.Reporter;
 import de.telekom.testframework.selenium.Browser;
 
 /**
@@ -51,7 +52,7 @@ public class AccountHandling {
 	 * @throws InterruptedException
 	 *             if something goes wrong with sleep
 	 */
-	public void registerAccount(User user) throws InterruptedException {
+	public void registerAccount(User user) {
 		navigateTo(signup);
 
 		click(homePage.registerBtn);
@@ -61,7 +62,11 @@ public class AccountHandling {
 		assertThat("signup.iconValid.isDisplayed",
 				signup.iconValid.isDisplayed());
 
-		Thread.sleep(500);
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			Reporter.reportInfo(e.getMessage());
+		}
 
 		// button to register
 		click(signup.signup);
@@ -87,8 +92,7 @@ public class AccountHandling {
 	 * @return a link to confirm
 	 * @throws InterruptedException
 	 */
-	private String getConfirmLink(String mailAddress, String mailCategory)
-			throws InterruptedException {
+	private String getConfirmLink(String mailAddress, String mailCategory) {
 		gmail.setMailAccount(mailAddress);
 
 		String confirmLink = gmail.checkGoogleMailAccountAndExtractConfirmLink(
