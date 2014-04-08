@@ -85,8 +85,7 @@ public class AccountHandling {
 	 */
 	private String getConfirmLink(String mailAddress)
 			throws InterruptedException {
-		gmail.setUsername(mailAddress);
-		gmail.setPassword(GoogleMailAccount.MAIL_PASSWORD);
+		gmail.setMailAccount(mailAddress);
 
 		String confirmLink = gmail
 				.checkGoogleMailAccountAndExtractConfirmLink(APP_DOMAIN);

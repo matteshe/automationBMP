@@ -1,4 +1,3 @@
-
 package de.telekom.bmp.tests.tcs_04_loginAndRegistration;
 
 import static de.telekom.testframework.Actions.click;
@@ -31,115 +30,116 @@ import de.telekom.testframework.selenium.Browser;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 
 /**
- *
+ * 
  * @author Mathias Herkt
  */
 
 @UseWebDriver
 @QCId("3566")
 public class TC10_Login_forgotten {
-    private static final String HTACCESS_CREDENTIALS = "toon:HullyGully";
+	private static final String HTACCESS_CREDENTIALS = "toon:HullyGully";
 
-    private static final String APP_DOMAIN = "testcloud.bmptest.de";
-    
-    private static final String MAIL_PREFIX = "mybmptestuser";
-    
-    @Inject
-    Browser browser;
-    
-    @Inject
-    BmpApplication app;
+	private static final String APP_DOMAIN = "testcloud.bmptest.de";
 
-    @Inject
-    Datapool db;
-    
-    @Inject
-    AccountHandling accHandling;
-    
-    @Inject
-    Login login;
-    
-    @Inject
-    GoogleMailAccount mailAccount;
-    
-    @Inject
-    ForgotPasswordPage forgotPwPage;
-    
-    @Inject
-    ResetPasswordPage resetPwPage;
-    
-    @Inject
-    Home homePage;
-    
-    private User user;
+	private static final String MAIL_PREFIX = "mybmptestuser";
 
-    @BeforeTest
-    public void setup() {
-        user = User.createUser(MAIL_PREFIX);
-        assertThat("User must not be null", user != null);
-        
-        try {
-            accHandling.registerAccount(user);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(TC10_Login_forgotten.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        navigateTo(login);
-    }
-    
-    @AfterTest
-    public void tearDown() {
-    }
+	@Inject
+	Browser browser;
 
-    @Test
-    public void askForPasswordReset() throws InterruptedException {
-        click(login.forgotPasswordLnk);
-        
-        set(forgotPwPage.email, user.email);
-        click(forgotPwPage.sendMailBtn);
-        
-        // wait to mail delivery
-        Thread.sleep(1000);
-        
-        mailAccount.setUsername(user.email);
-        mailAccount.setPassword(GoogleMailAccount.MAIL_PASSWORD);
-        
-        String setNewPasswordLink = mailAccount.checkGoogleMailAccountAndExtractConfirmLink(APP_DOMAIN);
-        
-        assertThat(setNewPasswordLink, !setNewPasswordLink.equals(""));
-        setNewPasswordLink = addHtaccessCredentials(setNewPasswordLink);
-        
-        browser.navigate().to(setNewPasswordLink);
-        
-        resetPassword();
-        
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            // do nothing
-        }
-    }
+	@Inject
+	BmpApplication app;
 
-    private String addHtaccessCredentials(String link) {
-        return link.replaceFirst("//", "//" + HTACCESS_CREDENTIALS + "@");
-    }
+	@Inject
+	Datapool db;
 
-    private void resetPassword() {
-        if (user.password == null || "".equals(user.password))
-        {
-            user.password = "1234!QAY";
-        } else {
-            user.password = new StringBuilder(user.password).reverse().toString();
-        }
-        
-        set(resetPwPage.password,user.password);
-        set(resetPwPage.confirmPassword, user.password);
-        click(resetPwPage.submitBtn);
-        
-        try {
-            verifyThat(homePage.feedbackMessage.isDisplayed());
-        } catch (NoSuchElementException e) {
-            assertThat("Positiv feedback Message isn't shown.", false);
-        }
-    }
+	@Inject
+	AccountHandling accHandling;
+
+	@Inject
+	Login login;
+
+	@Inject
+	GoogleMailAccount mailAccount;
+
+	@Inject
+	ForgotPasswordPage forgotPwPage;
+
+	@Inject
+	ResetPasswordPage resetPwPage;
+
+	@Inject
+	Home homePage;
+
+	private User user;
+
+	@BeforeTest
+	public void setup() {
+		user = User.createUser(MAIL_PREFIX);
+		assertThat("User must not be null", user != null);
+
+		try {
+			accHandling.registerAccount(user);
+		} catch (InterruptedException ex) {
+			Logger.getLogger(TC10_Login_forgotten.class.getName()).log(
+					Level.SEVERE, null, ex);
+		}
+
+		navigateTo(login);
+	}
+
+	@AfterTest
+	public void tearDown() {
+	}
+
+	@Test
+	public void askForPasswordReset() throws InterruptedException {
+		click(login.forgotPasswordLnk);
+
+		set(forgotPwPage.email, user.email);
+		click(forgotPwPage.sendMailBtn);
+
+		// wait to mail delivery
+		Thread.sleep(1000);
+
+		mailAccount.setMailAccount(user.email);
+
+		String setNewPasswordLink = mailAccount
+				.checkGoogleMailAccountAndExtractConfirmLink(APP_DOMAIN);
+
+		assertThat(setNewPasswordLink, !setNewPasswordLink.equals(""));
+		setNewPasswordLink = addHtaccessCredentials(setNewPasswordLink);
+
+		browser.navigate().to(setNewPasswordLink);
+
+		resetPassword();
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException ex) {
+			// do nothing
+		}
+	}
+
+	private String addHtaccessCredentials(String link) {
+		return link.replaceFirst("//", "//" + HTACCESS_CREDENTIALS + "@");
+	}
+
+	private void resetPassword() {
+		if (user.password == null || "".equals(user.password)) {
+			user.password = "1234!QAY";
+		} else {
+			user.password = new StringBuilder(user.password).reverse()
+					.toString();
+		}
+
+		set(resetPwPage.password, user.password);
+		set(resetPwPage.confirmPassword, user.password);
+		click(resetPwPage.submitBtn);
+
+		try {
+			verifyThat(homePage.feedbackMessage.isDisplayed());
+		} catch (NoSuchElementException e) {
+			assertThat("Positiv feedback Message isn't shown.", false);
+		}
+	}
 }
