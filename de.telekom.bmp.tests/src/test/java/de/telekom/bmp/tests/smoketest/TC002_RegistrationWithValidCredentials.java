@@ -21,34 +21,35 @@ import de.telekom.testframework.selenium.annotations.UseWebDriver;
 @QCId("5506")
 public class TC002_RegistrationWithValidCredentials {
 	private static final String MAIL_PREFIX = "mybmptestuser";
-    @Inject
-    AccountHandling accountHandling;
-    
-    @Inject
-    BmpApplication app;    
+	@Inject
+	AccountHandling accountHandling;
 
-    @Inject
-    Datapool datapool;
+	@Inject
+	BmpApplication app;
 
-    @BeforeTest
-    public void setup() {
-        navigateTo(app);
-    }
+	@Inject
+	Datapool datapool;
 
-    @AfterTest
-    public void tearDown() {
-    }
+	@BeforeTest
+	public void setup() {
+		navigateTo(app);
+	}
 
-    @Test
-    public void registrationWithValidCredentials() throws InterruptedException {
-    	// create a valid and not registered user
-        User user = User.createUser(MAIL_PREFIX);
-        assertThat(user, notNullValue());
-        
-    	accountHandling.registerAccount(user);
-        user.registered = true;
-        
-        // save in testdata db
-        datapool.save(user);
-    }
+	@AfterTest
+	public void tearDown() {
+	}
+
+	@Test
+	public void registrationWithValidCredentials() throws InterruptedException {
+		// create a valid and not registered user
+		User user = User.createUser(MAIL_PREFIX);
+		assertThat(user, notNullValue());
+
+		accountHandling.registerAccount(user);
+		user.registered = true;
+		user.valid = true;
+
+		// save in testdata db
+		datapool.save(user);
+	}
 }
