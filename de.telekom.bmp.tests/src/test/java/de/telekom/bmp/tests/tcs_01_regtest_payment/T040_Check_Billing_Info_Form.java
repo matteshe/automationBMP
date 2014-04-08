@@ -79,9 +79,8 @@ public class T040_Check_Billing_Info_Form {
 		setupPaymentDetails();
 
 		// verify setup was successful
-		if (billPage.feedbackPanelInfo.isDisplayed()) {
-			Assert.assertThat("Setup payment details was successful", true);
-		}
+		Assert.assertThat("Setup payment details was successful",
+				billPage.feedbackPanelInfo.isDisplayed());
 
 		fa.logout();
 	}
