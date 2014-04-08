@@ -89,13 +89,13 @@ public class Header extends Page {
             super(driver, locator, webElement);
         }
 
-        @FindBy(xpath = "//a[text()='Partner']")
+        @FindBy(xpath = "//a[text()='Partner')]")
         public SettingsLink developerLnk;
 
-        @FindBy(xpath = "//a[text()='Channel']")
+        @FindBy(xpath = "//a[text()='Channel')]")
         public SettingsLink channelUserLnk;
 
-        @FindBy(xpath = "//a[text()='Superbenutzer']")
+        @FindBy(xpath = "//a[text()='Superbenutzer')]")
         public SettingsLink superuserLnk;
 
         //@FindBy(xpath = ".//ul[@id='appdirectnav']//a[@id='account'] | .//li[@class='last']//a[@title = 'Unternehmen']")
