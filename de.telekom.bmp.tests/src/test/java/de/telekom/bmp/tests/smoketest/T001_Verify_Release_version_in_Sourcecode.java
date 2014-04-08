@@ -37,7 +37,7 @@ public class T001_Verify_Release_version_in_Sourcecode {
 
 	@BeforeTest
 	public void setup() {
-		ai = db.getDatastore().find(ApplicationInfo.class).get();
+		ai = db.appInfos().get();
 		if (ai == null) {
 			ai = new ApplicationInfo();
 			ai.setVersion(RELEASE_VERSION);
