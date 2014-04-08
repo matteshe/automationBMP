@@ -19,6 +19,7 @@ import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.data.UserRole;
 import de.telekom.bmp.functional.AccountHandling;
 import de.telekom.bmp.functional.GoogleMailAccount;
 import de.telekom.bmp.pages.ForgotPasswordPage;
@@ -74,7 +75,12 @@ public class TC10_Login_forgotten {
 
 	@BeforeTest
 	public void setup() {
-		user = User.createUser(MAIL_PREFIX);
+		user = db.users().field("registered").equal(true).field("valid")
+				.equal(true).field("role").equal(UserRole.USER).get();
+		if (user == null) {
+			User.createUser(MAIL_PREFIX);
+			db.save(user);
+		}
 		assertThat("User must not be null", user != null);
 
 		try {
