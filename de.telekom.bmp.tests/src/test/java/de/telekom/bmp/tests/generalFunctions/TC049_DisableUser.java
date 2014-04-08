@@ -7,6 +7,7 @@ import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.account.Dashboard;
+import de.telekom.bmp.pages.settings.Directories;
 
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
@@ -24,9 +25,8 @@ import org.testng.annotations.Test;
  */
 
 @UseWebDriver
-@QCId("3709")
-
-public class TC042_SeeTeamMembers {
+@QCId("3719")
+public class TC049_DisableUser {
     
     @Inject
     FunctionalActions functional;
@@ -34,15 +34,18 @@ public class TC042_SeeTeamMembers {
     @Inject 
     Datapool datapool;
     
-    @Inject 
-    Header header;
-       
+          
     @Inject 
     Dashboard dashboard;
+    
+    @Inject 
+    Directories directories;
+    
+    
         
     @Test
     public void test1() throws InterruptedException {
-        
+        // TO BE DONE
        functional.login("sysadmin4.0@test.com", "password");
        
        //createOrder.navigateTo("/1262");
@@ -58,15 +61,7 @@ public class TC042_SeeTeamMembers {
 //        functional.login(user.email, user.password);
 
         
-       navigateTo(dashboard);
-       int teamMembers = 0;
        
-       for (WebElement member: dashboard.allMembers) {
-           teamMembers++;
-           reportMessage(member.getText());
-       }
-       
-       verifyThat(teamMembers, is(5));
               
     }
 }
