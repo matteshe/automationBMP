@@ -8,11 +8,13 @@ import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.MyApps;
+import de.telekom.bmp.pages.account.Dashboard;
 
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
+import java.util.Date;
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -32,6 +34,9 @@ public class TC022_Invite_Colleague {
 
     @Inject
     Header header;
+
+    @Inject
+    Dashboard dashboardPage;
 
     @Inject
     MyApps myApps;
@@ -72,20 +77,28 @@ public class TC022_Invite_Colleague {
 //            navigateTo(myApps);
 //
 //            assertThat(myApps, currentPage());
+            String emailtoInvite = "mybmptestuser+toInvite" + new Date().getTime() + "@gmail.com";
+            set(dashboardPage.inviteEmailInput, emailtoInvite);
+            click(dashboardPage.singleInviteBtn);
+            assertThat(dashboardPage.inviteSuccessfullTxt.isDisplayed());
 
-//            click(header.settingsMenu.account);
-            
-//            Thread.sleep(2000);
             click(header.accountMenu.logoutLnk);
 
             assertThat(home, isCurrentPage());
 
+            Thread.sleep(5000);
+            
+            createUserToSave();
 //            user.valid = true;
         } finally {
             user.registered = true;
             datapool.save(user);
         }
 
+    }
+
+    private void createUserToSave() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
