@@ -90,16 +90,21 @@ public class Bills extends Page {
 	@FindBy(xpath = ".//select[contains(@id, 'countries')]")
 	public List<Select> countries;
 
-	@FindBy(xpath = ".//select[contains(@id, '%s')]")
+	@FindBy(name = "formInputContainer:countryBorder:countryBorder_body:countryDropdownPanel:countries")
 	public Select country;
 
 	@FindBy(xpath = ".//select[contains(@id, 'state')]")
 	public List<Select> states;
 
-	@FindBy(xpath = ".//select[contains(@id, '%s')]")
+	@FindBy(name = "formInputContainer:stateBorder:stateBorder_body:statePanel:state")
 	public Select state;
 
 	@FindBy(xpath = ".//input[@id = 'vat-id']")
 	public TextField vatInput;
 
+	@FindBy(xpath = "//button[@class = 'buttonResponse']")
+	public Button submit;
+
+	@FindBy(xpath = "//span[@class='feedbackPanelINFO']")
+	public Text feedbackPanelInfo;
 }
