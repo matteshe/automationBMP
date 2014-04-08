@@ -19,8 +19,12 @@ import de.telekom.testframework.selenium.controls.Link;
  * @author Mathias Herkt
  */
 public class GoogleMailAccount {
-	public static final String GOOGLE_MAIL_URL = "mail.google.com";
-	public static final String MAIL_PASSWORD = "galerien3?";
+	private static final String GOOGLE_MAIL_URL = "mail.google.com";
+	private static final String MAIL_PASSWORD = "galerien3?";
+
+	public static final String CONFIRM_MAIL = "Bitte bestätigen";
+	public static final String PW_RESET = "Passwortzurücksetzung";
+	public static final String INVITE = "einladen";
 
 	@Inject
 	Datapool db;
@@ -49,12 +53,14 @@ public class GoogleMailAccount {
 		}
 	}
 
-	public String checkGoogleMailAccountAndExtractConfirmLink(String linkDomain) {
+	public String checkGoogleMailAccountAndExtractConfirmLink(
+			String linkDomain, String mailCategory) {
 		browser.navigate().to(mailAccount.getProvider());
 
 		loginIntoGoogleMailAccount();
 
-		String confirmLink = readMailAndFindConfirmLink(linkDomain);
+		String confirmLink = readMailAndFindConfirmLink(linkDomain,
+				mailCategory);
 
 		logoutMailAccount();
 
@@ -88,8 +94,9 @@ public class GoogleMailAccount {
 		return newMailAddress;
 	}
 
-	private String readMailAndFindConfirmLink(String linkDomain) {
-		Link confirmRegLnk = readMailPage.emailLinks.get(0);
+	private String readMailAndFindConfirmLink(String linkDomain,
+			String mailCategory) {
+		Link confirmRegLnk = readMailPage.emailLnk.get(mailCategory);
 		assertThat(confirmRegLnk, notNullValue());
 		click(confirmRegLnk);
 
