@@ -6,9 +6,6 @@ import static de.telekom.testframework.Actions.set;
 import static de.telekom.testframework.Assert.assertThat;
 import static de.telekom.testframework.Assert.verifyThat;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import org.openqa.selenium.NoSuchElementException;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
@@ -86,12 +83,7 @@ public class TC10_Login_forgotten {
 			db.save(user);
 			Reporter.reportMessage("created new user");
 
-			try {
-				accHandling.registerAccount(user);
-			} catch (InterruptedException ex) {
-				Logger.getLogger(TC10_Login_forgotten.class.getName()).log(
-						Level.SEVERE, null, ex);
-			}
+			accHandling.registerAccount(user);
 		} else {
 			Reporter.reportMessage("user from test db");
 		}
