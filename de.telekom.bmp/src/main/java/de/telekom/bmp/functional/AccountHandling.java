@@ -67,11 +67,13 @@ public class AccountHandling {
 		click(signup.signup);
 
 		// read email
-		String confirmLink = getConfirmLink(user.email);
+		String confirmLink = getConfirmLink(user.email,
+				GoogleMailAccount.CONFIRM_MAIL);
 		browser.navigate().to(confirmLink);
 
 		setupAccountDetails(user);
 		user.registered = true;
+		user.valid = true;
 		fa.logout();
 	}
 
@@ -80,15 +82,17 @@ public class AccountHandling {
 	 * 
 	 * @param mailAddress
 	 *            of the gmail account
+	 * @param mailCategory
+	 *            category for mail
 	 * @return a link to confirm
 	 * @throws InterruptedException
 	 */
-	private String getConfirmLink(String mailAddress)
+	private String getConfirmLink(String mailAddress, String mailCategory)
 			throws InterruptedException {
 		gmail.setMailAccount(mailAddress);
 
-		String confirmLink = gmail
-				.checkGoogleMailAccountAndExtractConfirmLink(APP_DOMAIN);
+		String confirmLink = gmail.checkGoogleMailAccountAndExtractConfirmLink(
+				APP_DOMAIN, mailCategory);
 		assertThat(confirmLink, !confirmLink.equals(""));
 		return addHtaccessCredentials(confirmLink);
 	}
