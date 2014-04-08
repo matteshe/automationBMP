@@ -100,10 +100,13 @@ public class User {
 	}
 
 	private static String createMailAlias(String mailPrefix) {
-		long alias = (new Date()).getTime();
 		if ("".equals(mailPrefix)) {
 			mailPrefix = "mybmptestuser";
 		}
-		return mailPrefix + "+" + alias + "@gmail.com";
+		return mailPrefix + "+" + createMailAlias() + "@gmail.com";
+	}
+
+	private static long createMailAlias() {
+		return (new Date()).getTime();
 	}
 }
