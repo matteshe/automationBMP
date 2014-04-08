@@ -94,6 +94,7 @@ public class User {
 		newUser.name = "mustermann";
 		newUser.company = "companyName";
 		newUser.registered = false;
+		newUser.role = UserRole.USER;
 		newUser.valid = false;
 
 		return newUser;
