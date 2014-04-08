@@ -18,94 +18,106 @@ import de.telekom.testframework.selenium.Browser;
 
 /**
  * @author Mathias Herkt
- *
+ * 
  */
 public class AccountHandling {
-    private static final String APP_DOMAIN = "testcloud.bmptest.de";
+	private static final String APP_DOMAIN = "testcloud.bmptest.de";
 
-    private static final String HTACCESS_CREDENTIALS = "toon:HullyGully";
-    
+	private static final String HTACCESS_CREDENTIALS = "toon:HullyGully";
+
 	@Inject
-    Signup signup;
-	
+	Signup signup;
+
 	@Inject
-    Home homePage;
-	
+	Home homePage;
+
 	@Inject
 	Browser browser;
-	 
+
 	@Inject
-    AccountActivationPage accountActivation;
-	
+	AccountActivationPage accountActivation;
+
 	@Inject
 	GoogleMailAccount gmail;
-        
-        @Inject
-        FunctionalActions fa;
-	
+
+	@Inject
+	FunctionalActions fa;
+
 	/**
 	 * Method to register a new user based on the given mail address
-	 * @param emailAddress of the new user
-	 * @throws InterruptedException if something goes wrong with sleep
+	 * 
+	 * @param emailAddress
+	 *            of the new user
+	 * @throws InterruptedException
+	 *             if something goes wrong with sleep
 	 */
 	public void registerAccount(User user) throws InterruptedException {
 		navigateTo(signup);
 
-        click(homePage.registerBtn);
+		click(homePage.registerBtn);
 
-        set(signup.emailAddress, user.email);
+		set(signup.emailAddress, user.email);
 
-        assertThat("signup.iconValid.isDisplayed", signup.iconValid.isDisplayed());
+		assertThat("signup.iconValid.isDisplayed",
+				signup.iconValid.isDisplayed());
 
-        Thread.sleep(500);
+		Thread.sleep(500);
 
-        // button to register
-        click(signup.signup);
-        
-        // read email
-        String confirmLink = getConfirmLink(user.email);
-    	browser.navigate().to(confirmLink);
-    	
-    	setupAccountDetails(user);
-        
-        fa.logout();
+		// button to register
+		click(signup.signup);
+
+		// read email
+		String confirmLink = getConfirmLink(user.email);
+		browser.navigate().to(confirmLink);
+
+		setupAccountDetails(user);
+		user.registered = true;
+		fa.logout();
 	}
-	
+
 	/**
 	 * Method tries to read an email to receive a confirm link
-	 * @param mailAddress of the gmail account
+	 * 
+	 * @param mailAddress
+	 *            of the gmail account
 	 * @return a link to confirm
 	 * @throws InterruptedException
 	 */
-	private String getConfirmLink(String mailAddress) throws InterruptedException {
-        gmail.setUsername(mailAddress);
-        gmail.setPassword(GoogleMailAccount.MAIL_PASSWORD);
+	private String getConfirmLink(String mailAddress)
+			throws InterruptedException {
+		gmail.setUsername(mailAddress);
+		gmail.setPassword(GoogleMailAccount.MAIL_PASSWORD);
 
-        String confirmLink = gmail.checkGoogleMailAccountAndExtractConfirmLink(APP_DOMAIN);
-        assertThat(confirmLink, !confirmLink.equals(""));
-        return addHtaccessCredentials(confirmLink);
-    }
+		String confirmLink = gmail
+				.checkGoogleMailAccountAndExtractConfirmLink(APP_DOMAIN);
+		assertThat(confirmLink, !confirmLink.equals(""));
+		return addHtaccessCredentials(confirmLink);
+	}
 
 	/**
 	 * Add htaccess credentials to given link
-	 * @param link which should be changed
+	 * 
+	 * @param link
+	 *            which should be changed
 	 * @return a link with htaccess cred
 	 */
-    private String addHtaccessCredentials(String link) {
-        return link.replaceFirst("//", "//" + HTACCESS_CREDENTIALS + "@");
-    }
-	
+	private String addHtaccessCredentials(String link) {
+		return link.replaceFirst("//", "//" + HTACCESS_CREDENTIALS + "@");
+	}
+
 	/**
 	 * Method to setup the account details of a given user
-	 * @param user with detailed information
+	 * 
+	 * @param user
+	 *            with detailed information
 	 */
 	private void setupAccountDetails(User user) {
 		set(accountActivation.firstName, user.firstName);
-        set(accountActivation.lastName, user.name);
-        set(accountActivation.companyName, user.company);
-        set(accountActivation.password, user.password);
-        set(accountActivation.confirmPassword, user.password);
-        click(accountActivation.termsAndCondition);
-        click(accountActivation.createAccountBtn);
+		set(accountActivation.lastName, user.name);
+		set(accountActivation.companyName, user.company);
+		set(accountActivation.password, user.password);
+		set(accountActivation.confirmPassword, user.password);
+		click(accountActivation.termsAndCondition);
+		click(accountActivation.createAccountBtn);
 	}
 }
