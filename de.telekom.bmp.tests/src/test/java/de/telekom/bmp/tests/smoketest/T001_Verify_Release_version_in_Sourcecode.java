@@ -43,11 +43,12 @@ public class T001_Verify_Release_version_in_Sourcecode {
 			ai.setVersion(RELEASE_VERSION);
 			db.save(ai);
 		}
-		navigateTo(homePage);
 	}
 
 	@Test
 	public void checkReleaseVersion() {
-		assertThat(homePage.version.getValue(), equalTo(ai.getVersion()));
+		navigateTo(homePage);
+		assertThat("BMP Version: ", homePage.version.getValue(),
+				equalTo(ai.getVersion()));
 	}
 }
