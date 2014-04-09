@@ -11,6 +11,7 @@ import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.FindApplicationsPage;
 
 import static de.telekom.testframework.Actions.*;
+import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.testng.Assert.*;
@@ -18,7 +19,8 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 @UseWebDriver
-@Test(groups = {"qcid-5506"})
+//@Test(groups = {"qcid-5506"})
+@QCId("4193")
 public class TC015_Start_a_free_Trial {
 
     @Inject
