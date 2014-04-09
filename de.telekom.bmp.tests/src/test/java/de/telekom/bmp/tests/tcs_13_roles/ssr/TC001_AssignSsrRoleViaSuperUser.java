@@ -60,7 +60,7 @@ public class TC001_AssignSsrRoleViaSuperUser {
 	CompanyPage chCompPg;
 
 	User superUser;
-	User rssrUser;
+	User ssrUser;
 
 	@BeforeTest
 	public void setup() {
@@ -68,15 +68,15 @@ public class TC001_AssignSsrRoleViaSuperUser {
 				.filter("valid", true).get();
 		Assert.assertThat("super useris available", superUser != null);
 
-		rssrUser = db.users().filter("role", UserRole.USER)
+		ssrUser = db.users().filter("role", UserRole.USER)
 				.filter("valid", true).field("name").contains("SET SSR").get();
 
-		if (rssrUser == null) {
+		if (ssrUser == null) {
 			Reporter.reportMessage("Create a new user");
-			rssrUser = User.createUser(MAIL_PREFIX);
-			rssrUser.name += "+SET SSR";
-			accHandling.registerAccount(rssrUser);
-			db.save(rssrUser);
+			ssrUser = User.createUser(MAIL_PREFIX);
+			ssrUser.name += "+SET SSR";
+			accHandling.registerAccount(ssrUser);
+			db.save(ssrUser);
 		} else {
 			Reporter.reportMessage("Use a registered user");
 		}
@@ -84,7 +84,7 @@ public class TC001_AssignSsrRoleViaSuperUser {
 
 	@AfterTest
 	public void tearDown() {
-		db.save(rssrUser);
+		db.save(ssrUser);
 	}
 
 	@Test
@@ -95,7 +95,7 @@ public class TC001_AssignSsrRoleViaSuperUser {
 
 		Assert.assertThat("Search field visible.", mpPg.smallSearchInput.isDisplayed());
 		Actions.click(mpPg.smallSearchInput);
-		Actions.set(mpPg.smallSearchInput, rssrUser.email);
+		Actions.set(mpPg.smallSearchInput, ssrUser.email);
 		mpPg.smallSearchInput.sendKeys(Keys.RETURN);
 		waitForMilliSec(1000);
 		
@@ -114,14 +114,14 @@ public class TC001_AssignSsrRoleViaSuperUser {
 		chCompPg.channelAdminChkbox.select();
 		Assert.assertThat("feedback company is channel admin is displayed.",
 				chCompPg.feedbackPanelINFO.isDisplayed());
-		Actions.click(chCompPg.userLnk.get(rssrUser.email));
+		Actions.click(chCompPg.userLnk.get(ssrUser.email));
 		Assert.assertThat("sales support checkbox is visible.",
 				chUserPg.salesSupportChkbox.isDisplayed());
 		chUserPg.salesSupportChkbox.select();
 		Assert.assertThat("feedback company is channel admin is displayed.",
 				chUserPg.feedbackPanelINFO.isDisplayed());
 		
-		rssrUser.role = UserRole.SSR;
+		ssrUser.role = UserRole.SSR;
 		fa.logout();
 	}
 
