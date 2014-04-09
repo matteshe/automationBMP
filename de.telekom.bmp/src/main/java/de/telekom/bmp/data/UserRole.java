@@ -11,5 +11,7 @@ public enum UserRole {
     DEVELOPER,
     SUPERUSER,
     CHANNELADMIN,
-    CHANNELSUPPORT
+    CHANNELSUPPORT,
+    SSR,
+    RSSR
 }
