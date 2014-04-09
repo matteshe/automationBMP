@@ -1,6 +1,6 @@
 package de.telekom.bmp.tests.tutorial;
 
-import de.telekom.bmp.pages.playground.FunctionalActions;
+import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.playground.PlayHeader;
 import de.telekom.bmp.pages.playground.PlayLogin;
 import de.telekom.bmp.pages.playground.PlayPortal;

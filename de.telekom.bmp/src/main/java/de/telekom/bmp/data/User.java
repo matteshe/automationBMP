@@ -1,113 +1,86 @@
 package de.telekom.bmp.data;
 
-import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
-
-import org.bson.types.ObjectId;
-
 import com.google.code.morphia.annotations.Entity;
 import com.google.code.morphia.annotations.Id;
 import com.google.code.morphia.annotations.Indexed;
+import com.google.code.morphia.annotations.Reference;
 import com.google.code.morphia.annotations.Version;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.TreeSet;
+import org.bson.types.ObjectId;
 
 /**
- * 
+ *
  * @author Daniel
  */
 @Entity
-public class User {
+public class User extends BaseEntity {
 
-	@Id
-	ObjectId id;
+    public String name;
 
-	@Version
-	long version;
+    public String firstName;
 
-	public String name;
+    public String companyName;
 
-	public String firstName;
+    @Indexed(unique = true)
+    public String email;
 
-	public String company;
+    public String password;
 
-	@Indexed(unique = true)
-	public String email;
+    public UserRole role;
 
-	public String password;
+    // public states
+    public boolean registered = false;
 
-	public UserRole role;
+    public Set<String> apps = new HashSet<>();
 
-	public boolean valid;
+    @Reference
+    public Company company;
 
-	// public states
-	public boolean registered = false;
+    @Reference
+    public Set<Application> applications = new HashSet<>();
 
-	public Set<String> apps = new TreeSet<>();
+    public User() {
+    }
 
-	public User() {
-	}
+    public User(String name, String mail) {
+        this(name, mail, UserRole.UNKNOWN);
+    }
+    
+    public User(String name, String mail, UserRole role) {
+        this.name = name;
+        this.email = mail;
+        this.role = role;
+    }
 
-	public User(String name, String mail, UserRole role) {
-		this.name = name;
-		this.email = mail;
-		this.role = role;
-	}
+    /**
+     * Create a user object with some default data
+     *
+     * @return a user instance
+     */
+    public static User createUser(String mailPrefix) {
+        User newUser = new User();
+        newUser.email = createMailAlias(mailPrefix);
+        newUser.password = "12345!QAY";
+        newUser.firstName = "max";
+        newUser.name = "mustermann";
+        newUser.companyName = "companyName";
+        newUser.registered = false;
+        newUser.valid = false;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+        return newUser;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    private static String createMailAlias(String mailPrefix) {
+        if ("".equals(mailPrefix)) {
+            mailPrefix = "mybmptestuser";
+        }
+        return mailPrefix + "+" + createMailAlias() + "@gmail.com";
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public void setRole(UserRole role) {
-		this.role = role;
-	}
-
-	public void setValid(boolean valid) {
-		this.valid = valid;
-	}
-
-	public void setRegistered(boolean registered) {
-		this.registered = registered;
-	}
-
-	public void setApps(Set<String> apps) {
-		this.apps = apps;
-	}
-
-	/**
-	 * Create a user object with some default data
-	 * 
-	 * @return a user instance
-	 */
-	public static User createUser(String mailPrefix) {
-		User newUser = new User();
-		newUser.email = createMailAlias(mailPrefix);
-		newUser.password = "12345!QAY";
-		newUser.firstName = "max";
-		newUser.name = "mustermann";
-		newUser.company = "companyName";
-		newUser.registered = false;
-		newUser.role = UserRole.USER;
-		newUser.valid = false;
-
-		return newUser;
-	}
-
-	private static String createMailAlias(String mailPrefix) {
-		if ("".equals(mailPrefix)) {
-			mailPrefix = "mybmptestuser";
-		}
-		return mailPrefix + "+" + createMailAlias() + "@gmail.com";
-	}
-
-	private static long createMailAlias() {
-		return (new Date()).getTime();
-	}
+    private static long createMailAlias() {
+        return (new Date()).getTime();
+    }
 }
