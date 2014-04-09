@@ -121,6 +121,7 @@ public class TC001_AssignSsrRoleViaChannelAdmin {
 		Assert.assertThat("feedback company is channel admin is displayed.",
 				chUserPg.feedbackPanelINFO.isDisplayed());
 		
+		ssrUser.role = UserRole.CHANNELADMIN;
 		fa.logout();
 	}
 
