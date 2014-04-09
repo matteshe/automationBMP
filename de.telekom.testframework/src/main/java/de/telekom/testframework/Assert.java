@@ -33,7 +33,7 @@ public class Assert {
         }
 
         try {
-            
+
             Wait.until(false, new Function<Boolean, Boolean>() {
                 @Override
                 public Boolean apply(Boolean input) {
@@ -279,5 +279,13 @@ public class Assert {
         } finally {
             Reporter.exiting(null, "verify that");
         }
+    }
+
+    public static void fail() {
+        throw new AssertionError();
+    }
+    
+    public static void fail(String message) {
+        throw new AssertionError(message);
     }
 }

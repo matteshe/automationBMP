@@ -2,7 +2,9 @@ package de.telekom.testframework.selenium.tests;
 
 import static de.telekom.testframework.Assert.*;
 import de.telekom.testframework.annotations.NoVerificationErrors;
+import de.telekom.testframework.reporting.Reporter;
 import de.telekom.testframework.selenium.matchers.CachedElementTypeSafeMatcher;
+import java.io.IOException;
 import org.hamcrest.Matcher;
 import static org.hamcrest.Matchers.*;
 import org.testng.annotations.BeforeMethod;
@@ -45,15 +47,15 @@ public class MatcherTest {
     @BeforeSuite
     @NoVerificationErrors
     public void beforeSuite() {
-        verifyThat(1, is(2));        
+        verifyThat(1, is(2));
     }
-    
+
     @BeforeMethod
     @NoVerificationErrors
     public void beforeMethod() {
-        verifyThat(1, is(2));        
+        verifyThat(1, is(2));
     }
-    
+
     @Test
     public void test1() {
         verifyThat(1, is(one()));
@@ -70,17 +72,65 @@ public class MatcherTest {
     public void test3() {
         verifyThat(2, one(is(true)));
     }
-    
-    @Test    
+
+    @Test
     public void test4() {
         verifyThat(1, one(is(true)));
     }
-    
-    @Test    
+
+    @Test
     public void test5() {
         verifyThat("abc", containsString("a"));
         verifyThat(1, one(is(true)));
-        verifyThat(1, isOneOf(1,2,3));
-        verifyThat(1, is(not(isOneOf(5,2,3))));
+        verifyThat(1, isOneOf(1, 2, 3));
+        verifyThat(1, is(not(isOneOf(5, 2, 3))));
     }
+
+    @SafeVarargs
+    public static Matcher<Runnable> throwing(final Class<? extends Throwable> throwableClass, final Class<? extends Throwable>... others) {
+
+        String othernames = "";
+        for (Class<?> c : others) {
+            if (!othernames.isEmpty()) {
+                othernames += " or ";
+            }
+            othernames += c.getSimpleName();
+        }
+
+        return new CachedElementTypeSafeMatcher<Runnable, Boolean>("throws " + throwableClass.getSimpleName() + (othernames.isEmpty() ? "" : " or " + othernames)) {
+
+            @Override
+            protected Object getValue(Runnable item) {
+                try {
+                    item.run();
+                } catch (Throwable t) {
+                    if (throwableClass.isInstance(t)) {
+                        return true;
+                    }
+
+                    for (Class<?> c : others) {
+                        if (c.isInstance(t)) {
+                            return true;
+                        }
+                    }
+
+                    throw t;
+                }
+                return false;
+            }
+        };
+    }
+
+    @Test
+    public void test6() {
+        verifyThat(new Runnable() {
+
+            @Override
+            public void run() {
+                Reporter.reportMessage("I am running...");
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+        }, is(throwing(IOException.class, UnsupportedOperationException.class)));
+    }
+
 }
