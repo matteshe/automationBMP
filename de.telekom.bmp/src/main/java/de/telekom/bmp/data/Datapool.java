@@ -1,7 +1,5 @@
 package de.telekom.bmp.data;
 
-import java.net.UnknownHostException;
-
 import com.google.code.morphia.Datastore;
 import com.google.code.morphia.Key;
 import com.google.code.morphia.Morphia;
@@ -10,79 +8,117 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
-
 import de.telekom.testframework.configuration.Configuration;
+import java.net.UnknownHostException;
 
 /**
- * 
+ *
  * @author Daniel
  */
 public class Datapool {
 
-	class MyConfiguration extends Configuration {
+    class MyConfiguration extends Configuration {
 
-		MyConfiguration() {
-			initialize();
-		}
+        MyConfiguration() {
+            initialize();
+        }
 
-		@Inject(optional = true)
-		@Named("BmpDatapool.host")
-		public String host = "localhost";
+        @Inject(optional = true)
+        @Named("BmpDatapool.host")
+        public String host = "localhost";
 
-		@Inject(optional = true)
-		@Named("BmpDatapool.host")
-		// TODO 20140407 this property is probably wrong?
-		public String datastore = "bmptest";
-	}
+        @Inject(optional = true)
+        @Named("BmpDatapool.datastore")
+        public String datastore = "bmptest";
+    }
 
-	MyConfiguration configuration = new MyConfiguration();
-	private Datastore dataStore = null;
+    private Morphia morphia;
+    private MongoClient client;
 
-	public Datastore getDatastore() {
-		if (dataStore == null) {
+    MyConfiguration configuration = new MyConfiguration();
+    private Datastore dataStore = null;
 
-			Morphia morphia = new Morphia();
+    public Datapool() {
+        this(null, null);
+    }
 
-			// map classes
-			morphia.map(User.class);
-			morphia.map(App.class);
+    public Datapool(String datastore) {
+        this(null, datastore);
+    }
 
-			try {
-				MongoClient client = new MongoClient(configuration.host);
+    public Datapool(String host, String datastore) {
+        if (host != null) {
+            configuration.host = host;
+        }
+        if (datastore != null) {
+            configuration.datastore = datastore;
+        }
 
-				dataStore = morphia.createDatastore(client,
-						configuration.datastore);
-			} catch (UnknownHostException ex) {
-				throw new RuntimeException("cannot create datastore", ex);
-			}
+        morphia = new Morphia();
 
-			dataStore.ensureIndexes();
-			dataStore.ensureCaps();
-		}
-		return dataStore;
-	}
+        // map classes
+        morphia.map(User.class);
+        morphia.map(App.class);
+        morphia.map(Application.class);
+        morphia.map(Company.class);
+        morphia.map(MailAccount.class);
+        morphia.map(ApplicationInfo.class);
 
-	public Query<User> users() {
-		return getDatastore().find(User.class);
-	}
+        try {
+            client = new MongoClient(configuration.host);
 
-	public Query<App> apps() {
-		return getDatastore().find(App.class);
-	}
+            dataStore = morphia.createDatastore(client, configuration.datastore);
+        } catch (UnknownHostException ex) {
+            throw new RuntimeException("cannot create morphia datastore", ex);
+        }
 
-	public Query<ApplicationInfo> appInfos() {
-		return getDatastore().find(ApplicationInfo.class);
-	}
+    }
 
-	public Query<MailAccount> mailAccounts() {
-		return getDatastore().find(MailAccount.class);
-	}
+    public void dropDatastore() {
+        client.dropDatabase(configuration.datastore);
+    }
 
-	public <T> Key<T> save(T entity) {
-		return getDatastore().save(entity);
-	}
+    public Datastore getDatastore() {
+        if (dataStore == null) {
 
-	public <T> Key<T> save(T entity, WriteConcern wc) {
-		return getDatastore().save(entity, wc);
-	}
+            dataStore = morphia.createDatastore(client, configuration.datastore);
+
+            dataStore.ensureIndexes();
+            dataStore.ensureCaps();
+        }
+        return dataStore;
+    }
+
+    public Query<User> users() {
+        return getDatastore().find(User.class);
+    }
+
+    public Query<App> apps() {
+        return getDatastore().find(App.class);
+    }
+
+    public Query<Application> applications() {
+        return getDatastore().find(Application.class);
+    }
+
+    public Query<Company> companies() {
+        return getDatastore().find(Company.class);
+    }
+
+    public Query<MailAccount> mailAccounts() {
+        return getDatastore().find(MailAccount.class);
+    }
+
+    public Query<ApplicationInfo> appInfos() {
+        return getDatastore().find(ApplicationInfo.class);
+    }
+
+    public <T> Key<T> save(T entity) {
+        return getDatastore().save(entity);
+    }
+
+    public <T> Key<T> save(T entity, WriteConcern wc) {
+        return getDatastore().save(entity, wc);
+    }
+
 }
