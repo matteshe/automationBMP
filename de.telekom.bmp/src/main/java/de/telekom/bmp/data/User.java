@@ -87,12 +87,14 @@ public class User {
 	 * @return a user instance
 	 */
 	public static User createUser(String mailPrefix) {
+		long postfixIdentifier = createPostfixId();
 		User newUser = new User();
-		newUser.email = createMailAlias(mailPrefix);
+
+		newUser.email = createMailAlias(mailPrefix, postfixIdentifier);
 		newUser.password = "12345!QAY";
-		newUser.firstName = "max";
-		newUser.name = "mustermann";
-		newUser.company = "companyName";
+		newUser.firstName = addIdentifier("max", postfixIdentifier);
+		newUser.name = addIdentifier("mustermann", postfixIdentifier);
+		newUser.company = addIdentifier("companyName", postfixIdentifier);
 		newUser.registered = false;
 		newUser.role = UserRole.USER;
 		newUser.valid = false;
@@ -100,14 +102,18 @@ public class User {
 		return newUser;
 	}
 
-	private static String createMailAlias(String mailPrefix) {
+	private static String addIdentifier(String value, long identifier) {
+		return value + "+" + identifier;
+	}
+
+	private static String createMailAlias(String mailPrefix, long identifier) {
 		if ("".equals(mailPrefix)) {
 			mailPrefix = "mybmptestuser";
 		}
-		return mailPrefix + "+" + createMailAlias() + "@gmail.com";
+		return addIdentifier(mailPrefix, identifier) + "@gmail.com";
 	}
 
-	private static long createMailAlias() {
+	private static long createPostfixId() {
 		return (new Date()).getTime();
 	}
 }
