@@ -31,7 +31,7 @@ import de.telekom.testframework.selenium.annotations.UseWebDriver;
  * 
  */
 @UseWebDriver
-@QCId("5597")
+@QCId("5607")
 public class TC001_AssignSsrRoleViaSuperUser {
 	private static final String MAIL_PREFIX = "mybmptestuser";
 
@@ -60,7 +60,7 @@ public class TC001_AssignSsrRoleViaSuperUser {
 	CompanyPage chCompPg;
 
 	User superUser;
-	User ssrUser;
+	User rssrUser;
 
 	@BeforeTest
 	public void setup() {
@@ -68,15 +68,15 @@ public class TC001_AssignSsrRoleViaSuperUser {
 				.filter("valid", true).get();
 		Assert.assertThat("super useris available", superUser != null);
 
-		ssrUser = db.users().filter("role", UserRole.USER)
+		rssrUser = db.users().filter("role", UserRole.USER)
 				.filter("valid", true).field("name").contains("SET SSR").get();
 
-		if (ssrUser == null) {
+		if (rssrUser == null) {
 			Reporter.reportMessage("Create a new user");
-			ssrUser = User.createUser(MAIL_PREFIX);
-			ssrUser.name += "+SET SSR";
-			accHandling.registerAccount(ssrUser);
-			db.save(ssrUser);
+			rssrUser = User.createUser(MAIL_PREFIX);
+			rssrUser.name += "+SET RSSR";
+			accHandling.registerAccount(rssrUser);
+			db.save(rssrUser);
 		} else {
 			Reporter.reportMessage("Use a registered user");
 		}
@@ -84,7 +84,7 @@ public class TC001_AssignSsrRoleViaSuperUser {
 
 	@AfterTest
 	public void tearDown() {
-		db.save(ssrUser);
+		db.save(rssrUser);
 	}
 
 	@Test
@@ -95,7 +95,7 @@ public class TC001_AssignSsrRoleViaSuperUser {
 
 		Assert.assertThat("Search field visible.", mpPg.smallSearchInput.isDisplayed());
 		Actions.click(mpPg.smallSearchInput);
-		Actions.set(mpPg.smallSearchInput, ssrUser.email);
+		Actions.set(mpPg.smallSearchInput, rssrUser.email);
 		mpPg.smallSearchInput.sendKeys(Keys.RETURN);
 		waitForMilliSec(1000);
 		
@@ -114,14 +114,14 @@ public class TC001_AssignSsrRoleViaSuperUser {
 		chCompPg.channelAdminChkbox.select();
 		Assert.assertThat("feedback company is channel admin is displayed.",
 				chCompPg.feedbackPanelINFO.isDisplayed());
-		Actions.click(chCompPg.userLnk.get(ssrUser.email));
+		Actions.click(chCompPg.userLnk.get(rssrUser.email));
 		Assert.assertThat("sales support checkbox is visible.",
 				chUserPg.salesSupportChkbox.isDisplayed());
 		chUserPg.salesSupportChkbox.select();
 		Assert.assertThat("feedback company is channel admin is displayed.",
 				chUserPg.feedbackPanelINFO.isDisplayed());
 		
-		ssrUser.role = UserRole.CHANNELADMIN;
+		rssrUser.role = UserRole.SSR;
 		fa.logout();
 	}
 
