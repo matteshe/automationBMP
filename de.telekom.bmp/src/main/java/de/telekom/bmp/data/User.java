@@ -28,21 +28,19 @@ public class User extends BaseEntity {
 
 	public UserRole role;
 
-	public boolean valid;
-
 	// public states
 	public boolean registered = false;
 
 	public Set<String> apps = new HashSet<>();
 
 	@Reference
-    public Company company;
+	public Company company;
 
-    @Reference
-    public Set<Application> applications = new HashSet<>();
+	@Reference
+	public Set<Application> applications = new HashSet<>();
 
-    public User() {
-    }
+	public User() {
+	}
 
 	public User(String name, String mail, UserRole role) {
 		this.name = name;
