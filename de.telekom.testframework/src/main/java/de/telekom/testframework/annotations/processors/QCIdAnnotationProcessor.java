@@ -33,10 +33,22 @@ public class QCIdAnnotationProcessor extends AbstractProcessor {
             Properties p = new Properties();
 
             for (Element element : roundEnv.getElementsAnnotatedWith(QCId.class)) {
-                QCId annotation = element.getAnnotation(QCId.class);
 
+                QCId annotation = element.getAnnotation(QCId.class);
+                if (annotation == null) {
+                    continue;
+                }
+
+                String old = p.getProperty(annotation.value(), null);
+                if (old != null) {
+                    processingEnv.getMessager().printMessage(
+                            Diagnostic.Kind.MANDATORY_WARNING,
+                            "QCId annotation " + annotation.value() + " from class " + element.toString()
+                            + " overrides the QCId annotation from class " + old,
+                            element);
+                }
                 p.setProperty(annotation.value(), element.toString());
-                System.out.println("found qcid " + annotation.value() + " => " + element.toString());
+                processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "found qcid " + annotation.value() + " => " + element.toString());
             }
 
             try {
@@ -53,9 +65,9 @@ public class QCIdAnnotationProcessor extends AbstractProcessor {
             } catch (IOException ex) {
                 processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, ex.getLocalizedMessage());
             }
-            
+
         }
-        
+
         return true;
     }
 

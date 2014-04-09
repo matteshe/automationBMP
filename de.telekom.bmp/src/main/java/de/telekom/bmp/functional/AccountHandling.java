@@ -117,7 +117,7 @@ public class AccountHandling {
 	private void setupAccountDetails(User user) {
 		set(accountActivation.firstName, user.firstName);
 		set(accountActivation.lastName, user.name);
-		set(accountActivation.companyName, user.company);
+		set(accountActivation.companyName, user.companyName);
 		set(accountActivation.password, user.password);
 		set(accountActivation.confirmPassword, user.password);
 		click(accountActivation.termsAndCondition);
