@@ -7,13 +7,15 @@ import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.VoucherTestApp001002003Page;
 import static de.telekom.testframework.Actions.*;
+import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 @UseWebDriver
-@Test(groups = {"qcid-5506"})
+//@Test(groups = {"qcid-5506"})
+@QCId("5503")
 public class TC011_View_Profile_of_a_Single_App_in_Search_Results {
 
     @Inject

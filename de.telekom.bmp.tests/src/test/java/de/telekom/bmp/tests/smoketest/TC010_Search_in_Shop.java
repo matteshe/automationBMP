@@ -7,13 +7,15 @@ import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import static de.telekom.testframework.Actions.navigateTo;
 import static de.telekom.testframework.Assert.assertThat;
+import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 @UseWebDriver
-@Test(groups = {"qcid-5506"})
+//@Test(groups = {"qcid-5506"})
+@QCId("5502")
 public class TC010_Search_in_Shop {
 
     @Inject
