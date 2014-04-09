@@ -1,6 +1,7 @@
 package de.telekom.bmp.data.tests;
 
 import static de.telekom.testframework.Assert.assertThat;
+import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
@@ -14,6 +15,7 @@ import de.telekom.bmp.data.Application;
 import de.telekom.bmp.data.Company;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.testframework.Assert;
 
 /**
  * 
@@ -78,47 +80,47 @@ public class DatapoolTests {
 		datapool.save(new User("user 7", "user7@testmail.com"));
 	}
 
-	// @Test(dependsOnMethods = { "createUser", "createCompany" })
-	// public void addUserToCompany() {
-	// User user = datapool.users().field("email").equal(email).get();
-	// assertThat("there is a valid user", user != null);
-	// user.valid = false;
-	//
-	// verifyThat("user has no company", user.company == null);
-	//
-	// try {
-	// user.company = datapool.companies().field("name")
-	// .equal(companyName).get();
-	//
-	// user.valid = true;
-	// } finally {
-	// datapool.save(user);
-	// }
-	// }
+	@Test(dependsOnMethods = { "createUser", "createCompany" })
+	public void addUserToCompany() {
+		User user = datapool.users().field("email").equal(email).get();
+		assertThat("there is a valid user", user != null);
+		user.valid = false;
 
-	// @Test(dependsOnMethods = {"createUsers", "createCompanies"})
-	// public void addUsersToCompany1() {
-	// Company company1 =
-	// datapool.companies().field("name").equal("company 1").get();
-	//
-	// for (User user :
-	// datapool.users().field("name").startsWith("user ").fetch()) {
-	// user.company = company1;
-	// datapool.save(user);
-	// }
-	//
-	// assertThat(datapool.users().field("company").equal(company1).asList(),
-	// is(not(empty())));
-	// }
+		Assert.verifyThat("user has no company", user.company == null);
 
-	// @Test(dependsOnMethods = "setupDatapool")
-	// public void addAUserAndACompany() {
-	// User user = new User("A User with a Company",
-	// "auserwithacompany@testmail.com");
-	// user.company = new Company("a company with a user");
-	// datapool.save(user.company);
-	// datapool.save(user);
-	// }
+		try {
+			user.company = datapool.companies().field("name")
+					.equal(companyName).get();
+
+			user.valid = true;
+		} finally {
+			datapool.save(user);
+		}
+	}
+
+	@Test(dependsOnMethods = { "createUsers", "createCompanies" })
+	public void addUsersToCompany1() {
+		Company company1 = datapool.companies().field("name")
+				.equal("company 1").get();
+
+		for (User user : datapool.users().field("name").startsWith("user ")
+				.fetch()) {
+			user.company = company1;
+			datapool.save(user);
+		}
+
+		assertThat(datapool.users().field("company").equal(company1).asList(),
+				is(not(empty())));
+	}
+
+	@Test(dependsOnMethods = "setupDatapool")
+	public void addAUserAndACompany() {
+		User user = new User("A User with a Company",
+				"auserwithacompany@testmail.com");
+		user.company = new Company("a company with a user");
+		datapool.save(user.company);
+		datapool.save(user);
+	}
 
 	@Test(dependsOnMethods = "setupDatapool")
 	public void createApplication() {
@@ -137,24 +139,24 @@ public class DatapoolTests {
 		datapool.save(new Application("application 3"));
 	}
 
-	// @Test(dependsOnMethods = { "createUser", "createApplication" })
-	// public void addApplicationToUser() {
-	// User user = datapool.users().field("email").equal(email).get();
-	// assertThat("there is a valid user", user != null);
-	//
-	// Application application = datapool.applications().field("name")
-	// .equal(applicationName).get();
-	// assertThat("there is a valid application", application != null);
-	//
-	// user.applications.add(application);
-	//
-	// datapool.save(user);
-	//
-	// assertThat(
-	// datapool.users().field("applications")
-	// .hasThisElement(application).asList(), is(not(empty())));
-	// assertThat(
-	// datapool.users().field("applications")
-	// .hasThisElement(application).get(), is(user));
-	// }
+	@Test(dependsOnMethods = { "createUser", "createApplication" })
+	public void addApplicationToUser() {
+		User user = datapool.users().field("email").equal(email).get();
+		assertThat("there is a valid user", user != null);
+
+		Application application = datapool.applications().field("name")
+				.equal(applicationName).get();
+		assertThat("there is a valid application", application != null);
+
+		user.applications.add(application);
+
+		datapool.save(user);
+
+		assertThat(
+				datapool.users().field("applications")
+						.hasThisElement(application).asList(), is(not(empty())));
+		assertThat(
+				datapool.users().field("applications")
+						.hasThisElement(application).get(), is(user));
+	}
 }
