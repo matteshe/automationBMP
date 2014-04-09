@@ -5,5 +5,5 @@
 .settings/
 .classpath
 .project
-/test-output/
+test-output
 /generated/
