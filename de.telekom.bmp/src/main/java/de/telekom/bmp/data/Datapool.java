@@ -55,11 +55,14 @@ public class Datapool {
         }
 
         morphia = new Morphia();
+
         // map classes
         morphia.map(User.class);
         morphia.map(App.class);
         morphia.map(Application.class);
         morphia.map(Company.class);
+        morphia.map(MailAccount.class);
+        morphia.map(ApplicationInfo.class);
 
         try {
             client = new MongoClient(configuration.host);
@@ -100,6 +103,14 @@ public class Datapool {
 
     public Query<Company> companies() {
         return getDatastore().find(Company.class);
+    }
+
+    public Query<MailAccount> mailAccounts() {
+        return getDatastore().find(MailAccount.class);
+    }
+
+    public Query<ApplicationInfo> appInfos() {
+        return getDatastore().find(ApplicationInfo.class);
     }
 
     public <T> Key<T> save(T entity) {
