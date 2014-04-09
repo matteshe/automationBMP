@@ -74,7 +74,7 @@ public class TC001_AssignSsrRoleViaSuperUser {
 		if (rssrUser == null) {
 			Reporter.reportMessage("Create a new user");
 			rssrUser = User.createUser(MAIL_PREFIX);
-			rssrUser.name += "+SET RSSR";
+			rssrUser.name += "+SET SSR";
 			accHandling.registerAccount(rssrUser);
 			db.save(rssrUser);
 		} else {
