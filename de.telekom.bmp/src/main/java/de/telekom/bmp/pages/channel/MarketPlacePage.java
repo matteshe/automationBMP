@@ -94,6 +94,10 @@ public class MarketPlacePage extends Page {
 	@FindBy(xpath = "//div[@class='smallSearch']//input")
 	public TextField smallSearchInput;
 
-	@FindBy(xpath = "//table[@class ='item-table billsTable']//span[text() = '%s'")
-	public Parameterized<Link> userInListLnk;
+	// @FindBy(xpath =
+	// "//table[@class ='item-table billsTable']//span[text() = '%s'")
+	//@FindBy(linkText = "%s")
+	//@FindBy(xpath = "//tr[@id='id2e']/td[6]/span")
+	@FindBy(xpath = "//table[@class ='item-table billsTable']//tr/td/span")
+	public WebElement userInListLnk;
 }
