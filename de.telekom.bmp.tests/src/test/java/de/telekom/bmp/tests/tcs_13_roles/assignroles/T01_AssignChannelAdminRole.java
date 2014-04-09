@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.telekom.bmp.tests.assign_roles;
+package de.telekom.bmp.tests.tcs_13_roles.assignroles;
 
 import javax.inject.Inject;
 
