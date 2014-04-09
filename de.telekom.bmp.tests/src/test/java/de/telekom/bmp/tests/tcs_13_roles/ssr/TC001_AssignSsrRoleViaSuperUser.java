@@ -32,7 +32,7 @@ import de.telekom.testframework.selenium.annotations.UseWebDriver;
  */
 @UseWebDriver
 @QCId("5597")
-public class TC001_AssignSsrRoleViaChannelAdmin {
+public class TC001_AssignSsrRoleViaSuperUser {
 	private static final String MAIL_PREFIX = "mybmptestuser";
 
 	@Inject
