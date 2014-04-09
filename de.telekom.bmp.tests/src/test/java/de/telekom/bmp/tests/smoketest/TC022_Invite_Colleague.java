@@ -81,6 +81,9 @@ public class TC022_Invite_Colleague {
             set(dashboardPage.inviteEmailInput, emailtoInvite);
             click(dashboardPage.singleInviteBtn);
             assertThat(dashboardPage.inviteSuccessfullTxt.isDisplayed());
+            
+            
+            
 
             click(header.accountMenu.logoutLnk);
 
