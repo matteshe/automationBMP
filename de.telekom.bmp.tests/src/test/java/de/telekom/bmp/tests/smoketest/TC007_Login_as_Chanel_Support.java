@@ -1,18 +1,20 @@
 package de.telekom.bmp.tests.smoketest;
 
 import com.google.inject.Inject;
+
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
-import de.telekom.bmp.pages.MarketPlacePage;
+import de.telekom.bmp.pages.channel.MarketPlacePage;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.testng.Assert.*;
+
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
