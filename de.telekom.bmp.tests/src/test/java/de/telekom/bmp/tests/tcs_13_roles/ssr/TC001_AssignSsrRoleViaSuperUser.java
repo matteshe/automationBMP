@@ -88,7 +88,7 @@ public class TC001_AssignSsrRoleViaSuperUser {
 	}
 
 	@Test
-	public void assignSrrRole() {
+	public void assignSsrRole() {
 		fa.login(superUser.email, superUser.password);
 		Actions.click(hPage.settingsMenu.channelUserLnk);
 		Actions.click(mpPg.customerLnk);
