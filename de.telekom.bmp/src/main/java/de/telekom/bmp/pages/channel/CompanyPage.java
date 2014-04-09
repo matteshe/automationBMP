@@ -8,12 +8,15 @@ import javax.inject.Singleton;
 
 import org.openqa.selenium.support.FindBy;
 
-import de.telekom.testframework.selenium.Application;
+import de.telekom.bmp.BmpApplication;
 import de.telekom.testframework.selenium.Page;
+import de.telekom.testframework.selenium.Parameterized;
 import de.telekom.testframework.selenium.annotations.Path;
 import de.telekom.testframework.selenium.annotations.UseParent;
 import de.telekom.testframework.selenium.controls.Control;
+import de.telekom.testframework.selenium.controls.Link;
 import de.telekom.testframework.selenium.controls.Option;
+import de.telekom.testframework.selenium.controls.Text;
 
 /**
  * @author Mathias Herkt
@@ -24,7 +27,7 @@ import de.telekom.testframework.selenium.controls.Option;
 public class CompanyPage extends Page {
 
 	@Inject
-	public CompanyPage(Application application) {
+	public CompanyPage(BmpApplication application) {
 		super(application);
 	}
 
@@ -46,4 +49,10 @@ public class CompanyPage extends Page {
 	@FindBy(xpath = "//input[contains(@name,'rssrGranting')]")
 	@UseParent("csrDetailTopCompanyParent")
 	public Option rssrGrantingChkbox;
+
+	@FindBy(xpath = "//span[@class='feedbackPanelINFO']")
+	public Text feedbackPanelINFO;
+
+	@FindBy(xpath = "//table[@class='item-table billsTable']//span[text() = '%s']")
+	public Parameterized<Link> userLnk;
 }
