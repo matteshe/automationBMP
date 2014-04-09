@@ -19,7 +19,7 @@ import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-@QCId("123456")
+@QCId("5496")
 @UseWebDriver
 public class TC004_Login_as_Superuser {
     

@@ -23,7 +23,7 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 @UseWebDriver
-@QCId("123456")
+@QCId("5491")
 public class TC008_SSR_Start_Purchase_for_Customer {
 
     @Inject

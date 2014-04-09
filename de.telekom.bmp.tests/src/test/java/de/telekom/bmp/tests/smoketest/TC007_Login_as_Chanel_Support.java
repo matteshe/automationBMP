@@ -18,7 +18,7 @@ import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-@QCId("123456")
+@QCId("4126")
 @UseWebDriver
 public class TC007_Login_as_Chanel_Support {
     

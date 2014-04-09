@@ -23,7 +23,7 @@ import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-@QCId("123456")
+@QCId("5492")
 @UseWebDriver
 public class TC009_Create_Company_as_SSR {
 
