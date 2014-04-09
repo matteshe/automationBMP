@@ -53,6 +53,10 @@ public class User {
 		this.role = role;
 	}
 
+	public User(String name, String mail) {
+		this(name, mail, UserRole.USER);
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
