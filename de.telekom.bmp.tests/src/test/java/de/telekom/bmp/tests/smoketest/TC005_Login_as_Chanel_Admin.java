@@ -19,7 +19,7 @@ import static org.testng.Assert.*;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-@QCId("123456")
+@QCId("4125")
 @UseWebDriver
 public class TC005_Login_as_Chanel_Admin {
 
