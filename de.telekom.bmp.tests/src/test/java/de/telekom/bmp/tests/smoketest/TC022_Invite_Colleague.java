@@ -4,6 +4,8 @@ import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.functional.AccountHandling;
+import de.telekom.bmp.functional.GoogleMailAccount;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
@@ -12,6 +14,7 @@ import de.telekom.bmp.pages.account.Dashboard;
 
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
+import de.telekom.testframework.selenium.Browser;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import java.util.Date;
@@ -43,6 +46,15 @@ public class TC022_Invite_Colleague {
 
     @Inject
     Datapool datapool;
+
+    @Inject
+    GoogleMailAccount googleMailAccount;
+    
+    @Inject
+    AccountHandling accountHandling;
+
+    @Inject
+    Browser browser;
 
 // Needed user
     private User user;
@@ -87,7 +99,12 @@ public class TC022_Invite_Colleague {
             assertThat(home, isCurrentPage());
 
             Thread.sleep(5000);
-            
+
+            // read email
+            String confirmLink = accountHandling.getConfirmLink(user.email,
+                    GoogleMailAccount.INVITE);
+            browser.navigate().to(confirmLink);
+
             createUserToSave();
 //            user.valid = true;
         } finally {
@@ -99,6 +116,9 @@ public class TC022_Invite_Colleague {
 
     private void createUserToSave() {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
     }
+
+    
 
 }
