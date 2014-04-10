@@ -19,7 +19,7 @@ import org.openqa.selenium.support.FindBy;
  */
 @Singleton
 
-@Path("/payment")
+@Path("/orderreceipt")
 public class OrderReceipt extends Page {
 
     @Inject

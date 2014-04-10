@@ -10,6 +10,7 @@ import de.telekom.bmp.pages.MyApps;
 
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
+import static de.telekom.testframework.selenium.Matchers.*;
 
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import javax.inject.Inject;
@@ -57,12 +58,12 @@ public class TC029_TooltipOnOverviewTab {
         
        navigateTo(launchpad);
        click(launchpad.helpBtn);
-       verifyThat(launchpad.helpText.isDisplayed());
-       String s = "Über diese Seite haben Sie Zugang zu all Ihren Applikationen. Klicken Sie einfach auf eine der Applikationen, um auf diese zuzugreifen.";
-       verifyThat(launchpad.helpText.getText(), is(s));
+       verifyThat(launchpad.helpText, is(displayed()));
+       //String s = "Über diese Seite haben Sie Zugang zu all Ihren Applikationen. Klicken Sie einfach auf eine der Applikationen, um auf diese zuzugreifen.";
+       verifyThat(launchpad.helpText, value(is(launchpad.TextFromHelpIcon)));
        click(launchpad.closeHelpBtn);
        click(launchpad.helpBtn);
-       verifyThat(launchpad.helpText.isDisplayed());
+       verifyThat(launchpad.helpText, is(displayed()));
        functional.logout();
 
        

@@ -2,6 +2,7 @@ package de.telekom.bmp.pages.purchase;
             
 import de.telekom.bmp.BmpApplication;
 import de.telekom.testframework.selenium.Page;
+import de.telekom.testframework.selenium.Parameterized;
 import de.telekom.testframework.selenium.annotations.Path;
 import de.telekom.testframework.selenium.controls.*;
 import de.telekom.testframework.selenium.internal.FieldElementLocator;
@@ -43,6 +44,9 @@ public class CreateOrder extends Page {
     @FindBy(xpath= "//div[contains(@class, 'editionRow')]")
     public List<EditionRow> editions;
       
+    @FindBy(xpath= "//div[contains(@class, 'editionRow')]//label[text()='%s']//../..")
+    public Parameterized<EditionRow> edition;
+     
     @FindBy (name = "discountCodeContainer:discountCode")
     public TextField discountCode;
        

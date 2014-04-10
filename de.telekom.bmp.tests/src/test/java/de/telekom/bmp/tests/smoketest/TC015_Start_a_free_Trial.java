@@ -20,7 +20,7 @@ import org.testng.annotations.Test;
 
 @UseWebDriver
 //@Test(groups = {"qcid-5506"})
-@QCId("4193")
+@QCId("4133")
 public class TC015_Start_a_free_Trial {
 
     @Inject
@@ -69,10 +69,11 @@ public class TC015_Start_a_free_Trial {
     public void test_015_Start_a_free_Trial() {
 
         try {
-            set(login.usernameInput, user.email);
-
-            set(login.passwordInput, user.password);
-
+            //set(login.usernameInput, user.email);
+            //set(login.passwordInput, user.password);
+            
+            set(login.usernameInput, "dtagtester01+reg138a@googlemail.com");
+            set(login.passwordInput, "baum1301");
             click(login.signinBtn);
 
             //TODO configure search Text. Properties File?

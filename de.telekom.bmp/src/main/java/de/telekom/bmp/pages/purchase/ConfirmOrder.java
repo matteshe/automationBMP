@@ -16,7 +16,7 @@ import org.openqa.selenium.support.FindBy;
  */
 @Singleton
 
-@Path("/orderreceipt")
+@Path("/payment")
 public class ConfirmOrder extends Page {
 
     @Inject
