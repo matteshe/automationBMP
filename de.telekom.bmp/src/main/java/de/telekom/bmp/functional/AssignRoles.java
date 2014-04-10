@@ -3,12 +3,9 @@
  */
 package de.telekom.bmp.functional;
 
-import static de.telekom.testframework.Actions.click;
-import static de.telekom.testframework.Actions.set;
-import static de.telekom.testframework.Assert.assertThat;
-import static de.telekom.testframework.Assert.waitFor;
-import static de.telekom.testframework.selenium.Matchers.displayed;
-import static org.hamcrest.Matchers.is;
+import static de.telekom.testframework.Actions.*;
+import static de.telekom.testframework.selenium.Matchers.*;
+import static org.hamcrest.Matchers.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,6 +17,7 @@ import de.telekom.bmp.data.User;
 import de.telekom.bmp.data.UserRole;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.superuser.DashboardPage;
+import de.telekom.testframework.reporting.Reporter;
 
 /**
  * This class gives you some methods to assign roles to users
@@ -55,6 +53,34 @@ public class AssignRoles {
 		
 		click(suDashboardPg.superUserChkBox);
 		newSuUser.role = UserRole.SUPERUSER;
+		fa.logout();
+	}
+
+	public void assignChannelAdmin(User superUser, User userForChannelAdmin) {
+		fa.login(superUser.email, superUser.password);
+		click(headPg.settingsMenu.superuserLnk);
+
+		click(suDashboardPg.companyLnk);
+		assertThat(suDashboardPg.smallSearchInput, is(displayed()));
+
+		click(suDashboardPg.smallSearchInput);
+		set(suDashboardPg.smallSearchInput, userForChannelAdmin.companyName);
+		Reporter.reportMessage("Send Return to small search text field");
+		set(suDashboardPg.smallSearchInput, Keys.RETURN);
+		
+		assertThat(suDashboardPg.channelAdminChkBox, is(not(selected())));
+		click(suDashboardPg.channelAdminChkBox);
+		click(suDashboardPg.userLnk);
+
+		click(suDashboardPg.smallSearchInput);
+		set(suDashboardPg.smallSearchInput, userForChannelAdmin.email);
+		Reporter.reportMessage("Send Return to small search text field");
+		set(suDashboardPg.smallSearchInput,Keys.RETURN);
+		
+		assertThat(suDashboardPg.userChannelAdminChkBox, is(displayed()));
+		assertThat(suDashboardPg.userChannelAdminChkBox, is(not(selected())));
+		click(suDashboardPg.userChannelAdminChkBox);
+		userForChannelAdmin.role = UserRole.CHANNELADMIN;
 		fa.logout();
 	}
 
