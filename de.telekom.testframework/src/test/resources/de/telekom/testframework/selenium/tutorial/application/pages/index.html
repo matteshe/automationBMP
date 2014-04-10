@@ -23,6 +23,18 @@
                     <input type="text" name="disabledText" disabled="disabled" value="this is not enabled"/>
                 </p>
             </form>
+
+            <form action="def">
+                <script type="text/ecmascript" src="toggleDisabledButton.js" ></script>
+                                   
+                <p>
+                    disabled field:
+                    <input type="text" name="disabledField" disabled="disabled" />
+                </p>
+                <p>                   
+                    <input type="button" name="toggleDisableField"  value="enable the disabled field" onclick="toggleDisabledField()"/>
+                </p>
+            </form>
         </div>
     </body>
 </html>

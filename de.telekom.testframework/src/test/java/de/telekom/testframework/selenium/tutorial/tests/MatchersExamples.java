@@ -8,6 +8,7 @@ import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import de.telekom.testframework.selenium.tutorial.application.pages.Home;
 import javax.inject.Inject;
 import static org.hamcrest.Matchers.*;
+import org.openqa.selenium.NoSuchElementException;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -33,6 +34,9 @@ public class MatchersExamples {
 
         verifyThat(home.notExistingText, not(exists()));
         verifyThat(home.notExistingText, not(exists()));
+
+        verifyThat(home.username, exists(), 2);
+        verifyThat(home.notExistingText, not(exists()), 2);
     }
 
     @Test
@@ -73,5 +77,16 @@ public class MatchersExamples {
     public void loadedExample() {
         verifyThat(home, is(loaded()));
         verifyThat(home, loaded(is(true)));
+    }
+
+    @Test
+    public void testLists() {
+        verifyThat(home.notExistingTexts, is(empty()));
+    }
+
+    @Test(expectedExceptions = NoSuchElementException.class)
+    public void testVerifyWithNotExistingElementThrowsAnException() {
+        verifyThat(home.notExistingText, not(exists()));
+        verifyThat(home.notExistingText, value(is("abc")));
     }
 }

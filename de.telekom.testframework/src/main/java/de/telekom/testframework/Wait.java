@@ -1,7 +1,6 @@
 package de.telekom.testframework;
 
 import com.google.common.base.Function;
-
 import de.telekom.testframework.selenium.WebDriverWrapper;
 import java.util.concurrent.TimeUnit;
 import org.hamcrest.Matcher;
