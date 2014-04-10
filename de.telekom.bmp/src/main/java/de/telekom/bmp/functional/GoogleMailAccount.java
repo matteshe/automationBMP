@@ -24,7 +24,6 @@ public class GoogleMailAccount {
 
 	public static final String CONFIRM_MAIL = "Bitte bestätigen";
 	public static final String PW_RESET = "Passwortzurücksetzung";
-	public static final String INVITE = "eingeladen";
 
 	@Inject
 	Datapool db;
@@ -53,14 +52,23 @@ public class GoogleMailAccount {
 		}
 	}
 
+	/**
+	 * This methods navigates to a google account and try to find a mail, based
+	 * on a given partial string as subject. In this mail should be a link
+	 * with the given domain, which will be extracted.
+	 *  
+	 * @param linkDomain is part of the BMP App domain in the link (e.g. bmptest.de)
+	 * @param partialSubject text contains in subject
+	 * @return
+	 */
 	public String checkGoogleMailAccountAndExtractConfirmLink(
-			String linkDomain, String mailCategory) {
+			String linkDomain, String partialSubject) {
 		browser.navigate().to(mailAccount.getProvider());
 
 		loginIntoGoogleMailAccount();
 
 		String confirmLink = readMailAndFindConfirmLink(linkDomain,
-				mailCategory);
+				partialSubject);
 
 		logoutMailAccount();
 
