@@ -49,5 +49,6 @@ public class MyApps extends Page {
     @FindBy(xpath = "//div[@class = 'icon remove']")
     public Button closeHelpBtn;
     
-    
+    public String TextFromHelpIcon = "Über diese Seite haben Sie Zugang zu all Ihren Applikationen. Klicken Sie einfach auf eine der Applikationen, um auf diese zuzugreifen.";
+     
 }
