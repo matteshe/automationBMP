@@ -5,10 +5,8 @@ import static de.telekom.testframework.Actions.navigateTo;
 import static de.telekom.testframework.Actions.set;
 import static de.telekom.testframework.Assert.assertThat;
 import static de.telekom.testframework.selenium.Matchers.exists;
-import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import static org.testng.Assert.assertNotNull;
 
-import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.Keys;
@@ -94,62 +92,6 @@ public class TC022_Invite_Colleague {
 //        user.valid = false;
         navigateTo(login);
 
-    }
-
-    //@Test
-    public void test_022_Invite_Colleague() throws InterruptedException {
-
-        try {
-            set(login.usernameInput, user.email);
-
-            set(login.passwordInput, user.password);
-
-            click(login.signinBtn);
-
-            click(header.settingsMenu.accountLnk);
-
-// WORKAROUND BECAUSE OF CMS
-//            navigateTo(myApps);
-//
-//            assertThat(myApps, currentPage());
-            String emailtoInvite = "mybmptestuser+toInvite" + new Date().getTime() + "@gmail.com";
-            set(dashboardPage.inviteEmailInput, emailtoInvite);
-            click(dashboardPage.singleInviteBtn);
-            assertThat(dashboardPage.inviteSuccessfullTxt.isDisplayed());
-            
-            
-            
-
-            click(header.accountMenu.logoutLnk);
-
-            assertThat(home, isCurrentPage());
-
-            Thread.sleep(5000);
-            
-            createUserToSave();
-//            user.valid = true;
-        } finally {
-            user.registered = true;
-            datapool.save(user);
-        }
-
-    }
-
-    private void createUserToSave() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    //@Test
-    public void justLogin() {
-    	User normalUser = datapool.users().filter("role", UserRole.USER).filter("valid",true).get();
-    	assertThat("normal user exists.", normalUser != null);
-    	
-    	assertThat("user logged out", login.signinBtn.isDisplayed());
-    	fa.login(normalUser.email, normalUser.password);
-    	Assert.waitFor(2, TimeUnit.SECONDS);
-    	fa.logout();
-    	assertThat("user logged out", login.signinBtn.isDisplayed());
-    	Assert.waitFor(5, TimeUnit.SECONDS);
     }
     
     @Test
