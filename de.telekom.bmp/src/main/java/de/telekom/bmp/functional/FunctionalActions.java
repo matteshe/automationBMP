@@ -30,7 +30,7 @@ public class FunctionalActions {
     }
     
     public void login(User user) {
-    	login(user.email, user.email);
+    	login(user.email, user.password);
     }
 
     public void logout() {
