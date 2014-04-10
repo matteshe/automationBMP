@@ -1,11 +1,9 @@
 package de.telekom.bmp.tests.smoketest;
 
-import static de.telekom.testframework.Actions.click;
-import static de.telekom.testframework.Actions.navigateTo;
-import static de.telekom.testframework.Actions.set;
-import static de.telekom.testframework.Assert.assertThat;
-import static de.telekom.testframework.selenium.Matchers.exists;
-import static org.testng.Assert.assertNotNull;
+import static de.telekom.testframework.Actions.*;
+import static de.telekom.testframework.Assert.*;
+import static de.telekom.testframework.selenium.Matchers.*;
+import static org.hamcrest.Matcher.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -77,19 +75,8 @@ public class TC022_Invite_Colleague {
     @Inject
     Datapool datapool;
 
-// Needed user
-    private User user;
-
     @BeforeTest
     public void setup() {
-        // Login with a normal User
-        user = datapool.users().field("valid").equal(true)
-                .field("registered").notEqual(false)
-                .field("email").equal("mybmptestuser+normaluser@gmail.com").get();
-
-        assertNotNull(user, "cannot find a valid user");
-
-//        user.valid = false;
         navigateTo(login);
 
     }
