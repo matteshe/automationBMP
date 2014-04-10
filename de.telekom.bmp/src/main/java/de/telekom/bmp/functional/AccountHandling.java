@@ -3,17 +3,21 @@
  */
 package de.telekom.bmp.functional;
 
-import static de.telekom.testframework.Actions.click;
-import static de.telekom.testframework.Actions.navigateTo;
-import static de.telekom.testframework.Actions.set;
-import static de.telekom.testframework.Assert.assertThat;
+import static de.telekom.testframework.Actions.*;
+import static de.telekom.testframework.selenium.Matchers.*;
+import static org.hamcrest.Matchers.*;
 
 import javax.inject.Inject;
 
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
+import de.telekom.bmp.pages.InvitationPage;
+import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.Signup;
+import de.telekom.bmp.pages.account.Dashboard;
 import de.telekom.bmp.pages.accountsetup.AccountActivationPage;
+import de.telekom.testframework.Actions;
 import de.telekom.testframework.reporting.Reporter;
 import de.telekom.testframework.selenium.Browser;
 
@@ -34,6 +38,21 @@ public class AccountHandling {
 
 	@Inject
 	Browser browser;
+	
+	@Inject
+	Login login;
+	
+	@Inject
+	Header header;
+	
+	@Inject
+	Dashboard dashboardPage;
+	
+	@Inject
+	Home home;
+	
+	@Inject
+    InvitationPage invitePage;
 
 	@Inject
 	AccountActivationPage accountActivation;
@@ -126,5 +145,48 @@ public class AccountHandling {
 		set(accountActivation.confirmPassword, user.password);
 		click(accountActivation.termsAndCondition);
 		click(accountActivation.createAccountBtn);
+	}
+
+	/**
+	 * Invite a user
+	 * @param user which will invite another user
+	 * @param invitedUser the user to be invited
+	 */
+	public void inviteUser(User user, User invitedUser) {
+		assertThat(user, is(not(nullValue())));
+		assertThat(invitedUser, is(not(nullValue())));
+    	verifyThat(header.loginBtn, is(displayed()));
+    	
+    	fa.login(user.email, user.password);
+    	click(header.settingsMenu.accountLnk);
+    	    	
+    	set(dashboardPage.inviteEmailInput, invitedUser.email);
+        click(dashboardPage.singleInviteBtn);
+        assertThat(dashboardPage.inviteSuccessfullTxt, is(displayed()));
+        
+        Actions.navigateTo(home);
+        fa.logout();
+        assertThat(header.loginBtn, is(displayed()));        
+        
+        gmail.setMailAccount(invitedUser.email);
+        String confirmLink = gmail.checkGoogleMailAccountAndExtractConfirmLink(APP_DOMAIN, user.name);
+        assertThat("confirm link is not empty", !"".equals(confirmLink));
+        confirmLink = addHtaccessCredentials(confirmLink);
+        
+        browser.navigate().to(confirmLink);
+        setupAccountInformations(invitedUser);
+        
+        fa.logout();
+        assertThat(header.loginBtn, is(displayed()));
+	}
+	
+	private void setupAccountInformations(User user) {
+    	assertThat(invitePage.firstNameInput, is(displayed()));
+		set(invitePage.firstNameInput, user.firstName);
+		set(invitePage.lastNameInput, user.name);
+		set(invitePage.passwordInput, user.password);
+		set(invitePage.confirmPasswordInput, user.password);
+		click(invitePage.submit);
+		user.registered = true;
 	}
 }
