@@ -56,6 +56,11 @@ public class AssignRoles {
 		fa.logout();
 	}
 
+	/**
+	 * Assign the channel admin role to a given user
+	 * @param superUser is a super user who as the rights to assign a super user 
+	 * @param userForChannelAdmin user which should get channel admin rights
+	 */
 	public void assignChannelAdmin(User superUser, User userForChannelAdmin) {
 		fa.login(superUser.email, superUser.password);
 		click(headPg.settingsMenu.superuserLnk);
