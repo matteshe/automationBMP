@@ -24,7 +24,7 @@ public class GoogleMailAccount {
 
 	public static final String CONFIRM_MAIL = "Bitte bestätigen";
 	public static final String PW_RESET = "Passwortzurücksetzung";
-	public static final String INVITE = "einladen";
+	public static final String INVITE = "eingeladen";
 
 	@Inject
 	Datapool db;
