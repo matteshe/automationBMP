@@ -17,7 +17,7 @@ import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.testng.Assert.assertNotNull;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @UseWebDriver
@@ -55,7 +55,7 @@ public class TC013_Booking_Exchange_Online_Plan_1 {
     // Needed user
     User user;
 
-    @BeforeTest
+    @BeforeMethod
     public void setup() {
         user = datapool.users().field("valid").equal(true)
                 .field("registered").notEqual(false)

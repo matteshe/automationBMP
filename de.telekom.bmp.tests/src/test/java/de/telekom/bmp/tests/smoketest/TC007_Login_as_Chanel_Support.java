@@ -15,7 +15,7 @@ import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.testng.Assert.*;
 
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @QCId("4126")
@@ -43,7 +43,7 @@ public class TC007_Login_as_Chanel_Support {
     // Needed user
     User user;
     
-    @BeforeTest
+    @BeforeMethod
     public void setup() {
         user = datapool.users().field("valid").equal(true)
                                .field("registered").notEqual(false)

@@ -12,8 +12,8 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import org.openqa.selenium.Keys;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import de.telekom.bmp.data.Datapool;
@@ -65,7 +65,7 @@ public class TC004_SearchUserAsRssr {
 	User rssrUser;
 	User normalUser;
 
-	@BeforeTest
+	@BeforeMethod
 	public void setup() {
 		rssrUser = db.users().filter("role", UserRole.RSSR)
 				.filter("valid", true).get();
@@ -76,7 +76,7 @@ public class TC004_SearchUserAsRssr {
 		Assert.assertThat("Normal user is available.", normalUser != null);
 	}
 
-	@AfterTest
+	@AfterMethod
 	public void tearDown() {
 		db.save(rssrUser);
 	}

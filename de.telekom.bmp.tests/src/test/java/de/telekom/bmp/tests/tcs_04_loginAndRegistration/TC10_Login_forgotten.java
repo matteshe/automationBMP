@@ -7,8 +7,8 @@ import static de.telekom.testframework.Assert.assertThat;
 import static de.telekom.testframework.Assert.verifyThat;
 
 import org.openqa.selenium.NoSuchElementException;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.google.inject.Inject;
@@ -71,7 +71,7 @@ public class TC10_Login_forgotten {
 
 	private User user;
 
-	@BeforeTest
+	@BeforeMethod
 	public void setup() {
 		user = db.users().field("registered").equal(true).field("valid")
 				.equal(true).field("role").equal(UserRole.USER).field("name")
@@ -92,7 +92,7 @@ public class TC10_Login_forgotten {
 		navigateTo(login);
 	}
 
-	@AfterTest
+	@AfterMethod
 	public void tearDown() {
 		db.save(user);
 	}

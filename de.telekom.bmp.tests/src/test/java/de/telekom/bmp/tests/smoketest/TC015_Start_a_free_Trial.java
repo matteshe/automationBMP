@@ -15,7 +15,7 @@ import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.testng.Assert.*;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @UseWebDriver
@@ -47,7 +47,7 @@ public class TC015_Start_a_free_Trial {
     // Needed user
     User user;
 
-    @BeforeTest
+    @BeforeMethod
     public void setup() {
         user = datapool.users().field("valid").equal(true)
                 .field("registered").notEqual(false)

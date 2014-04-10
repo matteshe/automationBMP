@@ -16,7 +16,7 @@ import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.*;
 
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @UseWebDriver
@@ -49,7 +49,7 @@ public class TC01_Create_fixed_price_voucher_Refactored {
     // Needed user
     User user;
 
-    @BeforeTest
+    @BeforeMethod
     public void setup() {
         user = datapool.users().field("valid").equal(true)
                 .field("registered").notEqual(false)

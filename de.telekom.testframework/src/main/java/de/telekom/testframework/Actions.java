@@ -5,9 +5,12 @@ import de.telekom.testframework.selenium.Browser;
 import de.telekom.testframework.selenium.Page;
 import de.telekom.testframework.selenium.controls.Control;
 import de.telekom.testframework.selenium.controls.DelegatedWebElement;
+
 import java.net.URL;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -42,6 +45,10 @@ public class Actions extends Assert {
     }
 
     public static void set(Control control, Object value) {
+        control.set(value);
+    }
+    
+    public static void set(Control control, Keys value) {
         control.set(value);
     }
 

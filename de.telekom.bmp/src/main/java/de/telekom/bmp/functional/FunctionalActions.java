@@ -1,10 +1,12 @@
 package de.telekom.bmp.functional;
 
+import de.telekom.bmp.data.User;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Login;
 import static de.telekom.testframework.Actions.click;
 import static de.telekom.testframework.Actions.navigateTo;
 import static de.telekom.testframework.Actions.set;
+
 import javax.inject.Inject;
 
 /**
@@ -25,6 +27,10 @@ public class FunctionalActions {
         set(login.usernameInput, username);
         set(login.passwordInput, password);
         click(login.signinBtn);
+    }
+    
+    public void login(User user) {
+    	login(user.email, user.password);
     }
 
     public void logout() {

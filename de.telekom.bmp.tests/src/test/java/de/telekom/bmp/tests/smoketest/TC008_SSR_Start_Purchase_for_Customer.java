@@ -19,7 +19,7 @@ import org.testng.Assert;
 
 import static org.testng.Assert.assertNotNull;
 
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @UseWebDriver
@@ -46,7 +46,7 @@ public class TC008_SSR_Start_Purchase_for_Customer {
     // Needed user
     User user;
 
-    @BeforeTest
+    @BeforeMethod
     public void setup() {
         user = datapool.users().field("valid").equal(true)
                 .field("registered").notEqual(false)
