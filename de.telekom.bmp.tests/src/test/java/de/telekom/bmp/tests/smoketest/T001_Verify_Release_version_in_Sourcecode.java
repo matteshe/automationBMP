@@ -9,7 +9,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 import javax.inject.Inject;
 
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import de.telekom.bmp.data.ApplicationInfo;
@@ -35,7 +35,7 @@ public class T001_Verify_Release_version_in_Sourcecode {
 
 	ApplicationInfo ai;
 
-	@BeforeTest
+	@BeforeMethod
 	public void setup() {
 		ai = db.appInfos().get();
 		if (ai == null) {

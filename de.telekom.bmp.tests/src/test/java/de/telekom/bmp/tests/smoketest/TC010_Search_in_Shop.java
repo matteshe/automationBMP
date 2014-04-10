@@ -10,7 +10,7 @@ import static de.telekom.testframework.Assert.assertThat;
 import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @UseWebDriver
@@ -30,7 +30,7 @@ public class TC010_Search_in_Shop {
     @Inject
     FindApplicationsPage findAppsPage;
 
-    @BeforeTest
+    @BeforeMethod
     public void setup() {
         
         navigateTo(home);

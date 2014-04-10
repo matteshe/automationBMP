@@ -18,7 +18,7 @@ import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.is;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNotNull;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -51,7 +51,7 @@ public class TC05_Login_with_invalid_credentials {
     // Needed user
     User user;
 
-    @BeforeTest
+    @BeforeMethod
     public void setup() {
         user = datapool.users().field("valid").equal(false)
                 .field("registered").notEqual(true).get();

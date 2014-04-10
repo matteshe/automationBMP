@@ -21,7 +21,7 @@ import static org.hamcrest.Matchers.is;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNotNull;
 import static org.testng.Assert.assertNotNull;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -53,7 +53,7 @@ public class TC03_Login_with_proper_not_registered_email {
     // Needed user
     User user;
 
-    @BeforeTest
+    @BeforeMethod
     public void setup() {
         user = datapool.users().field("valid").equal(true)
                 .field("registered").notEqual(true).get();

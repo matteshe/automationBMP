@@ -10,7 +10,7 @@ import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @UseWebDriver
@@ -33,7 +33,7 @@ public class TC011_View_Profile_of_a_Single_App_in_Search_Results {
     @Inject
     FindApplicationsPage findAppsPage;
 
-    @BeforeTest
+    @BeforeMethod
     public void setup() {
         
         home.navigateTo();

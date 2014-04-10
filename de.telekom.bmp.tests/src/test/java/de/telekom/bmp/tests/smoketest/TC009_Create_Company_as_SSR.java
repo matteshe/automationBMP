@@ -20,7 +20,7 @@ import java.util.Date;
 import static org.hamcrest.Matchers.is;
 import static org.testng.Assert.assertNotNull;
 
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @QCId("5492")
@@ -48,7 +48,7 @@ public class TC009_Create_Company_as_SSR {
 // Needed user
     User user;
 
-    @BeforeTest
+    @BeforeMethod
     public void setup() {
         user = datapool.users().field("valid").equal(true)
                 .field("registered").notEqual(false)

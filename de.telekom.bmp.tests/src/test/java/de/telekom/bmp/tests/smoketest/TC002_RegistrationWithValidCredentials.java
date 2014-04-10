@@ -4,8 +4,8 @@ import static de.telekom.testframework.Actions.navigateTo;
 import static de.telekom.testframework.Assert.assertThat;
 import static org.hamcrest.Matchers.notNullValue;
 
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import com.google.inject.Inject;
@@ -30,12 +30,12 @@ public class TC002_RegistrationWithValidCredentials {
 	@Inject
 	Datapool datapool;
 
-	@BeforeTest
+	@BeforeMethod
 	public void setup() {
 		navigateTo(app);
 	}
 
-	@AfterTest
+	@AfterMethod
 	public void tearDown() {
 	}
 

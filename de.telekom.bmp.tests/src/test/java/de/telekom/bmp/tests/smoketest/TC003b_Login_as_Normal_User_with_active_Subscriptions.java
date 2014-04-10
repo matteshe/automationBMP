@@ -13,7 +13,7 @@ import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.testng.Assert.*;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @QCId("5525")
@@ -41,7 +41,7 @@ public class TC003b_Login_as_Normal_User_with_active_Subscriptions {
     // Needed user
     User user;
     
-    @BeforeTest
+    @BeforeMethod
     public void setup() {
         user = datapool.users().field("valid").equal(true)
                                .field("registered").notEqual(false)

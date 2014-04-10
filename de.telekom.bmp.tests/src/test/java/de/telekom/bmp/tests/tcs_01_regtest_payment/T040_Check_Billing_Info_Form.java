@@ -8,8 +8,8 @@ import static de.telekom.testframework.Actions.set;
 
 import javax.inject.Inject;
 
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import de.telekom.bmp.data.Datapool;
@@ -51,7 +51,7 @@ public class T040_Check_Billing_Info_Form {
 
 	private User user;
 
-	@BeforeTest
+	@BeforeMethod
 	public void setup() throws InterruptedException {
 		user = db.users().field("registered").equal(true).field("valid")
 				.equal(false).get();
@@ -62,7 +62,7 @@ public class T040_Check_Billing_Info_Form {
 		}
 	}
 
-	@AfterTest
+	@AfterMethod
 	public void tearDown() {
 	}
 

@@ -16,7 +16,7 @@ import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.*;
 
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @QCId("5496")
@@ -44,7 +44,7 @@ public class TC004_Login_as_Superuser {
     // Needed user
     User user;
     
-    @BeforeTest
+    @BeforeMethod
     public void setup() {
         user = datapool.users().field("valid").equal(true)
                                .field("registered").notEqual(false)
