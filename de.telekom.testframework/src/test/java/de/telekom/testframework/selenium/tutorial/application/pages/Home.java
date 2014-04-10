@@ -3,6 +3,7 @@ package de.telekom.testframework.selenium.tutorial.application.pages;
 import de.telekom.testframework.selenium.Page;
 import de.telekom.testframework.selenium.controls.TextField;
 import de.telekom.testframework.selenium.tutorial.application.TutorialApplication;
+import java.util.List;
 import javax.inject.Inject;
 import org.openqa.selenium.support.FindBy;
 
@@ -31,5 +32,8 @@ public class Home extends Page {
 
     @FindBy(name = "notExistingText")
     public TextField notExistingText;
+    
+    @FindBy(name = "notExistingText")
+    public List<TextField> notExistingTexts;
     
 }

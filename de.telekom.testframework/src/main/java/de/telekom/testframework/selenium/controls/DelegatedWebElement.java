@@ -1,11 +1,13 @@
 package de.telekom.testframework.selenium.controls;
 
 import de.telekom.testframework.selenium.ActionHandler;
+import de.telekom.testframework.selenium.SeleniumConfiguration;
 import de.telekom.testframework.selenium.WebElementContainer;
 import de.telekom.testframework.selenium.annotations.Ignore;
 import de.telekom.testframework.selenium.internal.FieldElementLocator;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.Point;
@@ -36,7 +38,7 @@ public class DelegatedWebElement extends WebElementContainer implements WebEleme
     public WebElement getWebElement() {
         return webElement;
     }
-    
+
     @Override
     public String toString() {
 
@@ -51,7 +53,7 @@ public class DelegatedWebElement extends WebElementContainer implements WebEleme
         }
 
         s += this.getClass().getSimpleName() + " " + this.locator.toString();
-        
+
         return s;
     }
 
@@ -157,6 +159,11 @@ public class DelegatedWebElement extends WebElementContainer implements WebEleme
     }
 
     public boolean exists() {
-        return !locator.findElements().isEmpty();
+        getWebDriver().manage().timeouts().implicitlyWait(SeleniumConfiguration.current.existsTimeout, TimeUnit.SECONDS);
+        try {
+            return !locator.findElements().isEmpty();
+        } finally {
+            getWebDriver().manage().timeouts().implicitlyWait(SeleniumConfiguration.current.implicitlyWait, TimeUnit.SECONDS);
+        }
     }
 }

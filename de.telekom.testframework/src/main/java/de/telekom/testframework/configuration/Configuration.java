@@ -79,8 +79,9 @@ public class Configuration {
                 bindSystemProperties();
             }
         }));
-
+        
         injector.injectMembers(instance);
+        
     }
 
     public static <T> T create(Class<T> aClass) {
