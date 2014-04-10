@@ -37,19 +37,13 @@ public class DashboardPage extends SubNavHeaderPage {
 	@UseParent("itemTable")
 	public List<Link> userLinks;
 	
-	@FindBy(xpath = "//ul[@class='account-tabs']")
-	public Container accountTabs;
-	
-	@FindBy(xpath = "//a[text()='Benutzer']")
-	@UseParent("accountTabs")
+	@FindBy(xpath = "//ul[@class='account-tabs']//a[text()='Benutzer']")
 	public Link userLnk;
 
-	@FindBy(xpath = "//a[text()='Unternehmen']")
-	@UseParent("accountTabs")
+	@FindBy(xpath = "//ul[@class='account-tabs']//a[text()='Unternehmen']")
 	public Link companyLnk;
 
-	@FindBy(xpath = "//a[text()='Applikationen']")
-	@UseParent("accountTabs")
+	@FindBy(xpath = "//ul[@class='account-tabs']//a[text()='Applikationen']")
 	public Link applicationLnk;
 
 	@FindBy(xpath = "//div[@class='smallSearch']//input")
