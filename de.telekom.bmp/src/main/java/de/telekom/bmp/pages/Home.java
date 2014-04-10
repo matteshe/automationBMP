@@ -16,8 +16,7 @@ import de.telekom.testframework.selenium.controls.Text;
  * @author Daniel
  */
 @Singleton
-// @Path("/home")
-@Path("")
+@Path("/home")
 public class Home extends Page {
 
 	@Inject

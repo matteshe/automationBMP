@@ -1,14 +1,22 @@
 package de.telekom.bmp.pages.account;
 
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Singleton;
+
+import org.openqa.selenium.support.FindBy;
+
 import de.telekom.bmp.BmpApplication;
+import de.telekom.bmp.pages.Header.AccountLink;
 import de.telekom.testframework.selenium.Page;
 import de.telekom.testframework.selenium.annotations.Path;
 import de.telekom.testframework.selenium.annotations.UseParent;
-import de.telekom.testframework.selenium.controls.*;
-import java.util.List;
-import javax.inject.Inject;
-import javax.inject.Singleton;
-import org.openqa.selenium.support.FindBy;
+import de.telekom.testframework.selenium.controls.Button;
+import de.telekom.testframework.selenium.controls.Form;
+import de.telekom.testframework.selenium.controls.Link;
+import de.telekom.testframework.selenium.controls.Text;
+import de.telekom.testframework.selenium.controls.TextField;
 
 /**
  *
@@ -24,7 +32,20 @@ public class Dashboard extends Page {
         super(app);
     } 
     
-        
+    @FindBy(xpath = "//a[@id='logout' or text()='Abmelden']")
+    public AccountLink logoutLnk;
+    
+    @FindBy(xpath = ".//div[@id='subnav-header']")
+    Link subNavHeader;
+    
+    @FindBy(xpath = ".//a[contains(@href, 'home')]")
+    @UseParent("subNavHeader")
+    public Link dashboardLnk;
+    
+    @FindBy(xpath = ".//a[contains(@href, 'users')]")
+    @UseParent("subNavHeader")
+    public Link usersLnk;
+    
     @FindBy(xpath = ".//button[contains(@id, 'everyone')]")
     public Button everyoneBtn;
     
