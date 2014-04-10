@@ -1,10 +1,13 @@
 package de.telekom.testframework.selenium.controls;
 
 import com.google.common.base.Function;
+
 import de.telekom.testframework.Wait;
 import de.telekom.testframework.selenium.ElementNotEnabledException;
 import de.telekom.testframework.selenium.internal.FieldElementLocator;
+
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
@@ -26,6 +29,10 @@ public class Control extends DelegatedWebElement {
     }
 
     public void set(Object value) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+    
+    public void set(Keys value) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
