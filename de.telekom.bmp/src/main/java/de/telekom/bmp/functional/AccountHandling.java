@@ -22,9 +22,9 @@ import de.telekom.testframework.selenium.Browser;
  * 
  */
 public class AccountHandling {
-	private static final String APP_DOMAIN = "testcloud.bmptest.de";
+	public static final String APP_DOMAIN = "testcloud.bmptest.de";
 
-	private static final String HTACCESS_CREDENTIALS = "toon:HullyGully";
+	public static final String HTACCESS_CREDENTIALS = "toon:HullyGully";
 
 	@Inject
 	Signup signup;
