@@ -4,21 +4,15 @@
 package de.telekom.bmp.tests.tcs_13_roles.assignroles;
 
 import static de.telekom.testframework.Actions.click;
-import static de.telekom.testframework.Actions.set;
 import static de.telekom.testframework.Assert.assertThat;
 import static de.telekom.testframework.Assert.verifyThat;
-import static de.telekom.testframework.Assert.waitFor;
-import static de.telekom.testframework.selenium.Matchers.displayed;
 import static de.telekom.testframework.selenium.Matchers.loaded;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 
-import java.util.concurrent.TimeUnit;
-
 import javax.inject.Inject;
 
-import org.openqa.selenium.Keys;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -27,6 +21,7 @@ import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
 import de.telekom.bmp.data.UserRole;
 import de.telekom.bmp.functional.AccountHandling;
+import de.telekom.bmp.functional.AssignRoles;
 import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.superuser.BillingAdminPage;
@@ -55,6 +50,9 @@ public class T02_AssignSuperuserRole {
 	@Inject
 	AccountHandling accHandling;
 
+	@Inject
+	AssignRoles assignRoles;
+	
 	@Inject
 	FunctionalActions fa;
 
@@ -108,21 +106,9 @@ public class T02_AssignSuperuserRole {
 
 	@Test
 	public void assignSuperuserRole() {
-		fa.login(superUser);
-		click(headerPage.settingsMenu.superuserLnk);
-		click(suDashboardPg.userLnk);
-		
-		click(suDashboardPg.smallSearchInput);
-		set(suDashboardPg.smallSearchInput, newSuUser.email);
-		set(suDashboardPg.smallSearchInput, Keys.RETURN);
-		waitFor(2, TimeUnit.SECONDS);
-		assertThat(suDashboardPg.userLnk, is(displayed()));
-		
-		click(suDashboardPg.superUserChkBox);
-		newSuUser.role = UserRole.SUPERUSER;
+		assignRoles.assignSuperuser(superUser, newSuUser);
 		db.save(newSuUser);
-		fa.logout();
-		waitFor(2, TimeUnit.SECONDS);
+		
 		checkSuperUserFeatures(newSuUser);
 	}
 
