@@ -84,7 +84,7 @@ public class TC01_Verify_Publish_Approve_apps_function_ChanAdmin {
             
             
             
-            click(header.accountMenu.logoutLnk);
+            fa.logout();
 
             assertThat(home, isCurrentPage());
 
