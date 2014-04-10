@@ -6,11 +6,7 @@ import de.telekom.testframework.selenium.ActionHandler;
 import de.telekom.testframework.selenium.WebDriverWrapper;
 import java.util.concurrent.TimeUnit;
 import org.hamcrest.Matcher;
-import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.OutputType;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.support.ui.FluentWait;
 import static de.telekom.testframework.Wait.DEFAULT_SLEEP_TIMEOUT;
 import static de.telekom.testframework.Wait.DEFAULT_TIMEOUT;
 
@@ -102,42 +98,6 @@ public class Assert {
         }
     }
 
-    protected static <T> boolean match(final T actual, final Matcher<? super T> matcher) {
-        return match(actual, matcher, DEFAULT_TIMEOUT, DEFAULT_SLEEP_TIMEOUT);
-    }
-
-    protected static <T> boolean match(final T actual, final Matcher<? super T> matcher, long timeOutInSeconds) {
-        return match(actual, matcher, timeOutInSeconds, DEFAULT_SLEEP_TIMEOUT);
-    }
-
-    protected static <T> boolean match(T actual, final Matcher<? super T> matcher, long timeOutInSeconds, long sleepInMillis) {
-
-        if (timeOutInSeconds > 0) {
-            if (actual instanceof WebDriverWrapper) {
-                try {
-
-                    return new FluentWait<>(actual)
-                            .withTimeout(timeOutInSeconds, TimeUnit.SECONDS)
-                            .pollingEvery(sleepInMillis, TimeUnit.MILLISECONDS)
-                            .ignoring(NotFoundException.class)
-                            .ignoring(StaleElementReferenceException.class)
-                            .until(new Function<T, Boolean>() {
-
-                                @Override
-                                public Boolean apply(T input) {
-                                    return matcher.matches(input);
-                                }
-                            });
-                } catch (TimeoutException e) {
-
-                }
-                return false;
-            }
-        }
-
-        return matcher.matches(actual);
-    }
-
     public static <T> void assertThat(T actual, Matcher<? super T> matcher) {
         assertThat("", actual, matcher, DEFAULT_TIMEOUT, DEFAULT_SLEEP_TIMEOUT);
     }
@@ -158,7 +118,7 @@ public class Assert {
         Reporter.entering(null, "assert that", message, actual, matcher);
 
         try {
-            boolean result = match(actual, matcher, timeOutInSeconds, sleepInMillis);
+            boolean result = MatcherHelper.match(actual, matcher, timeOutInSeconds, sleepInMillis);
 
             String s = MatcherHelper.buildMatcherMessage("Assert that ", actual, matcher, message, result);
 
@@ -235,7 +195,7 @@ public class Assert {
     public static <T> void verifyThat(String message, T actual, Matcher<? super T> matcher, long timeOutInSeconds, long sleepInMillis) {
         Reporter.entering(null, "verify that", message, actual, matcher);
         try {
-            boolean result = match(actual, matcher, timeOutInSeconds, sleepInMillis);
+            boolean result = MatcherHelper.match(actual, matcher, timeOutInSeconds, sleepInMillis);
 
             String s = MatcherHelper.buildMatcherMessage("Verify that ", actual, matcher, message, result);
 
@@ -284,7 +244,7 @@ public class Assert {
     public static void fail() {
         throw new AssertionError();
     }
-    
+
     public static void fail(String message) {
         throw new AssertionError(message);
     }
