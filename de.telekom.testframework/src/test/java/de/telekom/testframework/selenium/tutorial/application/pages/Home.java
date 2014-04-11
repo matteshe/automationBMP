@@ -2,6 +2,8 @@ package de.telekom.testframework.selenium.tutorial.application.pages;
 
 import de.telekom.testframework.selenium.Page;
 import de.telekom.testframework.selenium.controls.CheckBox;
+import de.telekom.testframework.selenium.controls.Control;
+import de.telekom.testframework.selenium.controls.RadioButton;
 import de.telekom.testframework.selenium.controls.TextField;
 import de.telekom.testframework.selenium.tutorial.application.TutorialApplication;
 import java.util.List;
@@ -13,7 +15,7 @@ import org.openqa.selenium.support.FindBy;
  * @author Daniel
  */
 public class Home extends Page {
-
+    
     @Inject
     public Home(TutorialApplication application) {
         super(application);
@@ -40,4 +42,13 @@ public class Home extends Page {
     @FindBy(name = "notExistingText")
     public List<TextField> notExistingTexts;
     
+    @FindBy(id = "abc")
+    public RadioButton aradioAbc;
+
+    @FindBy(id = "def")
+    public RadioButton aradioDef;
+
+    @FindBy(id = "ghi")
+    public RadioButton aradioGhi;
+
 }

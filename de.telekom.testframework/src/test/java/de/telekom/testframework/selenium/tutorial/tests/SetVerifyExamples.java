@@ -1,18 +1,13 @@
 package de.telekom.testframework.selenium.tutorial.tests;
 
 import static de.telekom.testframework.Actions.*;
-import static de.telekom.testframework.selenium.Matchers.checked;
-import static de.telekom.testframework.selenium.Matchers.value;
+import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
-import static de.telekom.testframework.selenium.controls.CheckBox.CHECKED;
-import static de.telekom.testframework.selenium.controls.CheckBox.TOGGLE;
-import static de.telekom.testframework.selenium.controls.CheckBox.UNCHECKED;
+import static de.telekom.testframework.selenium.controls.CheckBox.*;
 import de.telekom.testframework.selenium.tutorial.application.TutorialApplication;
 import de.telekom.testframework.selenium.tutorial.application.pages.Home;
 import javax.inject.Inject;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -45,6 +40,7 @@ public class SetVerifyExamples {
     @Test
     public void setCheckBoxes() {
         set(home.stayLoggedIn, true);
+        verifyThat(home.stayLoggedIn, is(selected()));
         verifyThat(home.stayLoggedIn, is(checked()));
         verifyThat(home.stayLoggedIn, checked(is(true)));
         verifyThat(home.stayLoggedIn, value(is(true)));
@@ -75,6 +71,24 @@ public class SetVerifyExamples {
         verifyThat(home.stayLoggedIn, is(not(checked())));
         verifyThat(home.stayLoggedIn, checked(is(false)));
         verifyThat(home.stayLoggedIn, value(is(false)));
+    }
+
+    @Test
+    public void setRadioButton() {
+        set(home.aradioAbc, true);
+        verifyThat(home.aradioAbc, is(selected()));
+        verifyThat(home.aradioDef, is(not(selected())));
+        verifyThat(home.aradioGhi, is(not(selected())));
+        
+        set(home.aradioDef, true);
+        verifyThat(home.aradioAbc, is(not(selected())));
+        verifyThat(home.aradioDef, is(selected()));
+        verifyThat(home.aradioGhi, is(not(selected())));
+        
+        set(home.aradioGhi, true);
+        verifyThat(home.aradioAbc, is(not(selected())));
+        verifyThat(home.aradioDef, is(not(selected())));
+        verifyThat(home.aradioGhi, is(selected()));
     }
 
 }

@@ -11,7 +11,6 @@ import de.telekom.testframework.selenium.tutorial.application.TutorialApplicatio
 import static java.util.concurrent.TimeUnit.SECONDS;
 import javax.inject.Inject;
 import org.openqa.selenium.By;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 /**
@@ -32,7 +31,6 @@ public class WindowSwitching {
         newWindow();
 
         navigateTo("http://www.heise.de");
-
     }
 
     @Test
@@ -85,8 +83,7 @@ public class WindowSwitching {
         newWindow();
         closeWindow();
         closeWindow();
-        closeWindow();
-       
+        closeWindow();       
         closeWindow();
     }
 }

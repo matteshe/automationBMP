@@ -30,7 +30,7 @@ public class CheckBox extends Control {
     }
 
     public boolean isChecked() {
-        return getAttribute("checked") != null;
+        return isSelected();
     }
 
     @Override
