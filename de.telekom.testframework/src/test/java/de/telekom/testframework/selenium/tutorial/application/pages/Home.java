@@ -1,6 +1,7 @@
 package de.telekom.testframework.selenium.tutorial.application.pages;
 
 import de.telekom.testframework.selenium.Page;
+import de.telekom.testframework.selenium.controls.CheckBox;
 import de.telekom.testframework.selenium.controls.TextField;
 import de.telekom.testframework.selenium.tutorial.application.TutorialApplication;
 import java.util.List;
@@ -23,6 +24,9 @@ public class Home extends Page {
 
     @FindBy(name = "password")
     public TextField password;
+    
+    @FindBy(name= "stayLoggedIn")
+    public CheckBox stayLoggedIn;
 
     @FindBy(name = "hiddenText")
     public TextField hiddenText;

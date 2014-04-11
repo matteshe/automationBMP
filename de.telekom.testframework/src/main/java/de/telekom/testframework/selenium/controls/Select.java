@@ -38,7 +38,7 @@ public class Select extends Control {
     }
 
     public void clearSelection() {
-        handle("select", new Runnable() {
+        handle("clearSelection", new Runnable() {
 
             @Override
             public void run() {

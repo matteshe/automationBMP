@@ -47,9 +47,16 @@ public class Actions extends Assert {
     public static void set(Control control, Object value) {
         control.set(value);
     }
-    
+
+    /**
+     *
+     * @param control
+     * @param value
+     * @deprecated use {@link #sendKeys} instead
+     */
+    @Deprecated
     public static void set(Control control, Keys value) {
-        control.set(value);
+        control.sendKeys(value);
     }
 
     public static Object get(Control control, Object value) {
@@ -66,6 +73,10 @@ public class Actions extends Assert {
 
     public static void moveTo(Control control, int x, int y) {
         control.moveTo(x, y);
+    }
+
+    public static void sendKeys(WebElement element, CharSequence... keysToSend) {
+        element.sendKeys(keysToSend);
     }
 
     public interface SwitchToAction<T> {
