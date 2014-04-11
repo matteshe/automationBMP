@@ -193,4 +193,24 @@ public class AssignRoles {
 		click(chUserPg.restrictedSalesSupportChkbox);
 		assertThat(chUserPg.feedbackPanelINFO, is(displayed()));
 	}
+
+	/**
+	 * Remove restrictive sales support (RSSR) role from a given user
+	 * @param channelAdminUser is a user who as the rights to remove the rssr role
+	 * @param rssrUser user which should get rssr role
+	 */
+	public void removeRssrRole(User channelAdminUser, User rssrUser) {
+		// TODO 20140411 must be implemented
+		assertThat("not yet implemented", false);
+	}
+	
+	/**
+	 * Remove sales support (SSR) role from a given user
+	 * @param channelAdminUser is a user who as the rights to remove the ssr role
+	 * @param rssrUser user which should get ssr role
+	 */
+	public void removeSsrRole(User channelAdminUser, User ssrUser) {
+		// TODO 20140411 must be implemented
+		assertThat("not yet implemented", false);
+	}
 }
