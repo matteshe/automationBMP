@@ -19,7 +19,10 @@
     -->
     
     <test name="no tests">
-        
+        <!--classes>
+            <class name="de.telekom.testframework.selenium.tutorial.tests.MatchersExamples" />
+            <class name="de.telekom.testframework.selenium.tutorial.tests.WindowSwitching" />
+        </classes-->
     </test>
 
 </suite>

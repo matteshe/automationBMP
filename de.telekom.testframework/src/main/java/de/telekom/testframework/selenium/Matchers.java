@@ -1,5 +1,6 @@
 package de.telekom.testframework.selenium;
 
+import de.telekom.testframework.selenium.controls.CheckBox;
 import de.telekom.testframework.selenium.controls.Control;
 import de.telekom.testframework.selenium.controls.DelegatedWebElement;
 import de.telekom.testframework.selenium.controls.Select;
@@ -7,6 +8,7 @@ import de.telekom.testframework.selenium.matchers.CachedElementTypeSafeMatcher;
 import java.util.List;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.is;
 import org.openqa.selenium.WebElement;
 
@@ -39,8 +41,8 @@ public class Matchers {
     }
 
     @Factory
-    public static Matcher<WebElement> value(final Matcher<String> matcher) {
-        return new CachedElementTypeSafeMatcher<WebElement, String>("value", matcher) {
+    public static <T> Matcher<WebElement> value(final Matcher<T> matcher) {
+        return new CachedElementTypeSafeMatcher<WebElement, T>("value", matcher) {
 
             @Override
             protected Object getValue(WebElement item) {
@@ -295,6 +297,28 @@ public class Matchers {
             @Override
             protected String getValue(Browser item) {
                 return item.getCurrentUrl();
+            }
+        };
+    }
+    
+    @Factory
+    public static Matcher<CheckBox> checked(final Matcher<Boolean> matcher) {
+        return new CachedElementTypeSafeMatcher<CheckBox, Boolean>("checked", matcher) {
+
+            @Override
+            protected Object getValue(CheckBox item) {
+                return item.isChecked();
+            }
+        };
+    }
+
+    @Factory
+    public static Matcher<CheckBox> checked() {
+        return new CachedElementTypeSafeMatcher<CheckBox, Boolean>("checked") {
+
+            @Override
+            protected Object getValue(CheckBox item) {
+                return item.isChecked();
             }
         };
     }

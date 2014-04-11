@@ -12,30 +12,14 @@ public class FileInput extends Control {
     }
 
     @Override
-    public void set(final Object value) {
-        if (value == null) {
-            return;
+    protected void internalSet(Object value) {
+        ensureIsVisible();
+        ensureIsEnabled();
+
+        if (value instanceof File) {
+            sendKeys(((File) value).getAbsolutePath());
+        } else {
+            sendKeys(value.toString());
         }
-
-        handle("set", new Runnable() {
-
-            @Override
-            public void run() {
-                ensureIsVisible();
-                ensureIsEnabled();
-
-                if (value instanceof File) {
-                    sendKeys(((File) value).getAbsolutePath());
-                } else {
-                    sendKeys(value.toString());
-                }
-            }
-        }, value);
     }
-
-    @Override
-    public Object get() {
-        return getValue();
-    }
-
 }

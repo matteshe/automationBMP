@@ -7,7 +7,6 @@ import de.telekom.testframework.selenium.ElementNotEnabledException;
 import de.telekom.testframework.selenium.internal.FieldElementLocator;
 
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.WebDriver;
@@ -28,12 +27,21 @@ public class Control extends DelegatedWebElement {
         return getAttribute("value");
     }
 
-    public void set(Object value) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    protected void internalSet(Object value) {
+        throw new UnsupportedOperationException();
     }
-    
-    public void set(Keys value) {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+    public void set(final Object value) {
+        if (value == null) {
+            return;
+        }
+        handle("set", new Runnable() {
+
+            @Override
+            public void run() {
+                internalSet(value);
+            }
+        }, value);
     }
 
     public Object get() {
@@ -104,15 +112,19 @@ public class Control extends DelegatedWebElement {
         webElement.click();
     }
 
+    protected void internalMoveTo() {
+        ensureIsVisible();
+
+        Actions actions = new Actions(webDriver);
+        actions.moveToElement(webElement).perform();
+    }
+
     public void moveTo() {
         handle("moveTo", new Runnable() {
 
             @Override
             public void run() {
-                ensureIsVisible();
-
-                Actions actions = new Actions(webDriver);
-                actions.moveToElement(webElement).perform();
+                internalMoveTo();
             }
         });
     }
@@ -128,5 +140,21 @@ public class Control extends DelegatedWebElement {
                 actions.moveToElement(webElement, x, y).perform();
             }
         }, x, y);
+    }
+
+    protected void internalSendKeys(final CharSequence... keysToSend) {
+        ensureIsVisible();
+
+        webElement.sendKeys(keysToSend);
+    }
+
+    @Override
+    public void sendKeys(final CharSequence... keysToSend) {
+        handle("sendKeys", new Runnable() {
+            @Override
+            public void run() {
+                internalSendKeys(keysToSend);
+            }
+        }, (Object[]) keysToSend);
     }
 }
