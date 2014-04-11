@@ -32,6 +32,8 @@ public class HomePageTest extends BasePageTest {
 	
 	@Test
 	public void verifySimpleLocatorsWithoutLogin () {
+		verifyThat(homePg.loginBtn, exists());
+		verifyThat(homePg.langToggleBtn, exists());
 		verifyThat(homePg.registerBtn, exists());
 		verifyThat(homePg.version, exists());
 		//verifyThat(homePg.feedbackMessage, exists());

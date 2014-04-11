@@ -23,9 +23,15 @@ public class Home extends Page {
 	public Home(BmpApplication app) {
 		super(app);
 	}
+	
+	@FindBy(xpath = "//div[@class = 'login']")
+	public Button loginBtn;
 
 	@FindBy(xpath = "//a[@href='./signup' or contains(text(),'Registrieren')]")
 	public Button registerBtn;
+	
+	@FindBy(xpath = "//li[contains(@class, 'languageToggle')]")
+	public Button langToggleBtn;
 
 	@FindBy(xpath = "//li[@class='feedbackPanelINFO']")
 	public Text feedbackMessage;
