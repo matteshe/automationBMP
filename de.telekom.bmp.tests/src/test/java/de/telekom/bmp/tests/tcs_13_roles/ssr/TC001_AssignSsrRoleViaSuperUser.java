@@ -5,7 +5,6 @@ package de.telekom.bmp.tests.tcs_13_roles.ssr;
 
 import javax.inject.Inject;
 
-import org.openqa.selenium.Keys;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -14,12 +13,9 @@ import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
 import de.telekom.bmp.data.UserRole;
 import de.telekom.bmp.functional.AccountHandling;
+import de.telekom.bmp.functional.AssignRoles;
 import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
-import de.telekom.bmp.pages.channel.CompanyPage;
-import de.telekom.bmp.pages.channel.MarketPlacePage;
-import de.telekom.bmp.pages.channel.UserPage;
-import de.telekom.testframework.Actions;
 import de.telekom.testframework.Assert;
 import de.telekom.testframework.annotations.QCId;
 import de.telekom.testframework.reporting.Reporter;
@@ -49,15 +45,9 @@ public class TC001_AssignSsrRoleViaSuperUser {
 
 	@Inject
 	Header hPage;
-
+	
 	@Inject
-	MarketPlacePage mpPg;
-
-	@Inject
-	UserPage chUserPg;
-
-	@Inject
-	CompanyPage chCompPg;
+	AssignRoles assignRoles;
 
 	User superUser;
 	User ssrUser;
@@ -89,47 +79,8 @@ public class TC001_AssignSsrRoleViaSuperUser {
 
 	@Test
 	public void assignSsrRole() {
-		fa.login(superUser.email, superUser.password);
-		Actions.click(hPage.settingsMenu.channelUserLnk);
-		Actions.click(mpPg.customerLnk);
-
-		Assert.assertThat("Search field visible.", mpPg.smallSearchInput.isDisplayed());
-		Actions.click(mpPg.smallSearchInput);
-		Actions.set(mpPg.smallSearchInput, ssrUser.email);
-		mpPg.smallSearchInput.sendKeys(Keys.RETURN);
-		waitForMilliSec(1000);
+		assignRoles.assignSsrRoleViaSuperUser(superUser, ssrUser);
 		
-		// choose user from list
-		mpPg.userInListLnk.click();
-		waitForMilliSec(500);
-		Assert.assertThat("link for customer data is visible",
-				chUserPg.customerDataLnk.isDisplayed());
-		Actions.click(chUserPg.customerDataLnk);
-
-		Assert.assertThat("channel admin checkbox is visible.",
-				chCompPg.channelAdminChkbox.isDisplayed());
-		Assert.assertThat("channel admin checkbox is not checked.",
-				!chCompPg.channelAdminChkbox.isSelected());
-
-		chCompPg.channelAdminChkbox.select();
-		Assert.assertThat("feedback company is channel admin is displayed.",
-				chCompPg.feedbackPanelINFO.isDisplayed());
-		Actions.click(chCompPg.userLnk.get(ssrUser.email));
-		Assert.assertThat("sales support checkbox is visible.",
-				chUserPg.salesSupportChkbox.isDisplayed());
-		chUserPg.salesSupportChkbox.select();
-		Assert.assertThat("feedback company is channel admin is displayed.",
-				chUserPg.feedbackPanelINFO.isDisplayed());
-		
-		ssrUser.role = UserRole.SSR;
-		fa.logout();
-	}
-
-	private void waitForMilliSec(long value) {
-		try {
-			Thread.sleep(value);
-		} catch (InterruptedException e) {
-			// do nothing
-		}
+		// TODO no verify steps in test case script!
 	}
 }
