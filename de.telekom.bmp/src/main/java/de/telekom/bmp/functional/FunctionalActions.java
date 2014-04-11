@@ -39,20 +39,14 @@ public class FunctionalActions {
     }
 
     public void logout() {
+    	Reporter.reportMessage("Logout");
     	navigateTo(hPg);
-    	try {
-    		if (header.accountMenu.logoutLnk.isDisplayed()) {
-    			click(header.accountMenu.logoutLnk);	
-    		}
-    	} catch (Exception e) {
-    		Reporter.reportError("Logout not possible, because of Link isn't displayed");
-    	}
+    	click(header.accountMenu.logoutLnk);
     }
     
     public void ensureGermLanguageIsSet(){
         if (!header.toogle_EN_LanguageLnk.isDisplayed()) {
             click(header.toogle_EN_LanguageLnk);
         }
-
     }
 }
