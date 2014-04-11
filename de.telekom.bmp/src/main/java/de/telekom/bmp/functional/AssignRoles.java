@@ -124,30 +124,73 @@ public class AssignRoles {
 		waitFor(2, TimeUnit.SECONDS);
 		
 		// choose user from list
-		mpPg.userInListLnk.click();
+		click(mpPg.userInListLnk);
 		assertThat(chUserPg.customerDataLnk, is(displayed()));
 		click(chUserPg.customerDataLnk);
+		
 		setCompanyChannelAdmin();
 		
 		Actions.click(chCompPg.userLnk.get(userForSrr.email));
-		setUserChannelAdmin();
+		
+		setUserSsr();
 		
 		userForSrr.role = UserRole.SSR;
 		fa.logout();
 	}
 	
+	/**
+	 * Assign the restrictive sales support (RSSR) role to a given user
+	 * @param superUser is a super user who as the rights to assign a rssr role
+	 * @param userForSrr user which should get rssr role
+	 */
+	public void assignRssrRoleViaSuperUser(User superUser, User userForSrr) {
+		fa.login(superUser.email, superUser.password);
+		click(headPg.settingsMenu.channelUserLnk);
+		click(mpPg.customerLnk);
+
+		assertThat(mpPg.smallSearchInput, is(displayed()));
+		click(mpPg.smallSearchInput);
+		set(mpPg.smallSearchInput, userForSrr.email);
+		set(mpPg.smallSearchInput, Keys.RETURN);
+		waitFor(2, TimeUnit.SECONDS);
+		
+		// choose user from list
+		click(mpPg.userInListLnk);
+		assertThat(chUserPg.customerDataLnk, is(displayed()));
+		click(chUserPg.customerDataLnk);
+
+		setCompanyChannelAdmin();
+		
+		click(chCompPg.userLnk.get(userForSrr.email));
+		
+		setUserRssr();
+		
+		userForSrr.role = UserRole.RSSR;
+		fa.logout();
+	}
+	
 	private void setCompanyChannelAdmin() {
 		assertThat(chCompPg.channelAdminChkbox, is(displayed()));
+		
+		// TODO if case instead of assert check
 		assertThat(chCompPg.channelAdminChkbox, is(not(selected())));
-		//chCompPg.channelAdminChkbox.select();
 		click(chCompPg.channelAdminChkbox);
 		assertThat(chCompPg.feedbackPanelINFO, is(displayed()));
 	}
 	
-	private void setUserChannelAdmin() {
+	private void setUserSsr() {
 		assertThat(chUserPg.salesSupportChkbox, is(displayed()));
-		//chUserPg.salesSupportChkbox.select();
+		// TODO if case instead of assert check
+		assertThat(chUserPg.salesSupportChkbox, is(not(selected())));
 		click(chUserPg.salesSupportChkbox);
+		assertThat(chUserPg.feedbackPanelINFO, is(displayed()));
+	}
+	
+	private void setUserRssr() {
+		assertThat(chUserPg.restrictedSalesSupportChkbox, is(displayed()));
+		// TODO if case instead of assert check
+		assertThat(chUserPg.restrictedSalesSupportChkbox, is(not(selected())));
+		click(chUserPg.restrictedSalesSupportChkbox);
 		assertThat(chUserPg.feedbackPanelINFO, is(displayed()));
 	}
 }
