@@ -17,12 +17,8 @@ import org.testng.annotations.Test;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
 import de.telekom.bmp.data.UserRole;
-import de.telekom.bmp.functional.AccountHandling;
 import de.telekom.bmp.functional.AssignRoles;
-import de.telekom.bmp.functional.FunctionalActions;
-import de.telekom.bmp.pages.Header;
 import de.telekom.testframework.annotations.QCId;
-import de.telekom.testframework.selenium.Browser;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 
 /**
@@ -32,21 +28,8 @@ import de.telekom.testframework.selenium.annotations.UseWebDriver;
 @UseWebDriver
 @QCId("5602")
 public class TC002_DeleteRssrFromCompany {
-
-	@Inject
-	Browser browser;
-
 	@Inject
 	Datapool db;
-
-	@Inject
-	FunctionalActions fa;
-
-	@Inject
-	AccountHandling accHandling;
-
-	@Inject
-	Header hPage;
 
 	@Inject
 	AssignRoles assignRoles;
