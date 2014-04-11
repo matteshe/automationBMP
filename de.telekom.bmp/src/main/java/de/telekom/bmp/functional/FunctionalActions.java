@@ -4,6 +4,7 @@ import de.telekom.bmp.data.User;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
+import de.telekom.testframework.reporting.Reporter;
 import static de.telekom.testframework.Actions.click;
 import static de.telekom.testframework.Actions.navigateTo;
 import static de.telekom.testframework.Actions.set;
@@ -39,7 +40,13 @@ public class FunctionalActions {
 
     public void logout() {
     	navigateTo(hPg);
-        click(header.accountMenu.logoutLnk);
+    	try {
+    		if (header.accountMenu.logoutLnk.isDisplayed()) {
+    			click(header.accountMenu.logoutLnk);	
+    		}
+    	} catch (Exception e) {
+    		Reporter.reportError("Logout not possible, because of Link isn't displayed");
+    	}
     }
     
     public void ensureGermLanguageIsSet(){
