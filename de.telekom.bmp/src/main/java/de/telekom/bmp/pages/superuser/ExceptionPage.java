@@ -12,7 +12,7 @@ import de.telekom.testframework.selenium.annotations.Path;
  * @author Mathias Herkt
  */
 @Singleton
-@Path("/superuser/exeptions")
+@Path("/superuser/exceptions")
 public class ExceptionPage extends SubNavHeaderPage {
 
 	@Inject
