@@ -1,11 +1,11 @@
 package de.telekom.bmp.data;
 
-import com.google.code.morphia.annotations.Id;
-import com.google.code.morphia.annotations.PrePersist;
-import com.google.code.morphia.annotations.Version;
 import java.util.Date;
 import java.util.Objects;
 import org.bson.types.ObjectId;
+import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.PrePersist;
+import org.mongodb.morphia.annotations.Version;
 
 /**
  *
@@ -21,7 +21,10 @@ public abstract class BaseEntity {
 
     protected Date lastUpdated = new Date();
 
-    public static final String VALID = "valid";
+    public static class Fields {
+
+        public static final String valid = "valid";
+    }
 
     public boolean valid = true;
 

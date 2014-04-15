@@ -33,18 +33,18 @@ import de.telekom.testframework.selenium.annotations.UseWebDriver;
 @QCId("5145")
 @UseWebDriver
 public class TC022_Invite_Colleague {
-	private static final String MAIL_PREFIX = "mybmptestuser";
-    
-	@Inject
-	BmpApplication app;
-	
+
+    private static final String MAIL_PREFIX = "mybmptestuser";
+
     @Inject
-    FunctionalActions fa;    
-    
+    BmpApplication app;
+
+    @Inject
+    FunctionalActions fa;
+
     @Inject
     Users acctUserPg;
 
-    
     @Inject
     Header header;
 
@@ -56,37 +56,37 @@ public class TC022_Invite_Colleague {
 
     @Inject
     AccountHandling accHandling;
-    
+
     User normalUser;
-    
+
     @BeforeMethod
     public void setup() {
-    	normalUser = datapool.users()
-    			.filter("role", UserRole.USER)
-    			.filter("valid",true)
-    			.field("name").contains("ForInvite").get();
-    	if (normalUser == null) {
-    		Reporter.reportMessage("Create new user for invitation");
-    		normalUser = User.createUser(MAIL_PREFIX);
-    		normalUser.name = "+ForInvite";
-    		accHandling.registerAccount(normalUser);
-    		datapool.save(normalUser);
-    	}
-    	Actions.navigateTo(app);
+        normalUser = datapool.users()
+                .filter("role", UserRole.USER)
+                .filter("valid", true)
+                .field("name").contains("ForInvite").get();
+        if (normalUser == null) {
+            Reporter.reportMessage("Create new user for invitation");
+            normalUser = User.createUser(MAIL_PREFIX);
+            normalUser.name = "+ForInvite";
+            accHandling.registerAccount(normalUser);
+            datapool.save(normalUser);
+        }
+        Actions.navigateTo(app);
     }
-    
+
     @Test
     public void inviteColleague() {
-    	
-    	// 1 call invite on action handling
-    	User invitedUser = getInviteUser();
-    	accHandling.inviteUser(normalUser, invitedUser);
-    	// user registered
-    	datapool.save(invitedUser);
-        
+
+        // 1 call invite on action handling
+        User invitedUser = getInviteUser();
+        accHandling.inviteUser(normalUser, invitedUser);
+        // user registered
+        datapool.save(invitedUser);
+
         // 2 check if new user is invited correctly
         fa.login(normalUser.email, normalUser.password);
-        
+
         click(header.settingsMenu.accountLnk);
         assertThat(dashboardPage.usersLnk, is(displayed()));
         click(dashboardPage.usersLnk);
@@ -98,19 +98,20 @@ public class TC022_Invite_Colleague {
 
         fa.logout();
     }
-    
+
     /**
      * Try to find a user to invite in test db or creates a new one
+     *
      * @return the user to invite
      */
     private User getInviteUser() {
-    	User inviteUser = null;
-		Reporter.reportMessage("Create new user for invatation.");
-		inviteUser = User.createUser(MAIL_PREFIX);
-    	inviteUser.name += "+INVITE";
-    	inviteUser.valid = true;
-    	datapool.save(inviteUser);
-    	
-    	return inviteUser;
+        User inviteUser = null;
+        Reporter.reportMessage("Create new user for invatation.");
+        inviteUser = User.createUser(MAIL_PREFIX);
+        inviteUser.name += "+INVITE";
+        inviteUser.valid = true;
+        datapool.save(inviteUser);
+
+        return inviteUser;
     }
 }

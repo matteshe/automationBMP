@@ -3,88 +3,98 @@ package de.telekom.bmp.data;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
-import com.google.code.morphia.annotations.Entity;
-import com.google.code.morphia.annotations.Indexed;
-import com.google.code.morphia.annotations.Reference;
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.Reference;
 
 /**
- * 
+ *
  * @author Daniel
  */
 @Entity
 public class User extends BaseEntity {
 
-	public String name;
+    public static class Fields extends BaseEntity.Fields {
 
-	public String firstName;
+        public static final String name = "name";
+        public static final String firstName = "firstName";
+        public static final String companyName = "companyName";
+        public static final String email = "email";
+        public static final String password = "password";
+        public static final String role = "role";
+        public static final String registered = "registered";
+        public static final String company = "company";
+        public static final String applications = "applications";
+    }
 
-	public String companyName;
+    public String name;
+    public String firstName;
+    public String companyName;
 
-	@Indexed(unique = true)
-	public String email;
+    @Indexed(unique = true)
+    public String email;
+    public String password;
+    public UserRole role;
+    public boolean registered = false;
 
-	public String password;
+    public Set<String> apps = new HashSet<>();
 
-	public UserRole role;
+    @Reference
+    public Company company;
 
-	// public states
-	public boolean registered = false;
+    @Reference
+    public Set<Application> applications = new HashSet<>();
 
-	public Set<String> apps = new HashSet<>();
+    public User() {
+    }
 
-	@Reference
-	public Company company;
+    public User(String name, String mail, UserRole role) {
+        this.name = name;
+        this.email = mail;
+        this.role = role;
+    }
 
-	@Reference
-	public Set<Application> applications = new HashSet<>();
+    public User(String name, String mail) {
+        this(name, mail, UserRole.USER);
+    }
 
-	public User() {
-	}
+    public static User createUser() {
+        return createUser(null);
+    }
 
-	public User(String name, String mail, UserRole role) {
-		this.name = name;
-		this.email = mail;
-		this.role = role;
-	}
+    /**
+     * Create a user object with some default data
+     *
+     * @param mailPrefix
+     * @return a user instance
+     */
+    public static User createUser(String mailPrefix) {
+        long postfixIdentifier = createPostfixId();
+        User newUser = new User();
 
-	public User(String name, String mail) {
-		this(name, mail, UserRole.USER);
-	}
+        newUser.email = createMailAlias(mailPrefix, postfixIdentifier);
+        newUser.password = "12345!QAY";
+        newUser.firstName = addIdentifier("max", postfixIdentifier);
+        newUser.name = addIdentifier("mustermann", postfixIdentifier);
+        newUser.companyName = addIdentifier("testcompany", postfixIdentifier);
+        newUser.registered = false;
+        newUser.role = UserRole.USER;
 
-	/**
-	 * Create a user object with some default data
-	 * 
-	 * @return a user instance
-	 */
-	public static User createUser(String mailPrefix) {
-		long postfixIdentifier = createPostfixId();
-		User newUser = new User();
+        return newUser;
+    }
 
-		newUser.email = createMailAlias(mailPrefix, postfixIdentifier);
-		newUser.password = "12345!QAY";
-		newUser.firstName = addIdentifier("max", postfixIdentifier);
-		newUser.name = addIdentifier("mustermann", postfixIdentifier);
-		newUser.companyName = addIdentifier("companyName", postfixIdentifier);
-		newUser.registered = false;
-		newUser.role = UserRole.USER;
-		newUser.valid = false;
+    private static String addIdentifier(String value, long identifier) {
+        return value + "+" + identifier;
+    }
 
-		return newUser;
-	}
+    private static String createMailAlias(String mailPrefix, long identifier) {
+        if (mailPrefix == null || mailPrefix.isEmpty()) {
+            mailPrefix = "mybmptestuser";
+        }
+        return addIdentifier(mailPrefix, identifier) + "@gmail.com";
+    }
 
-	private static String addIdentifier(String value, long identifier) {
-		return value + "+" + identifier;
-	}
-
-	private static String createMailAlias(String mailPrefix, long identifier) {
-		if ("".equals(mailPrefix)) {
-			mailPrefix = "mybmptestuser";
-		}
-		return addIdentifier(mailPrefix, identifier) + "@gmail.com";
-	}
-
-	private static long createPostfixId() {
-		return (new Date()).getTime();
-	}
+    private static long createPostfixId() {
+        return (new Date()).getTime();
+    }
 }

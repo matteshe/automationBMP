@@ -1,7 +1,5 @@
 package de.telekom.bmp.tests.purchasetest;
 
-import com.google.code.morphia.Datastore;
-import com.google.code.morphia.query.*;
 import de.telekom.bmp.data.App;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;

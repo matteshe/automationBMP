@@ -2,7 +2,6 @@ package de.telekom.bmp.tests.smoketest;
 
 import static de.telekom.testframework.Actions.navigateTo;
 import static de.telekom.testframework.Assert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -20,36 +19,40 @@ import de.telekom.testframework.selenium.annotations.UseWebDriver;
 @UseWebDriver
 @QCId("5506")
 public class TC002_RegistrationWithValidCredentials {
-	private static final String MAIL_PREFIX = "mybmptestuser";
-	@Inject
-	AccountHandling accountHandling;
 
-	@Inject
-	BmpApplication app;
+    @Inject
+    AccountHandling accountHandling;
 
-	@Inject
-	Datapool datapool;
+    @Inject
+    BmpApplication app;
 
-	@BeforeMethod
-	public void setup() {
-		navigateTo(app);
-	}
+    @Inject
+    Datapool datapool;
 
-	@AfterMethod
-	public void tearDown() {
-	}
+    @BeforeMethod
+    public void setup() {
+        navigateTo(app);
+    }
 
-	@Test
-	public void registrationWithValidCredentials() throws InterruptedException {
-		// create a valid and not registered user
-		User user = User.createUser(MAIL_PREFIX);
-		assertThat(user, notNullValue());
+    @AfterMethod
+    public void tearDown() {
+    }
 
-		accountHandling.registerAccount(user);
-		user.registered = true;
-		user.valid = true;
+    @Test
+    public void registrationWithValidCredentials() throws InterruptedException {
+        // create a valid and not registered user        
+        User user = datapool.validUsers().field(User.Fields.registered).equal(false).get();
+        if (user == null) {
+            user = User.createUser();
+        }
+        assertThat("we have a user", user != null);
+        user.valid = false;
 
-		// save in testdata db
-		datapool.save(user);
-	}
+        accountHandling.registerAccount(user);
+        user.registered = true;
+        user.valid = true;
+
+        // save in testdata db
+        datapool.save(user);
+    }
 }

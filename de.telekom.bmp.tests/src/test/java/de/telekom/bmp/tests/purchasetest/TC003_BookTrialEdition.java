@@ -1,32 +1,11 @@
 package de.telekom.bmp.tests.purchasetest;
 
-import com.google.code.morphia.Datastore;
-import com.google.code.morphia.query.*;
-import de.telekom.bmp.data.App;
 import de.telekom.bmp.data.Datapool;
-import de.telekom.bmp.data.User;
-import de.telekom.bmp.data.UserRole;
 import de.telekom.bmp.functional.BookingActions;
-import de.telekom.bmp.pages.purchase.BillingDetails;
-import de.telekom.bmp.pages.purchase.CreateOrder;
 
 import de.telekom.bmp.functional.FunctionalActions;
-import de.telekom.bmp.functional.FunctionalActions2;
-
-import de.telekom.bmp.pages.purchase.ConfirmOrder;
-import de.telekom.bmp.pages.purchase.CreateOrder.EditionRow;
-import de.telekom.bmp.pages.purchase.OrderReceipt;
-import de.telekom.bmp.pages.purchase.PaymentSelection;
-import de.telekom.bmp.pages.purchase.TelekomPayment;
-
-import static de.telekom.testframework.Actions.*;
-
-import static de.telekom.testframework.reporting.Reporter.reportMessage;
-import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import javax.inject.Inject;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**

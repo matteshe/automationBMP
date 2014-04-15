@@ -1,6 +1,5 @@
 '*****************************************************************************
 ' Call to include our external FW script and execute the primary
-' function "SoapUI"
 '*****************************************************************************
 Sub Test_Main(Debug, CurrentTestSet, CurrentTSTest, CurrentRun)
     'include the framework VBScript

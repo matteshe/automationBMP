@@ -1,117 +1,113 @@
 package de.telekom.bmp.functional;
 
-import static de.telekom.testframework.Actions.click;
-import static de.telekom.testframework.Actions.set;
-import static de.telekom.testframework.Assert.assertThat;
-import static org.hamcrest.Matchers.notNullValue;
-
 import com.google.inject.Inject;
-
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.MailAccount;
 import de.telekom.bmp.pages.GoogleLoginPage;
 import de.telekom.bmp.pages.GoogleReadMailPage;
+import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.selenium.Browser;
 import de.telekom.testframework.selenium.controls.Link;
+import static org.hamcrest.Matchers.*;
 
 /**
- * 
+ *
  * @author Mathias Herkt
  */
 public class GoogleMailAccount {
-	private static final String GOOGLE_MAIL_URL = "mail.google.com";
-	private static final String MAIL_PASSWORD = "galerien3?";
 
-	public static final String CONFIRM_MAIL = "Bitte bestätigen";
-	public static final String PW_RESET = "Passwortzurücksetzung";
+    private static final String GOOGLE_MAIL_URL = "mail.google.com";
+    private static final String MAIL_PASSWORD = "galerien3?";
 
-	@Inject
-	Datapool db;
+    public static final String CONFIRM_MAIL = "Bitte bestätigen";
+    public static final String PW_RESET = "Passwortzurücksetzung";
 
-	@Inject
-	Browser browser;
+    @Inject
+    Datapool db;
 
-	@Inject
-	GoogleLoginPage googlePage;
+    @Inject
+    Browser browser;
 
-	@Inject
-	GoogleReadMailPage readMailPage;
+    @Inject
+    GoogleLoginPage googlePage;
 
-	MailAccount mailAccount;
+    @Inject
+    GoogleReadMailPage readMailPage;
 
-	public void setMailAccount(String login) {
-		String extractedMailAddress = extractEmailFromAlias(login);
-		mailAccount = db.mailAccounts().field("mailAddress")
-				.equal(extractedMailAddress).get();
-		if (mailAccount == null) {
-			mailAccount = new MailAccount();
-			mailAccount.setProvider(GOOGLE_MAIL_URL);
-			mailAccount.setMailAddress(extractedMailAddress);
-			mailAccount.setPassword(MAIL_PASSWORD);
-			db.save(mailAccount);
-		}
-	}
+    MailAccount mailAccount;
 
-	/**
-	 * This methods navigates to a google account and try to find a mail, based
-	 * on a given partial string as subject. In this mail should be a link
-	 * with the given domain, which will be extracted.
-	 *  
-	 * @param linkDomain is part of the BMP App domain in the link (e.g. bmptest.de)
-	 * @param partialSubject text contains in subject
-	 * @return
-	 */
-	public String checkGoogleMailAccountAndExtractConfirmLink(
-			String linkDomain, String partialSubject) {
-		browser.navigate().to(mailAccount.getProvider());
+    public void setMailAccount(String login) {
+        String extractedMailAddress = extractEmailFromAlias(login);
+        mailAccount = db.mailAccounts().field("mailAddress")
+                .equal(extractedMailAddress).get();
+        if (mailAccount == null) {
+            mailAccount = new MailAccount();
+            mailAccount.provider = GOOGLE_MAIL_URL;
+            mailAccount.mailAddress = extractedMailAddress;
+            mailAccount.password = MAIL_PASSWORD;
+            db.save(mailAccount);
+        }
+    }
 
-		loginIntoGoogleMailAccount();
+    /**
+     * This methods navigates to a google account and try to find a mail, based
+     * on a given partial string as subject. In this mail should be a link with
+     * the given domain, which will be extracted.
+     *
+     * @param linkDomain is part of the BMP App domain in the link (e.g.
+     * bmptest.de)
+     * @param partialSubject text contains in subject
+     * @return
+     */
+    public String checkGoogleMailAccountAndExtractConfirmLink(
+            String linkDomain, String partialSubject) {
+        navigateTo(mailAccount.provider);
 
-		String confirmLink = readMailAndFindConfirmLink(linkDomain,
-				partialSubject);
+        loginIntoGoogleMailAccount();
 
-		logoutMailAccount();
+        String confirmLink = readMailAndFindConfirmLink(linkDomain,
+                partialSubject);
 
-		return confirmLink;
-	}
+        logoutMailAccount();
 
-	private void loginIntoGoogleMailAccount() {
-		set(googlePage.email, mailAccount.getMailAddress());
-		set(googlePage.password, mailAccount.getPassword());
-		if (googlePage.stayLoggedIn.isSelected()) {
-			click(googlePage.stayLoggedIn);
-		}
+        return confirmLink;
+    }
 
-		click(googlePage.loginBtn);
-	}
+    private void loginIntoGoogleMailAccount() {
+        set(googlePage.email, mailAccount.mailAddress);
+        set(googlePage.password, mailAccount.password);
+        if (googlePage.stayLoggedIn.isSelected()) {
+            click(googlePage.stayLoggedIn);
+        }
 
-	private void logoutMailAccount() {
-		browser.navigate().to(googlePage.signoutLink.get("").getHref());
-	}
+        click(googlePage.loginBtn);
+    }
 
-	private String extractEmailFromAlias(final String emailAddress) {
-		String newMailAddress = emailAddress;
-		if (emailAddress.contains("+")) {
-			String mailName = emailAddress.substring(0,
-					emailAddress.indexOf("+"));
-			String domainName = emailAddress.substring(emailAddress
-					.indexOf("@"));
-			newMailAddress = mailName + domainName;
-		}
+    private void logoutMailAccount() {
+        browser.navigate().to(googlePage.signoutLink.get("").getHref());
+    }
 
-		return newMailAddress;
-	}
+    private String extractEmailFromAlias(final String emailAddress) {
+        String newMailAddress = emailAddress;
+        if (emailAddress.contains("+")) {
+            String mailName = emailAddress.substring(0,
+                    emailAddress.indexOf("+"));
+            String domainName = emailAddress.substring(emailAddress
+                    .indexOf("@"));
+            newMailAddress = mailName + domainName;
+        }
 
-	private String readMailAndFindConfirmLink(String linkDomain,
-			String mailCategory) {
-		Link confirmRegLnk = readMailPage.emailLnk.get(mailCategory);
-		assertThat(confirmRegLnk, notNullValue());
-		click(confirmRegLnk);
+        return newMailAddress;
+    }
 
-		String reallyConfirm = readMailPage.confirmLink.get(linkDomain)
-				.getHref();
-		assertThat(reallyConfirm, notNullValue());
+    private String readMailAndFindConfirmLink(String linkDomain, String mailCategory) {
+        Link confirmRegLnk = readMailPage.emailLnk.get(mailCategory);
+        assertThat(confirmRegLnk, is(not(nullValue())));
+        click(confirmRegLnk);
 
-		return reallyConfirm;
-	}
+        String reallyConfirm = readMailPage.confirmLink.get(linkDomain).getHref();
+        assertThat(reallyConfirm, is(not(nullValue())));
+
+        return reallyConfirm;
+    }
 }

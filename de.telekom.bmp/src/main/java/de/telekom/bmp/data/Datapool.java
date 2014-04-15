@@ -1,15 +1,15 @@
 package de.telekom.bmp.data;
 
-import com.google.code.morphia.Datastore;
-import com.google.code.morphia.Key;
-import com.google.code.morphia.Morphia;
-import com.google.code.morphia.query.Query;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
 import de.telekom.testframework.configuration.Configuration;
 import java.net.UnknownHostException;
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Key;
+import org.mongodb.morphia.Morphia;
+import org.mongodb.morphia.query.Query;
 
 /**
  *
@@ -86,6 +86,10 @@ public class Datapool {
             dataStore.ensureCaps();
         }
         return dataStore;
+    }
+
+    public Query<User> validUsers() {
+        return getDatastore().find(User.class).field(User.Fields.valid).equal(true);
     }
 
     public Query<User> users() {

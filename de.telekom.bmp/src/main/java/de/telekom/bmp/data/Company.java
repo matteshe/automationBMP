@@ -1,6 +1,5 @@
 package de.telekom.bmp.data;
-
-import com.google.code.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Entity;
 
 /**
  *
