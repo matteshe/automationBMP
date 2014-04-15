@@ -35,7 +35,7 @@ public class HomePageTest extends BasePageTest {
 		verifyThat(homePg.loginBtn, exists());
 		verifyThat(homePg.langToggleBtn, exists());
 		verifyThat(homePg.registerBtn, exists());
-		verifyThat(homePg.version, exists());
+		verifyThat(homePg.bodyFooterDescribe, exists());
 		//verifyThat(homePg.feedbackMessage, exists());
 	}
 }

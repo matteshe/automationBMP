@@ -21,6 +21,8 @@ public abstract class BaseEntity {
 
     protected Date lastUpdated = new Date();
 
+    public static final String VALID = "valid";
+
     public boolean valid = true;
 
     @PrePersist

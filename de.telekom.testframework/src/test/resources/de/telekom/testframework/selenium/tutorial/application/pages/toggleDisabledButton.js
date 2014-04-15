@@ -1,9 +1,9 @@
-function realToogle() {
-    var element = document.getElementsByName("disabledField")[0];
+function toggleDisabledField() {
+    var element = document.getElementsByName("delayedDisabledText")[0];
     element.disabled = !element.disabled;
 }
-function toggleDisabledField() {
-    window.setTimeout("realToogle()", 5000);
+function delayedToggleDisabledField() {
+    window.setTimeout(toggleDisabledField, 5000);
     
 }
 

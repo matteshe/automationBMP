@@ -1,6 +1,7 @@
 package de.telekom.testframework.selenium.tutorial.application.pages;
 
 import de.telekom.testframework.selenium.Page;
+import de.telekom.testframework.selenium.controls.Button;
 import de.telekom.testframework.selenium.controls.CheckBox;
 import de.telekom.testframework.selenium.controls.Control;
 import de.telekom.testframework.selenium.controls.RadioButton;
@@ -50,5 +51,14 @@ public class Home extends Page {
 
     @FindBy(id = "ghi")
     public RadioButton aradioGhi;
+    
+    @FindBy(name = "delayedDisabledText")
+    public TextField delayedDisabledText;
+    
+    @FindBy(name = "toggleDisableField")
+    public Button toggleDisableField;
+    
+    @FindBy(name = "delayedToggleDisableField")
+    public Button delayedToggleDisableField;
 
 }

@@ -14,7 +14,11 @@ import org.openqa.selenium.WebDriver;
 @Singleton
 public class BmpApplication extends Application {
 
-    class MyConfiguration extends Configuration {
+    public class MyConfiguration extends Configuration {
+
+        @Inject(optional = true)
+        @Named("BmpApplication.version")
+        public String version = "138.4";
 
         @Inject(optional = true)
         @Named("BmpApplication.url")
@@ -26,7 +30,7 @@ public class BmpApplication extends Application {
         }
     }
 
-    MyConfiguration configuration = new MyConfiguration();
+    public final MyConfiguration configuration = new MyConfiguration();
 
     @Inject
     public BmpApplication(WebDriver webDriver) {

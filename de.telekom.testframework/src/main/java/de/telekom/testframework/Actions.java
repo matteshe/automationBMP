@@ -48,17 +48,6 @@ public class Actions extends Assert {
         control.set(value);
     }
 
-    /**
-     *
-     * @param control
-     * @param value
-     * @deprecated use {@link #sendKeys} instead
-     */
-    @Deprecated
-    public static void set(Control control, Keys value) {
-        control.sendKeys(value);
-    }
-
     public static Object get(Control control, Object value) {
         return control.get();
     }

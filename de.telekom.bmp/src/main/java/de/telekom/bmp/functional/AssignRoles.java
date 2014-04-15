@@ -3,14 +3,9 @@
  */
 package de.telekom.bmp.functional;
 
-import static de.telekom.testframework.Actions.click;
-import static de.telekom.testframework.Actions.set;
-import static de.telekom.testframework.Assert.assertThat;
-import static de.telekom.testframework.Assert.waitFor;
-import static de.telekom.testframework.selenium.Matchers.displayed;
-import static de.telekom.testframework.selenium.Matchers.selected;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
+import static de.telekom.testframework.Actions.*;
+import static de.telekom.testframework.selenium.Matchers.*;
+import static org.hamcrest.Matchers.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -65,7 +60,7 @@ public class AssignRoles {
 		
 		click(suDashboardPg.smallSearchInput);
 		set(suDashboardPg.smallSearchInput, newSuUser.email);
-		set(suDashboardPg.smallSearchInput, Keys.RETURN);
+                sendKeys(suDashboardPg.smallSearchInput, Keys.RETURN);
 		waitFor(2, TimeUnit.SECONDS);
 		assertThat(suDashboardPg.userLnk, is(displayed()));
 		
@@ -89,7 +84,7 @@ public class AssignRoles {
 		click(suDashboardPg.smallSearchInput);
 		set(suDashboardPg.smallSearchInput, userForChannelAdmin.companyName);
 		Reporter.reportMessage("Send Return to small search text field");
-		set(suDashboardPg.smallSearchInput, Keys.RETURN);
+		sendKeys(suDashboardPg.smallSearchInput, Keys.RETURN);
 		
 		assertThat(suDashboardPg.channelAdminChkBox, is(not(selected())));
 		click(suDashboardPg.channelAdminChkBox);
@@ -98,7 +93,7 @@ public class AssignRoles {
 		click(suDashboardPg.smallSearchInput);
 		set(suDashboardPg.smallSearchInput, userForChannelAdmin.email);
 		Reporter.reportMessage("Send Return to small search text field");
-		set(suDashboardPg.smallSearchInput,Keys.RETURN);
+		sendKeys(suDashboardPg.smallSearchInput,Keys.RETURN);
 		
 		assertThat(suDashboardPg.userChannelAdminChkBox, is(displayed()));
 		assertThat(suDashboardPg.userChannelAdminChkBox, is(not(selected())));
@@ -120,7 +115,7 @@ public class AssignRoles {
 		assertThat(mpPg.smallSearchInput, is(displayed()));
 		click(mpPg.smallSearchInput);
 		set(mpPg.smallSearchInput, userForSrr.email);
-		set(mpPg.smallSearchInput, Keys.RETURN);
+		sendKeys(mpPg.smallSearchInput, Keys.RETURN);
 		waitFor(2, TimeUnit.SECONDS);
 		
 		// choose user from list
@@ -151,7 +146,7 @@ public class AssignRoles {
 		assertThat(mpPg.smallSearchInput, is(displayed()));
 		click(mpPg.smallSearchInput);
 		set(mpPg.smallSearchInput, userForSrr.email);
-		set(mpPg.smallSearchInput, Keys.RETURN);
+		sendKeys(mpPg.smallSearchInput, Keys.RETURN);
 		waitFor(2, TimeUnit.SECONDS);
 		
 		// choose user from list
