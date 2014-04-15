@@ -1,8 +1,9 @@
 /**
  * 
  */
-package de.telekom.bmp.pages.superuser;
+package de.telekom.bmp.pages.superuser.tests;
 
+import de.telekom.bmp.pages.superuser.BillingAdminPage;
 import static de.telekom.testframework.Assert.verifyThat;
 import static de.telekom.testframework.selenium.Matchers.*;
 import static org.hamcrest.Matchers.*;
@@ -13,7 +14,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import de.telekom.bmp.pages.BasePageTest;
+import de.telekom.bmp.pages.tests.BasePageTest;
 import de.telekom.testframework.Actions;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 
@@ -23,9 +24,9 @@ import de.telekom.testframework.selenium.annotations.UseWebDriver;
  *
  */
 @UseWebDriver
-public class MarketplacesPageTest extends BasePageTest {
+public class BillingAdminPageTest extends BasePageTest {
 	@Inject
-	MarketplacesPage pg;
+	BillingAdminPage pg;
 	
 	@BeforeMethod
 	public void setup() {

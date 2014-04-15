@@ -1,8 +1,9 @@
 /**
  * 
  */
-package de.telekom.bmp.pages;
+package de.telekom.bmp.pages.tests;
 
+import de.telekom.bmp.pages.Home;
 import javax.inject.Inject;
 
 import org.testng.annotations.BeforeMethod;

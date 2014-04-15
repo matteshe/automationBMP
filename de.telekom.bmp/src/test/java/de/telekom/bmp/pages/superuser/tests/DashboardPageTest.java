@@ -1,19 +1,21 @@
 /**
  * 
  */
-package de.telekom.bmp.pages.superuser;
+package de.telekom.bmp.pages.superuser.tests;
 
+import de.telekom.bmp.pages.superuser.DashboardPage;
 import static de.telekom.testframework.Assert.verifyThat;
-import static de.telekom.testframework.selenium.Matchers.*;
-import static org.hamcrest.Matchers.*;
+import static de.telekom.testframework.selenium.Matchers.exists;
+import static de.telekom.testframework.selenium.Matchers.loaded;
+import static org.hamcrest.Matchers.is;
 
 import javax.inject.Inject;
 
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import de.telekom.bmp.pages.BasePageTest;
+import de.telekom.bmp.pages.tests.BasePageTest;
 import de.telekom.testframework.Actions;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 
@@ -23,18 +25,18 @@ import de.telekom.testframework.selenium.annotations.UseWebDriver;
  *
  */
 @UseWebDriver
-public class RebuildIndexPageTest extends BasePageTest {
+public class DashboardPageTest extends BasePageTest {
 	@Inject
-	RebuildIndexPage pg;
+	DashboardPage pg;
 	
-	@BeforeMethod
+	@BeforeClass
 	public void setup() {
 		login();
 		Actions.navigateTo(pg);
 		verifyThat(pg, is(loaded()));
 	}
 	
-	@AfterMethod
+	@AfterClass
 	public void tearDown() {
 		logout();
 	}

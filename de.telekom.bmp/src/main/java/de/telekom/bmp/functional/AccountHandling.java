@@ -15,7 +15,6 @@ import de.telekom.bmp.pages.Signup;
 import de.telekom.bmp.pages.account.Dashboard;
 import de.telekom.bmp.pages.accountsetup.AccountActivationPage;
 import de.telekom.testframework.Actions;
-import de.telekom.testframework.reporting.Reporter;
 import de.telekom.testframework.selenium.Browser;
 
 /**
@@ -64,27 +63,18 @@ public class AccountHandling {
     /**
      * Method to register a new user based on the given mail address
      *
-     * @param emailAddress of the new user
-     * @throws InterruptedException if something goes wrong with sleep
+     * @param user
      */
     public void registerAccount(User user) {
         navigateTo(signup);
 
         click(homePage.registerBtn);
+        set(signup.signupForm.emailAddress, user.email);
 
-        set(signup.emailAddress, user.email);
-
-        assertThat("signup.iconValid.isDisplayed",
-                signup.iconValid.isDisplayed());
-
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            Reporter.reportInfo(e.getMessage());
-        }
+        assertThat(signup.signupForm.iconValid, is(displayed()));
 
         // button to register
-        click(signup.signup);
+        click(signup.signupForm.signup);
 
         // read email
         String confirmLink = getConfirmLink(user.email,
@@ -97,21 +87,29 @@ public class AccountHandling {
         fa.logout();
     }
 
+    public String getConfirmLink(String mailAddress) {
+        return getConfirmLink(mailAddress, GoogleMailAccount.CONFIRM_MAIL);
+    }
+
     /**
      * Method tries to read an email to receive a confirm link
      *
      * @param mailAddress of the gmail account
      * @param mailCategory category for mail
      * @return a link to confirm
-     * @throws InterruptedException
      */
-    private String getConfirmLink(String mailAddress, String mailCategory) {
-        gmail.setMailAccount(mailAddress);
+    public String getConfirmLink(String mailAddress, String mailCategory) {
+        //newWindow();
+        try {
+            gmail.setMailAccount(mailAddress);
 
-        String confirmLink = gmail.checkGoogleMailAccountAndExtractConfirmLink(
-                APP_DOMAIN, mailCategory);
-        assertThat(confirmLink, !confirmLink.equals(""));
-        return addHtaccessCredentials(confirmLink);
+            String confirmLink = gmail.checkGoogleMailAccountAndExtractConfirmLink(
+                    APP_DOMAIN, mailCategory);
+            assertThat(confirmLink, !confirmLink.equals(""));
+            return addHtaccessCredentials(confirmLink);
+        } finally {
+            //closeWindow();
+        }
     }
 
     /**

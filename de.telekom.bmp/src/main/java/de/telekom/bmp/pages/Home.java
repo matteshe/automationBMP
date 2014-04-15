@@ -23,15 +23,19 @@ public class Home extends Page {
         super(app);
     }
 
+    @Deprecated
     @FindBy(xpath = "//div[@class = 'login']")
     public Button loginBtn;
 
+    @Deprecated
     @FindBy(xpath = "//a[@href='./signup' or contains(text(),'Registrieren')]")
     public Button registerBtn;
 
+    @Deprecated
     @FindBy(xpath = "//li[contains(@class, 'languageToggle')]")
     public Button langToggleBtn;
 
+    @Deprecated
     @FindBy(xpath = "//li[@class='feedbackPanelINFO']")
     public Text feedbackMessage;
 

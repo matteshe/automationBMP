@@ -1,8 +1,9 @@
 /**
  * 
  */
-package de.telekom.bmp.pages;
+package de.telekom.bmp.pages.tests;
 
+import de.telekom.bmp.pages.Login;
 import static de.telekom.testframework.Assert.verifyThat;
 import static de.telekom.testframework.selenium.Matchers.loaded;
 import static org.hamcrest.Matchers.*;

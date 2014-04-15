@@ -1,7 +1,7 @@
 /**
  * 
  */
-package de.telekom.bmp.pages;
+package de.telekom.bmp.pages.tests;
 
 import static de.telekom.testframework.Assert.assertThat;
 import static org.hamcrest.Matchers.is;

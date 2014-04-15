@@ -24,7 +24,6 @@ import org.testng.annotations.Test;
  *
  * @author Nomop
  */
-
 @UseWebDriver
 @Test(groups = {"qcid-5506"})
 public class TC01_Registration_with_invalid_credentials {
@@ -37,7 +36,7 @@ public class TC01_Registration_with_invalid_credentials {
 
     @Inject
     Home home;
-    
+
     @Inject
     Signup signup;
 
@@ -56,7 +55,6 @@ public class TC01_Registration_with_invalid_credentials {
                 .field("registered").notEqual(true).get();
 
 //        user = datapool.users().field("valid").equal(true).get();
-
         assertNotNull(user, "user not available");
 
 //        user.valid = false;
@@ -69,14 +67,14 @@ public class TC01_Registration_with_invalid_credentials {
 
         try {
 
-            click(home.registerBtn);
-            
-            set(signup.emailAddress, user.email);
-            assertThat(signup.iconInvalid, is(displayed()));
-            
-            click(signup.signup);  
+            click(header.register);
+
+            set(signup.signupForm.emailAddress, user.email);
+            assertThat(signup.signupForm.iconInvalid, is(displayed()));
+
+            click(signup.signupForm.signup);
 //
-//            assertThat(home, currentPage());
+//            assertThat(home, page());
 
 //            user.valid = true;
         } finally {

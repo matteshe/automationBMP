@@ -3,10 +3,9 @@ package de.telekom.bmp.functional;
 import com.google.inject.Inject;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.MailAccount;
-import de.telekom.bmp.pages.GoogleLoginPage;
-import de.telekom.bmp.pages.GoogleReadMailPage;
+import de.telekom.googlemail.pages.Login;
+import de.telekom.googlemail.pages.OldMail;
 import static de.telekom.testframework.Actions.*;
-import de.telekom.testframework.selenium.Browser;
 import de.telekom.testframework.selenium.controls.Link;
 import static org.hamcrest.Matchers.*;
 
@@ -26,13 +25,10 @@ public class GoogleMailAccount {
     Datapool db;
 
     @Inject
-    Browser browser;
+    Login googlePage;
 
     @Inject
-    GoogleLoginPage googlePage;
-
-    @Inject
-    GoogleReadMailPage readMailPage;
+    OldMail readMailPage;
 
     MailAccount mailAccount;
 
@@ -80,11 +76,11 @@ public class GoogleMailAccount {
             click(googlePage.stayLoggedIn);
         }
 
-        click(googlePage.loginBtn);
+        click(googlePage.signIn);
     }
 
     private void logoutMailAccount() {
-        browser.navigate().to(googlePage.signoutLink.get("").getHref());
+        click(googlePage.signoutLink);
     }
 
     private String extractEmailFromAlias(final String emailAddress) {

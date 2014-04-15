@@ -1,19 +1,13 @@
 
 package de.telekom.bmp.tests.design;
 
-import de.telekom.bmp.functional.FunctionalActions;
-import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Signup;
-import de.telekom.bmp.pages.account.Account;
-import de.telekom.bmp.pages.account.Dashboard;
-import de.telekom.bmp.pages.account.Users;
 
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
 
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import javax.inject.Inject;
-import static org.hamcrest.Matchers.*;
 import org.testng.annotations.Test;
 
 /**
@@ -38,9 +32,9 @@ public class TC006_OverviewRegistrationDialogue {
        verifyThat(registration.isCurrentPage());
               
        verifyThat(registration.registerHeader.isDisplayed());
-       verifyThat(registration.emailAddress.isDisplayed()); 
+       verifyThat(registration.signupForm.emailAddress.isDisplayed()); 
               
-       verifyThat(registration.signup.isDisplayed());
+       verifyThat(registration.signupForm.signup.isDisplayed());
        verifyThat(registration.alreadyRegistered.isDisplayed());
        
     }

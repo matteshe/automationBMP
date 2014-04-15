@@ -1,4 +1,4 @@
-package de.telekom.bmp;
+package de.telekom.googlemail;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -12,13 +12,13 @@ import org.openqa.selenium.WebDriver;
  * @author Mathias Herkt
  */
 @Singleton
-public class GoogleApplication extends Application {
+public class GoogleMailApplication extends Application {
 
     class MyConfiguration extends Configuration {
 
         @Inject(optional = true)
         @Named("GoogleApplication.url")
-        public String url = "http://www.google.de";
+        public String url = "https://mail.google.com";
 
         public MyConfiguration() {
             initialize();
@@ -28,7 +28,7 @@ public class GoogleApplication extends Application {
     MyConfiguration configuration = new MyConfiguration();
 
     @Inject
-    public GoogleApplication(WebDriver webDriver) {
+    public GoogleMailApplication(WebDriver webDriver) {
         super(webDriver);
     }
 

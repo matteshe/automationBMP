@@ -10,7 +10,6 @@ import java.net.URL;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -191,5 +190,29 @@ public class Actions extends Assert {
 
     public static <T extends DelegatedWebElement> T find(Class<T> clz, By by) {
         return Browser.getInstance().find(clz, by);
+    }
+
+    protected static class DummyApplication extends Application {
+
+        public DummyApplication() {
+            super(Browser.getInstance().getWebDriver());
+        }
+
+        @Override
+        public String getURLString() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+    }
+
+    protected static class CurrentPage extends Page {
+
+        public CurrentPage() {
+            super(new DummyApplication());
+        }
+
+    }
+
+    public static Page page() {
+        return new CurrentPage();
     }
 }

@@ -17,5 +17,5 @@ public class Table extends Control {
     }
 
     @FindBy(tagName = "tr")
-    public List<Control> rows;
+    public List<Row> rows;
 }

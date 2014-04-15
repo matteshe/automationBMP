@@ -104,11 +104,11 @@ public class Header extends Page {
     }
 
     //@FindBy(xpath = ".//li[@class='last']/a | .//li[@class='info-parent settings-container']")
-    @FindBy(xpath = "//a[contains(@href, '/einstellungen/')] | .//li[@class='info-parent settings-container']")
+    @FindBy(xpath = ".//a[contains(@href, '/einstellungen/')] | .//li[@class='info-parent settings-container']")
     public SettingsMenu settingsMenu;
 
     @FindBy(xpath = ".//a[@id='myapps']/span | .//div[@class='hlist right']//a")
-    public AccountMenu launchPadLnk;
+    public Link launchPadLnk;
 
     @FindBy(xpath = ".//div[@class='dropdown-parent' or @id='topbar-login']")
     public AccountMenu accountMenu;
@@ -123,6 +123,9 @@ public class Header extends Page {
     @FindBy(xpath = ".//input[@type='submit']|.//button[@type='submit']")
     @UseParent("searchForm")
     public Button searchBtn;
+
+    @FindBy(xpath = "//a[contains(@href, './signup') or contains(text(),'Registrieren')]")
+    public Button register;
 
     //only for cms homepage
     @FindBy(xpath = ".//div[@id='topbar-login']|.//button")

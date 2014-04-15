@@ -7,6 +7,7 @@ import java.net.URL;
 import java.util.Objects;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
+import org.openqa.selenium.WebDriver;
 
 /**
  *
@@ -21,7 +22,6 @@ public abstract class Page extends Mask {
         Objects.requireNonNull(application, "application is null");
 
         this.application = application;
-
     }
 
     @Override
