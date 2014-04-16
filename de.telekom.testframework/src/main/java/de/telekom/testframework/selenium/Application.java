@@ -1,5 +1,6 @@
 package de.telekom.testframework.selenium;
 
+import static de.telekom.testframework.selenium.WebElementContainer.findAll;
 import de.telekom.testframework.selenium.internal.FieldElementLocator;
 import de.telekom.testframework.selenium.internal.FieldSearchContextGetter;
 import de.telekom.testframework.selenium.internal.ListOfWebElementProxy;
@@ -10,11 +11,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 /**
  *
@@ -133,18 +132,7 @@ public abstract class Application implements SearchContext, FieldSearchContextGe
 
     @SuppressWarnings("unchecked")
     public <T extends WebElement> T find(Class<T> clz, By by) {
-        try {
-
-            Constructor<?> constructor = WebElementContainer.getDelegatedElementConstructor(clz);
-
-            FieldElementLocator locator = new FieldElementLocator(this, by);
-            WebElement element = WebElementProxy.createProxy(ClassLoader.getSystemClassLoader(), webDriver, locator);
-
-            return (T) constructor.newInstance(webDriver, locator, element);
-
-        } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-            throw new RuntimeException("can't instanciate class", e);
-        }
+        return WebElementContainer.find(clz, this, webDriver, by);
     }
 
     public List<WebElement> findAll(By by) {
@@ -152,12 +140,7 @@ public abstract class Application implements SearchContext, FieldSearchContextGe
     }
 
     public <T extends WebElement> List<T> findAll(Class<T> clz, By by) {
-        Constructor<?> constructor = WebElementContainer.getDelegatedElementConstructor(clz);
-
-        FieldElementLocator locator = new FieldElementLocator(this, by);
-        List<T> list = ListOfWebElementProxy.createProxy(ClassLoader.getSystemClassLoader(), webDriver, constructor, locator);
-
-        return list;
+        return WebElementContainer.findAll(clz, this, webDriver, by);
     }
 
 }

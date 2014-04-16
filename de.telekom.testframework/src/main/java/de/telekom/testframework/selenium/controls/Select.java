@@ -132,8 +132,8 @@ public class Select extends Control {
                 }
 
                 for (Object s : values) {
-                    if (s instanceof Integer) {
-                        internalSelect((Integer) s, false);
+                    if (s instanceof Number) {
+                        internalSelect(((Number) s).intValue(), false);
                     } else {
                         internalSelect(s.toString(), false);
                     }
@@ -143,10 +143,10 @@ public class Select extends Control {
     }
 
     @Override
-    public void set(Object value) {
+    public void internalSet(Object value) {
 
-        if (value instanceof Integer) {
-            select((Integer) value);
+        if (value instanceof Number) {
+            select(((Number) value).intValue());
             return;
         }
 
@@ -196,11 +196,11 @@ public class Select extends Control {
 
     public Option getSelectedOption() {
         for (Option o : getSelectedOptions()) {
-            return o;            
+            return o;
         }
         return null;
     }
-    
+
     public String getSelectedValue() {
         for (Option o : getSelectedOptions()) {
             return o.getValue();

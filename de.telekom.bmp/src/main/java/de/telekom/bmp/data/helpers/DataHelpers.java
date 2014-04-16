@@ -8,8 +8,6 @@ import de.telekom.bmp.data.EMailAccount;
 import de.telekom.bmp.data.User;
 import de.telekom.bmp.data.UserRole;
 import de.telekom.testframework.configuration.Configuration;
-import java.util.Date;
-import java.util.UUID;
 import org.bson.types.ObjectId;
 
 /**
@@ -55,6 +53,12 @@ public final class DataHelpers {
         @Inject(optional = true)
         @Named("testUserPassword")
         String testUserPassword = "Abcdefg1234";
+
+        @Named("superUserEMail")
+        String superUserEMail = "testmax90+sup@gmail.com";
+        @Inject(optional = true)
+        @Named("superUserPassword")
+        String superUserPassword = "test12345";
     }
 
     public static final MyConfiguration configuration = new MyConfiguration();
@@ -71,6 +75,8 @@ public final class DataHelpers {
     }
 
     protected Company createTestCompany() {
+        String id = ObjectId.get().toString();
+
         Company result = new Company(configuration.testCompanyName);
 
         return result;
@@ -91,8 +97,7 @@ public final class DataHelpers {
     }
 
     public User createTestUser(String postFix) {
-        //String id = String.valueOf(new Date().getTime());
-        //String id = UUID.randomUUID().toString().replaceAll("-", "");
+
         String id = ObjectId.get().toString();
 
         User result = new User();
@@ -107,11 +112,22 @@ public final class DataHelpers {
         result.email = splittedEmail[0] + "+" + (postFix.isEmpty() ? "" : postFix + "_") + id + "@" + splittedEmail[1];
 
         result.password = configuration.testUserPassword;
-        
+
         result.company = getTestCompany();
         result.emailAccount = getTestEmailAccount();
         result.role = UserRole.USER;
 
         return result;
     }
+
+    public User getSuperuser() {
+        User result = new User();
+
+        result.email = configuration.superUserEMail;
+        result.password = configuration.superUserPassword;
+        result.role = UserRole.SUPERUSER;
+
+        return result;
+    }
+
 }

@@ -202,11 +202,16 @@ public abstract class WebElementContainer implements WebDriverWrapper {
 
     @SuppressWarnings("unchecked")
     public <T extends WebElement> T find(Class<T> clz, By by) {
+        return find(clz, defaultSearchContextGetter, webDriver, by);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T extends WebElement> T find(Class<T> clz, FieldSearchContextGetter searchContextGetter, WebDriver webDriver, By by) {
         try {
 
             Constructor<?> constructor = WebElementContainer.getDelegatedElementConstructor(clz);
 
-            FieldElementLocator locator = new FieldElementLocator(defaultSearchContextGetter, by);
+            FieldElementLocator locator = new FieldElementLocator(searchContextGetter, by);
             WebElement element = WebElementProxy.createProxy(ClassLoader.getSystemClassLoader(), webDriver, locator);
 
             return (T) constructor.newInstance(webDriver, locator, element);
@@ -221,9 +226,13 @@ public abstract class WebElementContainer implements WebDriverWrapper {
     }
 
     public <T extends WebElement> List<T> findAll(Class<T> clz, By by) {
+        return findAll(clz, defaultSearchContextGetter, webDriver, by);
+    }
+
+    public static <T extends WebElement> List<T> findAll(Class<T> clz, FieldSearchContextGetter searchContextGetter, WebDriver webDriver, By by) {
         Constructor<?> constructor = WebElementContainer.getDelegatedElementConstructor(clz);
 
-        FieldElementLocator locator = new FieldElementLocator(defaultSearchContextGetter, by);
+        FieldElementLocator locator = new FieldElementLocator(searchContextGetter, by);
         List<T> list = ListOfWebElementProxy.createProxy(ClassLoader.getSystemClassLoader(), webDriver, constructor, locator);
 
         return list;

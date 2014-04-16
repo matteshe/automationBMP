@@ -26,6 +26,10 @@ public class Control extends DelegatedWebElement {
     public String getValue() {
         return getAttribute("value");
     }
+    
+    public String getId() {
+        return getAttribute("id");
+    }
 
     protected void internalSet(Object value) {
         throw new UnsupportedOperationException();

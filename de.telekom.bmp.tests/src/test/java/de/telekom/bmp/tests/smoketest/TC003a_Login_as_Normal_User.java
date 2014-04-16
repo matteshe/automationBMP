@@ -58,7 +58,6 @@ public class TC003a_Login_as_Normal_User {
 
         //sets the german language in the browser instance
         functionalAct.ensureGermLanguageIsSet();
-
     }
 
     @Test

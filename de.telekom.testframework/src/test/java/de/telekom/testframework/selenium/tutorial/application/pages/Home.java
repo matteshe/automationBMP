@@ -3,8 +3,8 @@ package de.telekom.testframework.selenium.tutorial.application.pages;
 import de.telekom.testframework.selenium.Page;
 import de.telekom.testframework.selenium.controls.Button;
 import de.telekom.testframework.selenium.controls.CheckBox;
-import de.telekom.testframework.selenium.controls.Control;
 import de.telekom.testframework.selenium.controls.RadioButton;
+import de.telekom.testframework.selenium.controls.RadioGroup;
 import de.telekom.testframework.selenium.controls.TextField;
 import de.telekom.testframework.selenium.tutorial.application.TutorialApplication;
 import java.util.List;
@@ -51,6 +51,9 @@ public class Home extends Page {
 
     @FindBy(id = "ghi")
     public RadioButton aradioGhi;
+    
+    @FindBy(id = "ghi")
+    public RadioGroup aradioGroup;
     
     @FindBy(name = "delayedDisabledText")
     public TextField delayedDisabledText;

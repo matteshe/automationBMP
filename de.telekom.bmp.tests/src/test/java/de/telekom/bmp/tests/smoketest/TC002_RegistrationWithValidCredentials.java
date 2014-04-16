@@ -13,10 +13,6 @@ import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static org.hamcrest.Matchers.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -85,7 +81,12 @@ public class TC002_RegistrationWithValidCredentials {
 
         set(accountActivation.firstName, user.firstName);
         set(accountActivation.lastName, user.name);
+
         set(accountActivation.companyName, user.company.name);
+        set(accountActivation.industry, user.company.industry);
+
+        set(accountActivation.phoneNumber, user.phoneNumber);
+
         set(accountActivation.password, user.password);
         set(accountActivation.confirmPassword, user.password);
 
@@ -95,6 +96,7 @@ public class TC002_RegistrationWithValidCredentials {
 
         assertThat(home, is(currentPage()));
 
+        // TODO further verifications
         click(header.accountMenu.logoutLnk);
 
         user.registered = true;

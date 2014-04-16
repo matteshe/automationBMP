@@ -54,12 +54,12 @@ public class SetVerifyExamples {
     public void setNotExistingTextFields() {
         set(home.notExistingText, "abc@def.de");
     }
-    
+
     @Test
     public void setTextFieldDelayed() {
         click(home.delayedToggleDisableField);
         assertThat(home.delayedDisabledText, is(not(enabled())));
-        set(home.delayedDisabledText, "abc@def.de");        
+        set(home.delayedDisabledText, "abc@def.de");
     }
 
     @Test
@@ -116,4 +116,67 @@ public class SetVerifyExamples {
         verifyThat(home.aradioGhi, is(selected()));
     }
 
+    @Test
+    public void setRadioGroupIndex() {
+        set(home.aradioGroup, 0);
+        verifyThat(home.aradioAbc, is(selected()));
+        verifyThat(home.aradioDef, is(not(selected())));
+        verifyThat(home.aradioGhi, is(not(selected())));
+
+        set(home.aradioGroup, 1);
+        verifyThat(home.aradioAbc, is(not(selected())));
+        verifyThat(home.aradioDef, is(selected()));
+        verifyThat(home.aradioGhi, is(not(selected())));
+
+        set(home.aradioGroup, 2);
+        verifyThat(home.aradioAbc, is(not(selected())));
+        verifyThat(home.aradioDef, is(not(selected())));
+        verifyThat(home.aradioGhi, is(selected()));
+    }
+
+    @Test(expectedExceptions = NoSuchElementException.class)
+    public void setRadioGroupIndexSmallerZero() {
+        set(home.aradioGroup, -1);
+    }
+
+    @Test(expectedExceptions = NoSuchElementException.class)
+    public void setRadioGroupIndexBiggerThanSize() {
+        set(home.aradioGroup, 99);
+    }
+
+    @Test
+    public void setRadioGroupValue() {
+        set(home.aradioGroup, "r1");
+        verifyThat(home.aradioAbc, is(selected()));
+        verifyThat(home.aradioDef, is(not(selected())));
+        verifyThat(home.aradioGhi, is(not(selected())));
+
+        set(home.aradioGroup, "r2");
+        verifyThat(home.aradioAbc, is(not(selected())));
+        verifyThat(home.aradioDef, is(selected()));
+        verifyThat(home.aradioGhi, is(not(selected())));
+
+        set(home.aradioGroup, "r3");
+        verifyThat(home.aradioAbc, is(not(selected())));
+        verifyThat(home.aradioDef, is(not(selected())));
+        verifyThat(home.aradioGhi, is(selected()));
+    }
+    
+    @Test
+    public void setRadioGroupLabelText() {
+        set(home.aradioGroup, "abc");
+        verifyThat(home.aradioAbc, is(selected()));
+        verifyThat(home.aradioDef, is(not(selected())));
+        verifyThat(home.aradioGhi, is(not(selected())));
+
+        set(home.aradioGroup, "def");
+        verifyThat(home.aradioAbc, is(not(selected())));
+        verifyThat(home.aradioDef, is(selected()));
+        verifyThat(home.aradioGhi, is(not(selected())));
+
+        set(home.aradioGroup, "ghi");
+        verifyThat(home.aradioAbc, is(not(selected())));
+        verifyThat(home.aradioDef, is(not(selected())));
+        verifyThat(home.aradioGhi, is(selected()));
+    }
 }

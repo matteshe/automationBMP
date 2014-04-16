@@ -7,6 +7,7 @@ import de.telekom.testframework.selenium.annotations.Path;
 import de.telekom.testframework.selenium.controls.Button;
 import de.telekom.testframework.selenium.controls.CheckBox;
 import de.telekom.testframework.selenium.controls.Option;
+import de.telekom.testframework.selenium.controls.RadioGroup;
 import de.telekom.testframework.selenium.controls.Select;
 import de.telekom.testframework.selenium.controls.TextField;
 import javax.inject.Inject;
@@ -45,7 +46,7 @@ public class AccountActivationPage extends Page {
     public TextField phoneNumber;
 
     @FindBy(name = "companySetupForm:sizeRadioGroup")
-    public Option companySize;
+    public RadioGroup companySize;
 
     @FindBy(name = "companySetupForm:inputIndustry")
     public Select industry;

@@ -24,12 +24,18 @@ public class User extends BaseEntity {
         public static final String role = "role";
         public static final String registered = "registered";
         public static final String company = "company";
+        public static final String phoneNumber = "phoneNumber";
+
         public static final String applications = "applications";
         public static final String emailAccount = "emailAccount";
+
     }
 
     public String name;
     public String firstName;
+    public String phoneNumber;
+
+    @Deprecated
     public String companyName;
 
     @Indexed(unique = true)
