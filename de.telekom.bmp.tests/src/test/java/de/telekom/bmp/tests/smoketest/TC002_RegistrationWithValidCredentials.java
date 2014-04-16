@@ -34,7 +34,7 @@ public class TC002_RegistrationWithValidCredentials {
 
     @Inject
     Signup signup;
-    
+
     @Inject
     Home home;
 
@@ -72,6 +72,7 @@ public class TC002_RegistrationWithValidCredentials {
 
         set(signup.signupForm.emailAddress, user.email);
         assertThat(signup.signupForm.iconValid, is(displayed()));
+
         click(signup.signupForm.signup);
 
         verifyThat(signup.signupConfirmationPanel.thanks, is(displayed()));
@@ -80,13 +81,6 @@ public class TC002_RegistrationWithValidCredentials {
 
         assertThat(confirmLink, not(isEmptyOrNullString()));
 
-        try {
-            URL url = new URL(confirmLink);
-
-        } catch (MalformedURLException ex) {
-            Logger.getLogger(TC002_RegistrationWithValidCredentials.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         navigateTo(confirmLink);
 
         set(accountActivation.firstName, user.firstName);
@@ -94,15 +88,15 @@ public class TC002_RegistrationWithValidCredentials {
         set(accountActivation.companyName, user.company.name);
         set(accountActivation.password, user.password);
         set(accountActivation.confirmPassword, user.password);
-        
+
         set(accountActivation.termsAndCondition, true);
-        
+
         click(accountActivation.createAccountBtn);
 
         assertThat(home, is(currentPage()));
-        
+
         click(header.accountMenu.logoutLnk);
-        
+
         user.registered = true;
         user.valid = true;
     }
