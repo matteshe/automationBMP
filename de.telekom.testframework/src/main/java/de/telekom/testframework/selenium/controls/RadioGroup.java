@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.NotFoundException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
@@ -82,7 +81,7 @@ public class RadioGroup extends Control {
             }
         }
 
-        throw new NoSuchElementException("cannot find a radio button with value or label" + strValue);
+        throw new NoSuchElementException("cannot find a radio button with value or label " + strValue);
     }
 
     public void select(final Object value) {

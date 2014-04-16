@@ -179,4 +179,9 @@ public class SetVerifyExamples {
         verifyThat(home.aradioDef, is(not(selected())));
         verifyThat(home.aradioGhi, is(selected()));
     }
+    
+    @Test(expectedExceptions = NoSuchElementException.class)
+    public void setRadioGroupNoValueAndNoLabel() {
+        set(home.aradioGroup, "-----");
+    }
 }
