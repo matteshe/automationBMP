@@ -3,13 +3,12 @@ package de.telekom.googlemail.pages.tests;
 import de.telekom.googlemail.pages.Login;
 import de.telekom.googlemail.pages.Mail;
 import static de.telekom.testframework.Actions.*;
+import de.telekom.testframework.selenium.Browser;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
-import de.telekom.testframework.selenium.controls.Link;
 import static java.util.concurrent.TimeUnit.MINUTES;
 import javax.inject.Inject;
 import static org.hamcrest.Matchers.*;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 
@@ -40,12 +39,28 @@ public class GoogleMailTests {
     @Test(dependsOnMethods = "login")
     public void searchMail() {
         navigateTo(mail);
+
         set(mail.q, "mybmptestuser+1397592486226@gmail.com");
         sendKeys(mail.q, Keys.ENTER);
 
-        click(mail.searchResults.rows.get(0).columns.get(2).find(Link.class, By.tagName("a")));
+        for (int i = 0; i < mail.mails.getRows().size(); i++) {
 
-        assertThat(mail.msg, exists());
+            Mail.Mails.MailRow row = mail.mails.rows.get(i);
+
+            click(row.open);
+
+            if (mail.msg.accountSetupLink.exists()) {
+                break;
+            }
+            Browser.getInstance().navigate().back();
+        }
+
         assertThat(mail.msg.accountSetupLink, exists());
+        verifyThat(mail.msg.accountSetupLink, text(containsString("accountSetup")));
+    }
+
+    @Test(dependsOnMethods = "searchMail")
+    public void logout() {
+        click(mail.logout);
     }
 }

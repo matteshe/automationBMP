@@ -16,8 +16,8 @@ public class TextField extends Control {
         ensureIsVisible();
         ensureIsEnabled();
 
-        clear();
-        sendKeys(value.toString());
+        webElement.clear();
+        webElement.sendKeys(value.toString());
     }
 
     @Override

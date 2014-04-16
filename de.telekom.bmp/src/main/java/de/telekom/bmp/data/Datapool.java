@@ -4,8 +4,10 @@ import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import com.mongodb.MongoClient;
 import com.mongodb.WriteConcern;
+import de.telekom.bmp.data.helpers.DataHelpers;
 import de.telekom.testframework.configuration.Configuration;
 import java.net.UnknownHostException;
+import javax.inject.Singleton;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Key;
 import org.mongodb.morphia.Morphia;
@@ -15,6 +17,7 @@ import org.mongodb.morphia.query.Query;
  *
  * @author Daniel
  */
+@Singleton
 public class Datapool {
 
     class MyConfiguration extends Configuration {
@@ -62,13 +65,12 @@ public class Datapool {
         morphia.map(Application.class);
         morphia.map(Company.class);
         morphia.map(MailAccount.class);
+        morphia.map(EMailAccount.class);
 
         try {
             client = new MongoClient(configuration.host);
-
-            dataStore = morphia.createDatastore(client, configuration.datastore);
         } catch (UnknownHostException ex) {
-            throw new RuntimeException("cannot create morphia datastore", ex);
+            throw new RuntimeException("cannot create mongo client", ex);
         }
 
     }
@@ -82,10 +84,19 @@ public class Datapool {
 
             dataStore = morphia.createDatastore(client, configuration.datastore);
 
-            dataStore.ensureIndexes();
+            dataStore.ensureIndexes(false);
             dataStore.ensureCaps();
         }
         return dataStore;
+    }
+
+    private DataHelpers _helpers = null;
+
+    public DataHelpers helpers() {
+        if (_helpers == null) {
+            _helpers = new DataHelpers(this);
+        }
+        return _helpers;
     }
 
     public Query<User> validUsers() {
@@ -110,6 +121,10 @@ public class Datapool {
 
     public Query<MailAccount> mailAccounts() {
         return getDatastore().find(MailAccount.class);
+    }
+
+    public Query<EMailAccount> emailAccounts() {
+        return getDatastore().find(EMailAccount.class);
     }
 
     public <T> Key<T> save(T entity) {

@@ -13,6 +13,7 @@ import static org.hamcrest.Matchers.*;
  *
  * @author Mathias Herkt
  */
+@Deprecated
 public class GoogleMailAccount {
 
     private static final String GOOGLE_MAIL_URL = "mail.google.com";

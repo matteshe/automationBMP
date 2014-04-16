@@ -210,6 +210,10 @@ public class Actions extends Assert {
             super(new DummyApplication());
         }
 
+        @Override
+        public String toString() {
+            return "current page";
+        }
     }
 
     public static Page page() {

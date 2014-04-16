@@ -1,21 +1,19 @@
 package de.telekom.bmp.data.tests;
 
-import static de.telekom.testframework.Assert.assertThat;
-import static org.hamcrest.Matchers.empty;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.nullValue;
-
-import java.sql.Timestamp;
-import java.util.Date;
-
-import org.testng.annotations.Test;
-
 import de.telekom.bmp.data.Application;
 import de.telekom.bmp.data.Company;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.data.helpers.DataHelpers;
 import de.telekom.testframework.Assert;
+import static de.telekom.testframework.Assert.assertThat;
+import java.sql.Timestamp;
+import java.util.Date;
+import static org.hamcrest.Matchers.empty;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
+import org.testng.annotations.Test;
 
 /**
  *
@@ -24,11 +22,14 @@ import de.telekom.testframework.Assert;
 public class DatapoolTests {
 
     Datapool datapool;
+    DataHelpers dataHelpers;
 
     @Test
     public void setupDatapool() {
         datapool = new Datapool("UserTests");
         datapool.dropDatastore();
+        
+        dataHelpers = new DataHelpers(datapool);
     }
 
     String timestamp = new Timestamp(new Date().getTime()).toString();
@@ -155,4 +156,5 @@ public class DatapoolTests {
                 datapool.users().field("applications")
                 .hasThisElement(application).get(), is(user));
     }
+
 }

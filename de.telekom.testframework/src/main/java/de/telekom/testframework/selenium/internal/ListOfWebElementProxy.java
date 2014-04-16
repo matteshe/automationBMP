@@ -61,8 +61,10 @@ public class ListOfWebElementProxy implements InvocationHandler {
             ActionHandler.needWaitForPageLoad(true);
         }
         List<Object> newElements = new ArrayList<>(elements.size());
+        int index = 0;
         for (WebElement element : elements) {
-            newElements.add(createWebElement(element));
+            newElements.add(createWebElement(element, index));
+            index++;
         }
 
         try {
@@ -80,9 +82,12 @@ public class ListOfWebElementProxy implements InvocationHandler {
         }
     }
 
-    private Object createWebElement(WebElement element) {
+    private Object createWebElement(WebElement element, int index) {
 
         try {
+            if (locator instanceof FieldElementLocator) {
+                return constructor.newInstance(driver, new IndexedElementLocator((FieldElementLocator) locator, index), element);
+            }
             return constructor.newInstance(driver, locator, element);
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             throw new RuntimeException("cannot instanciate '" + constructor.getDeclaringClass().getName() + "(WebDriver, WebElement)'", ex);

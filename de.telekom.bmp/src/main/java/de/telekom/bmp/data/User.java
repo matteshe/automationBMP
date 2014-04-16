@@ -25,6 +25,7 @@ public class User extends BaseEntity {
         public static final String registered = "registered";
         public static final String company = "company";
         public static final String applications = "applications";
+        public static final String emailAccount = "emailAccount";
     }
 
     public String name;
@@ -33,8 +34,13 @@ public class User extends BaseEntity {
 
     @Indexed(unique = true)
     public String email;
+
     public String password;
-    public UserRole role;
+    public UserRole role = UserRole.UNKNOWN;
+
+    @Reference
+    public EMailAccount emailAccount;
+
     public boolean registered = false;
 
     public Set<String> apps = new HashSet<>();
@@ -58,6 +64,7 @@ public class User extends BaseEntity {
         this(name, mail, UserRole.USER);
     }
 
+    @Deprecated
     public static User createUser() {
         return createUser(null);
     }
@@ -68,6 +75,7 @@ public class User extends BaseEntity {
      * @param mailPrefix
      * @return a user instance
      */
+    @Deprecated
     public static User createUser(String mailPrefix) {
         long postfixIdentifier = createPostfixId();
         User newUser = new User();
@@ -95,6 +103,6 @@ public class User extends BaseEntity {
     }
 
     private static long createPostfixId() {
-        return (new Date()).getTime();
+        return new Date().getTime();
     }
 }

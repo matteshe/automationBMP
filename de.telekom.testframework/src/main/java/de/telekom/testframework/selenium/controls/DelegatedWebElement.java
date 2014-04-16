@@ -128,13 +128,11 @@ public class DelegatedWebElement extends WebElementContainer implements WebEleme
 
     @Override
     public List<WebElement> findElements(By by) {
-        //return findAll(WebElement.class, by);
         return webElement.findElements(by);
     }
 
     @Override
     public WebElement findElement(By by) {
-        //return find(WebElement.class, by);
         return webElement.findElement(by);
     }
 
@@ -158,12 +156,16 @@ public class DelegatedWebElement extends WebElementContainer implements WebEleme
         return webElement.getCssValue(propertyName);
     }
 
-    public boolean exists() {
-        getWebDriver().manage().timeouts().implicitlyWait(SeleniumConfiguration.current.existsTimeout, TimeUnit.SECONDS);
+    public boolean exists(long timeOutInSeconds) {
+        getWebDriver().manage().timeouts().implicitlyWait(timeOutInSeconds, TimeUnit.SECONDS);
         try {
             return !locator.findElements().isEmpty();
         } finally {
             getWebDriver().manage().timeouts().implicitlyWait(SeleniumConfiguration.current.implicitlyWait, TimeUnit.SECONDS);
         }
+    }
+
+    public boolean exists() {
+        return exists(SeleniumConfiguration.current.existsTimeout);
     }
 }

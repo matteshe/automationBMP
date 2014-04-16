@@ -2,9 +2,9 @@ package de.telekom.testframework.selenium.controls;
 
 import de.telekom.testframework.selenium.internal.FieldElementLocator;
 import java.util.List;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 
 /**
  *
@@ -16,6 +16,11 @@ public class Table extends Control {
         super(driver, locator, webElement);
     }
 
-    @FindBy(tagName = "tr")
-    public List<Row> rows;
+    public List<Row> getRows() {
+        return getRows(Row.class);
+    }
+
+    public <T extends Row> List<T> getRows(Class<T> cls) {
+        return findAll(cls, By.xpath("./tr | ./tbody/tr"));
+    }
 }

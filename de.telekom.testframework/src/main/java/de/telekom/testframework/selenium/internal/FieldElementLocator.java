@@ -116,18 +116,30 @@ public class FieldElementLocator implements ElementLocator {
 
     public final FieldSearchContextGetter searchContextGetter;
 
-    PageResourceLocatorBuilder builder;
+    public final PageResourceLocatorBuilder builder;
 
     private By by;
 
     public final Field field;
 
+    protected FieldElementLocator(FieldSearchContextGetter searchContextGetter, Field field, By by) {
+        Objects.requireNonNull(searchContextGetter);
+
+        this.searchContextGetter = searchContextGetter;
+
+        this.field = field;
+        this.by = by;
+        this.builder = null;
+    }
+
     public FieldElementLocator(FieldSearchContextGetter searchContext, By by) {
         Objects.requireNonNull(searchContext);
         this.searchContextGetter = searchContext;
 
-        this.field = null;
         this.by = by;
+
+        this.field = null;
+        builder = null;
     }
 
     /**
@@ -148,6 +160,8 @@ public class FieldElementLocator implements ElementLocator {
         Annotations annotations = new MyAnnotations(field);
 
         this.by = annotations.buildBy();
+
+        builder = null;
     }
 
     /**
@@ -160,6 +174,7 @@ public class FieldElementLocator implements ElementLocator {
         Objects.requireNonNull(searchContext);
         Objects.requireNonNull(field);
         Objects.requireNonNull(builder);
+
         this.field = field;
 
         this.searchContextGetter = searchContext;

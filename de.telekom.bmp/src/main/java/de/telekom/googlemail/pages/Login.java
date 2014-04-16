@@ -6,7 +6,6 @@ import de.telekom.testframework.selenium.annotations.Path;
 import de.telekom.testframework.selenium.controls.Button;
 import de.telekom.testframework.selenium.controls.CheckBox;
 import de.telekom.testframework.selenium.controls.Link;
-import de.telekom.testframework.selenium.controls.Option;
 import de.telekom.testframework.selenium.controls.TextField;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -17,7 +16,7 @@ import org.openqa.selenium.support.FindBy;
  * @author Mathias Herkt
  */
 @Singleton
-@Path("/mail/?ui=html&zy=h")
+@Path("")
 public class Login extends Page {
 
     @Inject

@@ -3,7 +3,9 @@ package de.telekom.bmp.tests.smoketest;
 import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
+import de.telekom.bmp.data.EMailAccount;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.data.helpers.DataHelpers;
 import de.telekom.bmp.functional.AccountHandling;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Signup;
@@ -11,6 +13,10 @@ import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static org.hamcrest.Matchers.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -43,7 +49,7 @@ public class TC002_RegistrationWithValidCredentials {
 
         user = datapool.validUsers().field(User.Fields.registered).equal(false).get();
         if (user == null) {
-            user = User.createUser();
+            user = datapool.helpers().createTestUser();
         }
     }
 
@@ -57,25 +63,27 @@ public class TC002_RegistrationWithValidCredentials {
         assertThat("we have a user", user, is(not(nullValue())));
         user.valid = false;
 
-        //accountHandling.registerAccount(user);
-        
-        
-//        navigateTo(signup);
-//
-//        click(header.register);
-//
-//        set(signup.signupForm.emailAddress, user.email);
-//        assertThat(signup.signupForm.iconValid, is(displayed()));
-//        click(signup.signupForm.signup);
-//
-//        verifyThat(signup.signupConfirmationPanel.thanks, is(displayed()));
-//
-        String confirmLink;
+        navigateTo(signup);
 
-        confirmLink = accountHandling.getConfirmLink(user.email);
+        click(header.register);
+
+        set(signup.signupForm.emailAddress, user.email);
+        assertThat(signup.signupForm.iconValid, is(displayed()));
+        click(signup.signupForm.signup);
+
+        verifyThat(signup.signupConfirmationPanel.thanks, is(displayed()));
+
+        String confirmLink = EMailAccount.getConfirmationLink(user);
 
         assertThat(confirmLink, not(isEmptyOrNullString()));
-
+        
+        try {
+            URL url = new URL(confirmLink);
+            
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(TC002_RegistrationWithValidCredentials.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         navigateTo(confirmLink);
 
         //user.registered = true;
