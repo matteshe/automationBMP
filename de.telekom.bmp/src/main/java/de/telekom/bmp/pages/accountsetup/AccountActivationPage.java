@@ -1,4 +1,3 @@
-
 package de.telekom.bmp.pages.accountsetup;
 
 import de.telekom.bmp.BmpApplication;
@@ -6,6 +5,7 @@ import de.telekom.testframework.selenium.Application;
 import de.telekom.testframework.selenium.Page;
 import de.telekom.testframework.selenium.annotations.Path;
 import de.telekom.testframework.selenium.controls.Button;
+import de.telekom.testframework.selenium.controls.CheckBox;
 import de.telekom.testframework.selenium.controls.Option;
 import de.telekom.testframework.selenium.controls.Select;
 import de.telekom.testframework.selenium.controls.TextField;
@@ -19,46 +19,46 @@ import org.openqa.selenium.support.FindBy;
  */
 @Singleton
 @Path("/accountSetup")
-public class AccountActivationPage extends Page{
+public class AccountActivationPage extends Page {
 
     @Inject
     public AccountActivationPage(BmpApplication application) {
         super(application);
     }
-    
-    @FindBy(name = "firstName")    
+
+    @FindBy(name = "firstName")
     public TextField firstName;
-    
-    @FindBy(name = "companySetupForm:companyNameBorder:companyNameBorder_body:companyName")    
+
+    @FindBy(name = "companySetupForm:companyNameBorder:companyNameBorder_body:companyName")
     public TextField companyName;
-    
-    @FindBy(name = "lastName")    
+
+    @FindBy(name = "lastName")
     public TextField lastName;
-    
-    @FindBy(name = "passwordBorder:passwordBorder_body:password")    
+
+    @FindBy(name = "passwordBorder:passwordBorder_body:password")
     public TextField password;
-    
-    @FindBy(name = "confirmBorder:confirmBorder_body:confirmPassword")    
+
+    @FindBy(name = "confirmBorder:confirmBorder_body:confirmPassword")
     public TextField confirmPassword;
-    
+
     @FindBy(name = "companySetupForm:requiredPhoneNumber:requiredPhoneNumber_body:phoneNumber")
     public TextField phoneNumber;
-    
+
     @FindBy(name = "companySetupForm:sizeRadioGroup")
     public Option companySize;
-    
+
     @FindBy(name = "companySetupForm:inputIndustry")
     public Select industry;
-    
+
     @FindBy(name = "marketingPanelContainer:emailMarketingCheckbox")
-    public Option emailMarketing;
-    
+    public CheckBox emailMarketing;
+
     @FindBy(name = "marketingPanelContainer:dataPermissionCheckbox")
-    public Option dataPermission;
-    
+    public CheckBox dataPermission;
+
     @FindBy(name = "companySetupForm:termsPanel:termsAndConditionBorder:termsAndConditionBorder_body:termsAndCondition")
-    public Option termsAndCondition;
-    
+    public CheckBox termsAndCondition;
+
     @FindBy(name = "noStepActivateButton")
     public Button createAccountBtn;
 }

@@ -52,6 +52,9 @@ public final class DataHelpers {
         @Inject(optional = true)
         @Named("testUserEMail")
         String testUserEMail = "mybmptestuser@gmail.com";
+        @Inject(optional = true)
+        @Named("testUserPassword")
+        String testUserPassword = "Abcdefg1234";
     }
 
     public static final MyConfiguration configuration = new MyConfiguration();
@@ -103,6 +106,8 @@ public final class DataHelpers {
         String[] splittedEmail = configuration.testUserEMail.split("@");
         result.email = splittedEmail[0] + "+" + (postFix.isEmpty() ? "" : postFix + "_") + id + "@" + splittedEmail[1];
 
+        result.password = configuration.testUserPassword;
+        
         result.company = getTestCompany();
         result.emailAccount = getTestEmailAccount();
         result.role = UserRole.USER;

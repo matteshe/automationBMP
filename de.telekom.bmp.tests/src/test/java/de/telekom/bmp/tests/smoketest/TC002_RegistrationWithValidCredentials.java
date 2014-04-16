@@ -5,10 +5,10 @@ import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.EMailAccount;
 import de.telekom.bmp.data.User;
-import de.telekom.bmp.data.helpers.DataHelpers;
-import de.telekom.bmp.functional.AccountHandling;
 import de.telekom.bmp.pages.Header;
+import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Signup;
+import de.telekom.bmp.pages.accountsetup.AccountActivationPage;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.*;
@@ -27,9 +27,6 @@ import org.testng.annotations.Test;
 public class TC002_RegistrationWithValidCredentials {
 
     @Inject
-    AccountHandling accountHandling;
-
-    @Inject
     BmpApplication app;
 
     @Inject
@@ -37,6 +34,12 @@ public class TC002_RegistrationWithValidCredentials {
 
     @Inject
     Signup signup;
+    
+    @Inject
+    Home home;
+
+    @Inject
+    AccountActivationPage accountActivation;
 
     @Inject
     Datapool datapool;
@@ -76,17 +79,31 @@ public class TC002_RegistrationWithValidCredentials {
         String confirmLink = EMailAccount.getConfirmationLink(user);
 
         assertThat(confirmLink, not(isEmptyOrNullString()));
-        
+
         try {
             URL url = new URL(confirmLink);
-            
+
         } catch (MalformedURLException ex) {
             Logger.getLogger(TC002_RegistrationWithValidCredentials.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         navigateTo(confirmLink);
 
-        //user.registered = true;
+        set(accountActivation.firstName, user.firstName);
+        set(accountActivation.lastName, user.name);
+        set(accountActivation.companyName, user.company.name);
+        set(accountActivation.password, user.password);
+        set(accountActivation.confirmPassword, user.password);
+        
+        set(accountActivation.termsAndCondition, true);
+        
+        click(accountActivation.createAccountBtn);
+
+        assertThat(home, is(currentPage()));
+        
+        click(header.accountMenu.logoutLnk);
+        
+        user.registered = true;
         user.valid = true;
     }
 }
