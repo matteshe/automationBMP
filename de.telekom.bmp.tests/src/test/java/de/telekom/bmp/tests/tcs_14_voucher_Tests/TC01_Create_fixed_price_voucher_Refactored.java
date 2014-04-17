@@ -104,7 +104,7 @@ public class TC01_Create_fixed_price_voucher_Refactored {
             // before Nested Classed introduced
             //click(header.account);
             //click(header.logout);
-            click(header.accountMenu.logout);
+            click(header.account.logout);
 
             assertThat(home, isCurrentPage());
 

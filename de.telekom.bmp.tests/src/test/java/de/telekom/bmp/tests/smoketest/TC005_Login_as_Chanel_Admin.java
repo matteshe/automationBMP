@@ -67,7 +67,7 @@ public class TC005_Login_as_Chanel_Admin {
 
             click(login.signin);
             
-            click(header.settingsMenu.channelUserLnk);
+            click(header.settings.channelUser);
 
 
 // WORKAROUND
@@ -83,7 +83,7 @@ public class TC005_Login_as_Chanel_Admin {
             //click(header.account);
             //click(header.logout);
             
-            click(header.accountMenu.logout);
+            click(header.account.logout);
 
             assertThat(home, isCurrentPage());
 

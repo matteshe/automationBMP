@@ -149,7 +149,7 @@ public class AccountHandling {
         verifyThat(header.login, is(displayed()));
 
         fa.login(user.email, user.password);
-        click(header.settingsMenu.accountLnk);
+        click(header.settings.account);
 
         set(dashboardPage.inviteEmailInput, invitedUser.email);
         click(dashboardPage.singleInviteBtn);

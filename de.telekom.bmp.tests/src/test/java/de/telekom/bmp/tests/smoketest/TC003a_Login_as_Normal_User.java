@@ -12,15 +12,14 @@ import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.account.Dashboard;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
-import static de.telekom.testframework.annotations.QCState.NeedsReview;
+import static de.telekom.testframework.annotations.QCState.ReadyButNeedsReview;
 import static de.telekom.testframework.selenium.Matchers.*;
-import de.telekom.testframework.selenium.annotations.ResetWebDriver;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-@QCId(value="4123", state = NeedsReview)
+@QCId(value="4123", state = ReadyButNeedsReview)
 @UseWebDriver
 public class TC003a_Login_as_Normal_User {
 
@@ -71,7 +70,7 @@ public class TC003a_Login_as_Normal_User {
         verifyThat(home, isCurrentPage());
 
         // TODO further verifications needed in manual test case description, see HP ALM
-        click(header.accountMenu.logout);
+        click(header.account.logout);
     }
 
 }

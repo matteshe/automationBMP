@@ -191,7 +191,7 @@ public class Matchers {
      * @return @deprecated use {@code is(currentPage))}
      */
     @Factory
-    //@Deprecated
+    @Deprecated
     public static Matcher<Page> isCurrentPage() {
         return is(currentPage());
     }

@@ -77,7 +77,7 @@ public class LoginTests {
 
         click(listing.appInfo.get("Test App 2012_SAK").appName);
 
-        click(header.accountMenu.logout);
+        click(header.account.logout);
     }
 
 }

@@ -81,7 +81,7 @@ public class T01_AssignChannelAdminRole {
 
 		Reporter.reportMessage("Checks on new channel admin");
 		fa.login(userForChannelAdmin.email, userForChannelAdmin.password);
-		Actions.click(headerPage.settingsMenu.channelUserLnk);
+		Actions.click(headerPage.settings.channelUser);
 
 		fa.logout();
 

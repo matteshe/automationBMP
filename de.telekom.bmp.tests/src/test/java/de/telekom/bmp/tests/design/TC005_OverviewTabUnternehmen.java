@@ -54,11 +54,11 @@ public class TC005_OverviewTabUnternehmen {
 //        functional.login(user.email, user.password);
 
         
-//       moveTo(header.settingsMenu);
-//       click(header.accountLnk);
+//       moveTo(header.settings);
+//       click(header.account);
        
 //       
-       click(header.settingsMenu.accountLnk);
+       click(header.settings.account);
        
        
        System.out.println(account.getWebDriver().getCurrentUrl());

@@ -89,29 +89,27 @@ public class Header extends Page {
             super(driver, locator, webElement);
         }
 
-        @FindBy(xpath = "//a[text()='Partner']")
-        public SettingsLink developerLnk;
+        @FindBy(xpath = ".//a[text()='Partner']")
+        public SettingsLink developer;
 
-        @FindBy(xpath = "//a[text()='Channel']")
-        public SettingsLink channelUserLnk;
+        @FindBy(xpath = ".//a[text()='Channel']")
+        public SettingsLink channelUser;
 
-        @FindBy(xpath = "//a[text()='Superbenutzer']")
-        public SettingsLink superuserLnk;
+        @FindBy(xpath = ".//a[contains(@href,'dashboard')]")
+        public SettingsLink superUser;
 
-        //@FindBy(xpath = ".//ul[@id='appdirectnav']//a[@id='account'] | .//li[@class='last']//a[@title = 'Unternehmen']")
-        @FindBy(xpath = "//a[text()='Unternehmen']")
-        public SettingsLink accountLnk;
+        @FindBy(id = "account")
+        public SettingsLink account;
     }
 
-    //@FindBy(xpath = ".//li[@class='last']/a | .//li[@class='info-parent settings-container']")
-    @FindBy(xpath = ".//a[contains(@href, '/einstellungen/')] | .//li[@class='info-parent settings-container']")
-    public SettingsMenu settingsMenu;
+    @FindBy(xpath = ".//li[contains(@class, 'settings-container')]")
+    public SettingsMenu settings;
 
-    @FindBy(xpath = ".//a[@id='myapps']/span | .//div[@class='hlist right']//a")
-    public Link launchPadLnk;
+    @FindBy(xpath = ".//a[@id='myapps']")
+    public Link myApps;
 
     @FindBy(xpath = ".//div[@class='dropdown-parent' or @id='topbar-login']")
-    public AccountMenu accountMenu;
+    public AccountMenu account;
 
     @FindBy(xpath = ".//form[@name='searchForm' or @class='searchbox-form']")
     Form searchForm;

@@ -1,7 +1,6 @@
 package de.telekom.bmp.tests.smoketest;
 
 import com.google.inject.Inject;
-
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
@@ -9,18 +8,18 @@ import de.telekom.bmp.data.UserRole;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
-import de.telekom.bmp.pages.superuser.DashboardPage;
+import de.telekom.bmp.pages.superuser.Dashboard;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
+import static de.telekom.testframework.annotations.QCState.*;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.*;
+import static org.hamcrest.Matchers.*;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-@QCId("5496")
+@QCId(value = "5496", state = Ready)
 @UseWebDriver
 public class TC004_Login_as_Superuser {
 
@@ -34,7 +33,7 @@ public class TC004_Login_as_Superuser {
     Home home;
 
     @Inject
-    DashboardPage dashboardpage;
+    Dashboard dashboard;
 
     @Inject
     Datapool datapool;
@@ -55,39 +54,22 @@ public class TC004_Login_as_Superuser {
         if (user == null) {
             user = datapool.helpers().getSuperuser();
         }
-        assertNotNull(user, "cannot find a valid user");
-
-        navigateTo(login);
     }
 
     @Test
     public void test_004_Login_as_Superuser() throws InterruptedException {
+        assertThat("we have a user", user, is(not(nullValue())));
 
-        try {
-            set(login.username, user.email);
+        click(header.login);
 
-            set(login.password, user.password);
+        set(login.username, user.email);
+        set(login.password, user.password);
+        click(login.signin);
 
-            click(login.signin);
+        click(header.settings.superUser);
 
-            click(header.settingsMenu.superuserLnk);
+        verifyThat(dashboard, is(currentPage()));
 
-            // WORKAROUND
-//            navigateTo(dashboardpage);
-            assertThat(dashboardpage, isCurrentPage());
-
-            click(dashboardpage.exceptionsTab);
-
-            click(header.accountMenu.logout);
-
-            assertThat(home, isCurrentPage());
-
-//            user.valid = true;
-        } finally {
-            user.registered = true;
-            datapool.save(user);
-        }
-
+        click(header.account.logout);
     }
-
 }

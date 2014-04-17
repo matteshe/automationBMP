@@ -71,7 +71,7 @@ public class T040_Check_Billing_Info_Form {
 		fa.login(user.email, user.password);
 
 		// einstellungen->unternehmen
-		click(headerPage.settingsMenu.accountLnk);
+		click(headerPage.settings.account);
 
 		click(accountPage.billsLnk);
 		click(billPage.paymentDetails);

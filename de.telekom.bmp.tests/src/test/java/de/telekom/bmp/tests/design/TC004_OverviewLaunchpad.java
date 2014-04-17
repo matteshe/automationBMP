@@ -53,7 +53,7 @@ public class TC004_OverviewLaunchpad {
 //
 //        functional.login(user.email, user.password);
 
-        click(header.launchPadLnk);
+        click(header.myApps);
         verifyThat(launchpad.isCurrentPage());
         
         String s = "Ihre Applikationen";

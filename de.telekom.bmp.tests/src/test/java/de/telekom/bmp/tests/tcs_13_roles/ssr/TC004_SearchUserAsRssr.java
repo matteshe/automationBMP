@@ -84,7 +84,7 @@ public class TC004_SearchUserAsRssr {
 	@Test
 	public void searchUserWithRoleSsr() {
 		fa.login(rssrUser.email, rssrUser.password);
-		Actions.click(hPage.settingsMenu.channelUserLnk);
+		Actions.click(hPage.settings.channelUser);
 		
 		Assert.assertThat("search field visible.", mpPg.smallSearchInput.isDisplayed());
 		

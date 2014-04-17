@@ -26,7 +26,7 @@ import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.superuser.BillingAdminPage;
 import de.telekom.bmp.pages.superuser.BillsPage;
-import de.telekom.bmp.pages.superuser.DashboardPage;
+import de.telekom.bmp.pages.superuser.Dashboard;
 import de.telekom.bmp.pages.superuser.ExceptionPage;
 import de.telekom.bmp.pages.superuser.MarketplacesPage;
 import de.telekom.bmp.pages.superuser.RebuildIndexPage;
@@ -60,7 +60,7 @@ public class T02_AssignSuperuserRole {
 	Header headerPage;
 	
 	@Inject
-	DashboardPage suDashboardPg;
+	Dashboard suDashboardPg;
 
 	@Inject
 	ExceptionPage suExPg;
@@ -116,8 +116,8 @@ public class T02_AssignSuperuserRole {
 		Reporter.reportMessage("checkSuperUserFeatures");
 		fa.login(user);
 		verifyThat(suDashboardPg, is(loaded()));
-		click(headerPage.settingsMenu.superuserLnk);
-		click(suDashboardPg.exceptionsTab);
+		click(headerPage.settings.superUser);
+		//TODO click(suDashboardPg.exceptionsTab);
 		click(suExPg.billingAdminTab);
 		click(suBillAdminPg.billsTab);
 		click(suBillsPg.reportsTab);

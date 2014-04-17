@@ -9,6 +9,9 @@ public enum QCState {
     /**
      * unknown state
      */
+    /**
+     * unknown state
+     */
     Unknown,
     /**
      * someone is working on it
@@ -18,7 +21,7 @@ public enum QCState {
      * means ready but needs a review, because maybe the tester needs to add
      * more verifications
      */
-    NeedsReview,
+    ReadyButNeedsReview,
     /**
      * means ready
      */

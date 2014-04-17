@@ -67,7 +67,7 @@ public class TC007_Login_as_Chanel_Support {
 
             click(login.signin);
             
-            click(header.settingsMenu.channelUserLnk);
+            click(header.settings.channelUser);
             
 // WORKAROUND BECAUSE OF CMS Redirect
 //            navigateTo(marketplacepage);
@@ -76,7 +76,7 @@ public class TC007_Login_as_Chanel_Support {
             
             click(marketplacepage.evenlogsTab);            
             
-            click(header.accountMenu.logout);
+            click(header.account.logout);
 
             assertThat(home, isCurrentPage());
             

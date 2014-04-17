@@ -120,7 +120,7 @@ public class TC013_Booking_Exchange_Online_Plan_1 {
 //            click(header.account);
 //            click(header.logout);
             
-            click(header.accountMenu.logout);
+            click(header.account.logout);
 
             assertThat(home, isCurrentPage());
 

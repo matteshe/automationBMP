@@ -68,7 +68,7 @@ public class TC01_Verify_Publish_Approve_apps_function_ChanAdmin {
         try {
             fa.login(user.email, user.password);
 
-            click(header.settingsMenu.channelUserLnk);
+            click(header.settings.channelUser);
 
 
 // WORKAROUND

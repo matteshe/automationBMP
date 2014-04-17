@@ -19,7 +19,7 @@ import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.channel.CompanyPage;
 import de.telekom.bmp.pages.channel.MarketPlacePage;
 import de.telekom.bmp.pages.channel.UserPage;
-import de.telekom.bmp.pages.superuser.DashboardPage;
+import de.telekom.bmp.pages.superuser.Dashboard;
 import de.telekom.testframework.Actions;
 import de.telekom.testframework.reporting.Reporter;
 
@@ -37,7 +37,7 @@ public class AssignRoles {
 	Header headPg;
 	
 	@Inject
-	DashboardPage suDashboardPg;
+	Dashboard suDashboardPg;
 	
 	@Inject
 	CompanyPage chCompPg;
@@ -55,7 +55,7 @@ public class AssignRoles {
 	 */
 	public void assignSuperuser(User superUser, User newSuUser) {
 		fa.login(superUser);
-		click(headPg.settingsMenu.superuserLnk);
+		click(headPg.settings.superUser);
 		click(suDashboardPg.userLnk);
 		
 		click(suDashboardPg.smallSearchInput);
@@ -76,7 +76,7 @@ public class AssignRoles {
 	 */
 	public void assignChannelAdmin(User superUser, User userForChannelAdmin) {
 		fa.login(superUser.email, superUser.password);
-		click(headPg.settingsMenu.superuserLnk);
+		click(headPg.settings.superUser);
 
 		click(suDashboardPg.companyLnk);
 		assertThat(suDashboardPg.smallSearchInput, is(displayed()));
@@ -109,7 +109,7 @@ public class AssignRoles {
 	 */
 	public void assignSsrRoleViaSuperUser(User superUser, User userForSrr) {
 		fa.login(superUser.email, superUser.password);
-		click(headPg.settingsMenu.channelUserLnk);
+		click(headPg.settings.channelUser);
 		click(mpPg.customerLnk);
 
 		assertThat(mpPg.smallSearchInput, is(displayed()));
@@ -140,7 +140,7 @@ public class AssignRoles {
 	 */
 	public void assignRssrRoleViaSuperUser(User superUser, User userForSrr) {
 		fa.login(superUser.email, superUser.password);
-		click(headPg.settingsMenu.channelUserLnk);
+		click(headPg.settings.channelUser);
 		click(mpPg.customerLnk);
 
 		assertThat(mpPg.smallSearchInput, is(displayed()));

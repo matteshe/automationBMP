@@ -41,7 +41,7 @@ public class FunctionalActions {
     public void logout() {
     	Reporter.reportMessage("Logout");
     	navigateTo(hPg);
-    	click(header.accountMenu.logout);
+    	click(header.account.logout);
     }
     
     public void ensureGermLanguageIsSet(){

@@ -90,7 +90,7 @@ public class TC008_SSR_Start_Purchase_for_Customer {
             //click(header.account);
             //click(header.logout);
             
-            click(header.accountMenu.logout);
+            click(header.account.logout);
 
             assertThat(home, isCurrentPage());
 

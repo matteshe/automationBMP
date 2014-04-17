@@ -117,7 +117,7 @@ public class TC009_Create_Company_as_SSR {
             // before Nested Classed introduced
             //click(header.account);
             //click(header.logout);
-            click(header.accountMenu.logout);
+            click(header.account.logout);
 
             assertThat(home, isCurrentPage());
 

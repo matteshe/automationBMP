@@ -55,7 +55,7 @@ public class FunctionalActions2 {
     }
 
     public void logout() {
-        click(header.accountMenu.logout);
+        click(header.account.logout);
     }
 
     public void purchase(String appID, String editionName) {

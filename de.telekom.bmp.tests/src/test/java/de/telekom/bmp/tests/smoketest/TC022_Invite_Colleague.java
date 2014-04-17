@@ -87,7 +87,7 @@ public class TC022_Invite_Colleague {
         // 2 check if new user is invited correctly
         fa.login(normalUser.email, normalUser.password);
 
-        click(header.settingsMenu.accountLnk);
+        click(header.settings.account);
         assertThat(dashboardPage.usersLnk, is(displayed()));
         click(dashboardPage.usersLnk);
         click(acctUserPg.searchInput);

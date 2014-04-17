@@ -76,7 +76,7 @@ public class TC003b_Login_as_Normal_User_with_active_Subscriptions {
             
             assertThat(myapps, isCurrentPage());
 
-            click(header.accountMenu.logout);
+            click(header.account.logout);
 
             assertThat(home, isCurrentPage());
             

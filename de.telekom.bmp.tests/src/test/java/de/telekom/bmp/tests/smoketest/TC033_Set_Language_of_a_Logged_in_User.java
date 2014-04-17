@@ -68,7 +68,7 @@ public class TC033_Set_Language_of_a_Logged_in_User {
             if (!(browser.getCurrentUrl().contains(loginURL))) {
                 //sets the german language in the browser instance
                 ensureGermLanguageIsSet();
-                click(header.accountMenu.logout);
+                click(header.account.logout);
             }
             
             

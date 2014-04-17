@@ -95,7 +95,7 @@ public class TC015_Start_a_free_Trial {
             //click(header.account);
             //click(header.logout);
             
-            click(header.accountMenu.logout);
+            click(header.account.logout);
 
             assertThat(home, isCurrentPage());
 

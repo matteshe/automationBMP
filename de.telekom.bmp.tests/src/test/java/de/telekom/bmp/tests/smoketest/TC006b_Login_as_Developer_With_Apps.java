@@ -72,7 +72,7 @@ public class TC006b_Login_as_Developer_With_Apps {
 
 // WORKAROUND BECAUSE OF CMS
 //            navigateTo(devCreatePg);
-            click(header.settingsMenu.developerLnk);
+            click(header.settings.developer);
 
             assertThat(devCreatePg, isCurrentPage());
 
@@ -85,7 +85,7 @@ public class TC006b_Login_as_Developer_With_Apps {
             // before Nested Classed introduced
             //click(header.account);
             //click(header.logout);
-            click(header.accountMenu.logout);
+            click(header.account.logout);
 
             assertThat(home, isCurrentPage());
 
