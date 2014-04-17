@@ -184,4 +184,6 @@ public class SetVerifyExamples {
     public void setRadioGroupNoValueAndNoLabel() {
         set(home.aradioGroup, "-----");
     }
+    
+    // TODO tutorial tests for SELECT
 }

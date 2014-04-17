@@ -75,7 +75,8 @@ public class TC002_RegistrationWithValidCredentials {
 
         String confirmLink = EMailAccount.getConfirmationLink(user);
 
-        assertThat(confirmLink, not(isEmptyOrNullString()));
+        assertThat("we have a confirmation link", confirmLink, not(isEmptyOrNullString()));
+        assertThat("the confirmation link is a valid url", confirmLink, is(url()));
 
         navigateTo(confirmLink);
 
@@ -96,7 +97,8 @@ public class TC002_RegistrationWithValidCredentials {
 
         assertThat(home, is(currentPage()));
 
-        // TODO further verifications
+        // TODO further verifications see HP ALM
+        
         click(header.accountMenu.logoutLnk);
 
         user.registered = true;

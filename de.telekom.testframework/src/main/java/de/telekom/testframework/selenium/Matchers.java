@@ -5,7 +5,12 @@ import de.telekom.testframework.selenium.controls.Control;
 import de.telekom.testframework.selenium.controls.DelegatedWebElement;
 import de.telekom.testframework.selenium.controls.Select;
 import de.telekom.testframework.selenium.matchers.CachedElementTypeSafeMatcher;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
 import static org.hamcrest.Matchers.is;
@@ -300,7 +305,7 @@ public class Matchers {
             }
         };
     }
-    
+
     @Factory
     public static Matcher<CheckBox> checked(final Matcher<Boolean> matcher) {
         return new CachedElementTypeSafeMatcher<CheckBox, Boolean>("checked", matcher) {
@@ -319,6 +324,25 @@ public class Matchers {
             @Override
             protected Object getValue(CheckBox item) {
                 return item.isChecked();
+            }
+        };
+    }
+
+    @Factory
+    public static Matcher<String> url() {
+        return new CachedElementTypeSafeMatcher<String, Boolean>("an url") {
+
+            @Override
+            protected Object getValue(String value) {
+
+                try {
+                    URL url = new URL(value);
+                    return url.toURI().isAbsolute();
+                } catch (MalformedURLException | URISyntaxException ex) {
+
+                }
+
+                return false;
             }
         };
     }

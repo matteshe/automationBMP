@@ -3,6 +3,7 @@ package de.telekom.testframework.selenium.tests;
 import static de.telekom.testframework.Assert.*;
 import de.telekom.testframework.annotations.NoVerificationErrors;
 import de.telekom.testframework.reporting.Reporter;
+import static de.telekom.testframework.selenium.Matchers.url;
 import de.telekom.testframework.selenium.matchers.CachedElementTypeSafeMatcher;
 import java.io.IOException;
 import org.hamcrest.Matcher;
@@ -133,4 +134,8 @@ public class MatcherTest {
         }, is(throwing(IOException.class, UnsupportedOperationException.class)));
     }
 
+    @Test
+    public void test7() {
+        verifyThat("http://www.heise.de", is(url()));
+    }
 }
