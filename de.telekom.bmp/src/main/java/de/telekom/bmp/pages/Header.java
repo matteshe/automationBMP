@@ -1,6 +1,7 @@
 package de.telekom.bmp.pages;
 
 import de.telekom.bmp.BmpApplication;
+import de.telekom.testframework.selenium.ActionHelper;
 import de.telekom.testframework.selenium.Page;
 import de.telekom.testframework.selenium.annotations.UseParent;
 import de.telekom.testframework.selenium.controls.Button;
@@ -50,6 +51,7 @@ public class Header extends Page {
             }
             super.click();
 
+            ActionHelper.waitUntilPageLoaded(webDriver, false);
         }
     }
 
@@ -66,6 +68,9 @@ public class Header extends Page {
         public AccountLink myProfile;
     }
 
+    @FindBy(xpath = ".//div[@class='dropdown-parent' or @id='topbar-login']")
+    public AccountMenu account;
+
     public static class SettingsLink extends Link {
 
         public SettingsLink(WebDriver driver, FieldElementLocator locator, WebElement webElement) {
@@ -80,6 +85,7 @@ public class Header extends Page {
             }
             super.click();
 
+            ActionHelper.waitUntilPageLoaded(webDriver, false);
         }
     }
 
@@ -107,9 +113,6 @@ public class Header extends Page {
 
     @FindBy(xpath = ".//a[@id='myapps']")
     public Link myApps;
-
-    @FindBy(xpath = ".//div[@class='dropdown-parent' or @id='topbar-login']")
-    public AccountMenu account;
 
     @FindBy(xpath = ".//form[@name='searchForm' or @class='searchbox-form']")
     Form searchForm;

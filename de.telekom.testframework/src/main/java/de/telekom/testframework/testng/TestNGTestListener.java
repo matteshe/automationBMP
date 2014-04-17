@@ -172,6 +172,7 @@ public class TestNGTestListener implements IExecutionListener, IInvokedMethodLis
         if (webDriver != null) {
             try {
                 context.setAttribute("webDriver", null);
+                injectedInstances.clear();
                 webDriver.quit();
             } catch (Throwable e) {
 

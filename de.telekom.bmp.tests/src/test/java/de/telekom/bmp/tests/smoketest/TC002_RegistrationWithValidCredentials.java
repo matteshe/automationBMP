@@ -76,12 +76,12 @@ public class TC002_RegistrationWithValidCredentials {
 
         verifyThat(signup.signupConfirmationPanel.thanks, is(displayed()));
 
-        String confirmLink = EMailAccount.getConfirmationLink(user);
+        String link = EMailAccount.getConfirmationLink(user);
 
-        assertThat("we have a confirmation link", confirmLink, not(isEmptyOrNullString()));
-        assertThat("the confirmation link is a valid url", confirmLink, is(url()));
+        assertThat("we have a confirmation link", link, not(isEmptyOrNullString()));
+        assertThat("the confirmation link is a valid url", link, is(url()));
 
-        navigateTo(confirmLink);
+        navigateTo(link);
 
         set(accountActivation.firstName, user.firstName);
         set(accountActivation.lastName, user.name);

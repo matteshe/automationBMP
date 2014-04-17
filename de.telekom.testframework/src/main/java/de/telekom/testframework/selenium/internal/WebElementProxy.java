@@ -1,6 +1,6 @@
 package de.telekom.testframework.selenium.internal;
 
-import de.telekom.testframework.selenium.ActionHandler;
+import de.telekom.testframework.selenium.ActionHelper;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -45,12 +45,12 @@ public class WebElementProxy implements InvocationHandler {
     private Object realInvoke(Method method, Object[] objects, boolean catchStale) throws Throwable {
         WebElement element;
 
-        ActionHandler.waitUntilPageLoaded(driver, locator);
-        ActionHandler.needWaitForPageLoad(false);
+        ActionHelper.waitUntilPageLoaded(driver, locator);
+        ActionHelper.needWaitForPageLoad(false);
         try {
             element = locator.findElement();
         } finally {
-            ActionHandler.needWaitForPageLoad(true);
+            ActionHelper.needWaitForPageLoad(true);
         }
         if ("getWrappedElement".equals(method.getName())) {
             return element;

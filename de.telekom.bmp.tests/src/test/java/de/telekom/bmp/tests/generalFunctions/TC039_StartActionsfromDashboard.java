@@ -42,31 +42,31 @@ public class TC039_StartActionsfromDashboard {
     @Test
     public void test1() throws InterruptedException {
         
-       functional.login("sysadmin4.0@test.com", "password");
-       
-       navigateTo(dashboard);
-       verifyThat(dashboard.isCurrentPage());
-              
-       click(dashboard.inviteUsersLnk);
-       verifyThat(invitePopup.invitePopup.isDisplayed());
-       
-       click(dashboard.assignLnk);
-       verifyThat(dashboard.getWebDriver().getCurrentUrl(), containsString(account.getPath() + "/assign")); 
-       navigateTo(dashboard);
-       
-       click(dashboard.upgradeLnk);
-       verifyThat(dashboard.getWebDriver().getCurrentUrl(), containsString(account.getPath() + "/apps")); 
-       navigateTo(dashboard);
-       
-       click(dashboard.billingInfoLnk);
-       verifyThat(dashboard.getWebDriver().getCurrentUrl(), containsString("selectedPanel=BILLING_INFO")); 
-       navigateTo(dashboard);
-       
-       click(dashboard.billsLnk);
-       verifyThat(dashboard.getWebDriver().getCurrentUrl(), containsString(account.getPath() + "/bills")); 
-       navigateTo(dashboard);
-              
-       functional.logout();
+//       functional.login("sysadmin4.0@test.com", "password");
+//       
+//       navigateTo(dashboard);
+//       verifyThat(dashboard.isCurrentPage());
+//              
+//       click(dashboard.inviteUsersLnk);
+//       verifyThat(invitePopup.invitePopup.isDisplayed());
+//       
+//       click(dashboard.assignLnk);
+//       verifyThat(dashboard.getWebDriver().getCurrentUrl(), containsString(account.getPath() + "/assign")); 
+//       navigateTo(dashboard);
+//       
+//       click(dashboard.upgradeLnk);
+//       verifyThat(dashboard.getWebDriver().getCurrentUrl(), containsString(account.getPath() + "/apps")); 
+//       navigateTo(dashboard);
+//       
+//       click(dashboard.billingInfoLnk);
+//       verifyThat(dashboard.getWebDriver().getCurrentUrl(), containsString("selectedPanel=BILLING_INFO")); 
+//       navigateTo(dashboard);
+//       
+//       click(dashboard.billsLnk);
+//       verifyThat(dashboard.getWebDriver().getCurrentUrl(), containsString(account.getPath() + "/bills")); 
+//       navigateTo(dashboard);
+//              
+//       functional.logout();
 
        
     }

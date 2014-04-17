@@ -1,6 +1,6 @@
 package de.telekom.testframework.selenium;
 
-import de.telekom.testframework.selenium.ActionHandler.RunnableFunction;
+import de.telekom.testframework.RunnableFunction;
 import de.telekom.testframework.selenium.internal.FieldElementLocator;
 import de.telekom.testframework.selenium.internal.FieldSearchContextGetter;
 import de.telekom.testframework.selenium.internal.ListOfWebElementProxy;
@@ -57,7 +57,7 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
     }
 
     <T> T handle(String action, final RunnableFunction<T> r, Object... args) {
-        return ActionHandler.handle(this, null, action, r, args);
+        return ActionHelper.handle(this, null, action, r, args);
     }
 
     @Override
@@ -248,7 +248,7 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
                     public void run() {
                         webDriver.navigate().back();
 
-                        ActionHandler.waitUntilPageLoaded(webDriver, this);
+                        ActionHelper.waitUntilPageLoaded(webDriver, this);
                     }
                 });
             }
@@ -260,7 +260,7 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
                     @Override
                     public void run() {
                         webDriver.navigate().forward();
-                        ActionHandler.waitUntilPageLoaded(webDriver, this);
+                        ActionHelper.waitUntilPageLoaded(webDriver, this);
                     }
                 });
             }
@@ -272,7 +272,7 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
                     @Override
                     public void run() {
                         webDriver.navigate().to(url);
-                        ActionHandler.waitUntilPageLoaded(webDriver, this);
+                        ActionHelper.waitUntilPageLoaded(webDriver, this);
                     }
                 }, url);
             }
@@ -284,7 +284,7 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
                     @Override
                     public void run() {
                         webDriver.navigate().to(url);
-                        ActionHandler.waitUntilPageLoaded(webDriver, this);
+                        ActionHelper.waitUntilPageLoaded(webDriver, this);
                     }
                 }, url);
             }
@@ -296,7 +296,7 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
                     @Override
                     public void run() {
                         webDriver.navigate().refresh();
-                        ActionHandler.waitUntilPageLoaded(webDriver, this);
+                        ActionHelper.waitUntilPageLoaded(webDriver, this);
                     }
                 });
             }

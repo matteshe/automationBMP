@@ -5,11 +5,9 @@ import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
 import de.telekom.bmp.data.UserRole;
-import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
-import de.telekom.bmp.pages.account.Dashboard;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.annotations.QCState.ReadyButNeedsReview;
@@ -24,17 +22,11 @@ import org.testng.annotations.Test;
 public class TC003a_Login_as_Normal_User {
 
     @Inject
-    FunctionalActions functionalAct;
-
-    @Inject
     BmpApplication app;
 
     @Inject
     Login login;
-
-    @Inject
-    Dashboard dashboardPage;
-
+   
     @Inject
     Datapool datapool;
 

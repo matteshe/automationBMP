@@ -20,10 +20,14 @@
     
     <test name="smoke tests">
         <classes>
+            <class name="de.telekom.bmp.tests.initialization.SetTestEnvironment"/>
+            
             <class name="de.telekom.bmp.tests.smoketest.TC002_RegistrationWithValidCredentials"/>
             <class name="de.telekom.bmp.tests.smoketest.TC003a_Login_as_Normal_User"/>  
             
-            <class name="de.telekom.bmp.tests.smoketest.TC004_Login_as_Superuser"/>              
+            <class name="de.telekom.bmp.tests.smoketest.TC004_Login_as_Superuser"/> 
+            
+            <class name="de.telekom.bmp.tests.smoketest.TC022_Invite_Colleague"/>                          
         </classes>
     </test>
 

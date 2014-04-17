@@ -43,30 +43,30 @@ public class TC042_SeeTeamMembers {
     @Test
     public void test1() throws InterruptedException {
         
-       functional.login("sysadmin4.0@test.com", "password");
-       
-       //createOrder.navigateTo("/1262");
-             
-
-//        User user = datapool.users()             
-//                .field("valid").equal(true)
-//                .field("registered").equal(true)
-//                .field("role").equal(UserRole.USER).get();
+//       functional.login("sysadmin4.0@test.com", "password");
+//       
+//       //createOrder.navigateTo("/1262");
+//             
 //
-//        assertThat("we have a valid user", user != null);
+////        User user = datapool.users()             
+////                .field("valid").equal(true)
+////                .field("registered").equal(true)
+////                .field("role").equal(UserRole.USER).get();
+////
+////        assertThat("we have a valid user", user != null);
+////
+////        functional.login(user.email, user.password);
 //
-//        functional.login(user.email, user.password);
-
-        
-       navigateTo(dashboard);
-       int teamMembers = 0;
-       
-       for (WebElement member: dashboard.allMembers) {
-           teamMembers++;
-           reportMessage(member.getText());
-       }
-       
-       verifyThat(teamMembers, is(5));
+//        
+//       navigateTo(dashboard);
+//       int teamMembers = 0;
+//       
+//       for (WebElement member: dashboard.allMembers) {
+//           teamMembers++;
+//           reportMessage(member.getText());
+//       }
+//       
+//       verifyThat(teamMembers, is(5));
               
     }
 }

@@ -26,8 +26,14 @@ public abstract class EMailAccount extends BaseEntity {
     }
 
     public static String getConfirmationLink(User user) {
-        return user.emailAccount.getConfirmLink(user);
+        return user.emailAccount.internalGetConfirmationLink(user);
     }
 
-    protected abstract String getConfirmLink(User user);
+    protected abstract String internalGetConfirmationLink(User user);
+
+    public static String getInvitationsLink(User user) {
+        return user.emailAccount.internalGetInvitationsLink(user);
+    }
+
+    protected abstract String internalGetInvitationsLink(User user);
 }

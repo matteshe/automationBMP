@@ -1,6 +1,6 @@
 package de.telekom.testframework.selenium.controls;
 
-import de.telekom.testframework.selenium.ActionHandler;
+import de.telekom.testframework.selenium.ActionHelper;
 import de.telekom.testframework.selenium.SeleniumConfiguration;
 import de.telekom.testframework.selenium.WebElementContainer;
 import de.telekom.testframework.selenium.annotations.Ignore;
@@ -58,7 +58,7 @@ public class DelegatedWebElement extends WebElementContainer implements WebEleme
     }
 
     void handle(String action, Runnable r, Object... args) {
-        ActionHandler.handle(this, toString(), action, r, args);
+        ActionHelper.handle(this, toString(), action, r, args);
     }
 
     @Override

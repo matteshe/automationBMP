@@ -4,49 +4,65 @@ import de.telekom.bmp.data.User;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
-import de.telekom.testframework.reporting.Reporter;
-import static de.telekom.testframework.Actions.click;
-import static de.telekom.testframework.Actions.navigateTo;
-import static de.telekom.testframework.Actions.set;
-
+import static de.telekom.testframework.Actions.*;
+import de.telekom.testframework.FunctionalActionsBase;
 import javax.inject.Inject;
 
 /**
  *
  * @author Daniel
  */
-public class FunctionalActions {
+public class FunctionalActions extends FunctionalActionsBase {
 
     @Inject
     Login login;
 
     @Inject
     Header header;
-    
+
     @Inject
-    Home hPg;
+    Home home;
 
-    public void login(String username, String password) {
-        navigateTo(login);
+    public void login(final String username, final String password) {
+        handle("login", new Runnable() {
 
-        set(login.username, username);
-        set(login.password, password);
-        click(login.signin);
+            @Override
+            public void run() {
+                navigateTo(login);
+
+                set(login.username, username);
+                set(login.password, password);
+                click(login.signin);
+            }
+        }, username, password);
+
     }
-    
+
     public void login(User user) {
-    	login(user.email, user.password);
+        login(user.email, user.password);
     }
 
     public void logout() {
-    	Reporter.reportMessage("Logout");
-    	navigateTo(hPg);
-    	click(header.account.logout);
+        handle("logout", new Runnable() {
+
+            @Override
+            public void run() {
+                navigateTo(home);
+                click(header.account.logout);
+            }
+        });
     }
-    
-    public void ensureGermLanguageIsSet(){
-        if (!header.toogle_EN_LanguageLnk.isDisplayed()) {
-            click(header.toogle_EN_LanguageLnk);
-        }
+
+    public void ensureGermLanguageIsSet() {
+        handle("ensureGermLanguageIsSet", new Runnable() {
+
+            @Override
+            public void run() {
+                // TODO
+                if (!header.toogle_EN_LanguageLnk.isDisplayed()) {
+                    click(header.toogle_EN_LanguageLnk);
+                }
+            }
+        });
     }
 }

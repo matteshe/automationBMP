@@ -70,6 +70,9 @@ public class Mail extends Page {
 
         @FindBy(xpath = ".//a[contains(@href, 'accountSetup')]")
         public Link accountSetupLink;
+
+        @FindBy(xpath = ".//a[contains(@href, 'invitations')]")
+        public Link invitationsLink;
     }
     @FindBy(xpath = "//div[contains(@class, 'msg')]")
     public Message msg;

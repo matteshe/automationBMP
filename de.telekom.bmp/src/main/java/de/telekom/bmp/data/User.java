@@ -21,14 +21,17 @@ public class User extends BaseEntity {
         public static final String companyName = "companyName";
         public static final String email = "email";
         public static final String password = "password";
+        
         public static final String role = "role";
+
         public static final String registered = "registered";
+        public static final String invited = "invited";
+
         public static final String company = "company";
         public static final String phoneNumber = "phoneNumber";
 
         public static final String applications = "applications";
         public static final String emailAccount = "emailAccount";
-
     }
 
     public String name;
@@ -48,6 +51,7 @@ public class User extends BaseEntity {
     public EMailAccount emailAccount;
 
     public boolean registered = false;
+    public boolean invited;
 
     public Set<String> apps = new HashSet<>();
 
@@ -68,6 +72,11 @@ public class User extends BaseEntity {
 
     public User(String name, String mail) {
         this(name, mail, UserRole.USER);
+    }
+
+    @Override
+    public String toString() {
+        return "User[email=" + email + ", firstName=" + firstName + ", name=" + name + "]";
     }
 
     @Deprecated

@@ -1,6 +1,6 @@
 package de.telekom.testframework.selenium.internal;
 
-import de.telekom.testframework.selenium.ActionHandler;
+import de.telekom.testframework.selenium.ActionHelper;
 import de.telekom.testframework.selenium.WebDriverWrapper;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationHandler;
@@ -53,12 +53,12 @@ public class ListOfWebElementProxy implements InvocationHandler {
 
     private Object realInvoke(Method method, Object[] objects, boolean catchStale) throws Throwable {
         List<WebElement> elements;
-        ActionHandler.waitUntilPageLoaded(driver, locator);
-        ActionHandler.needWaitForPageLoad(false);
+        ActionHelper.waitUntilPageLoaded(driver, locator);
+        ActionHelper.needWaitForPageLoad(false);
         try {
             elements = locator.findElements();
         } finally {
-            ActionHandler.needWaitForPageLoad(true);
+            ActionHelper.needWaitForPageLoad(true);
         }
         List<Object> newElements = new ArrayList<>(elements.size());
         int index = 0;

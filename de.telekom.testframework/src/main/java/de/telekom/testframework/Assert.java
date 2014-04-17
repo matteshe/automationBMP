@@ -2,7 +2,7 @@ package de.telekom.testframework;
 
 import com.google.common.base.Function;
 import de.telekom.testframework.reporting.Reporter;
-import de.telekom.testframework.selenium.ActionHandler;
+import de.telekom.testframework.selenium.ActionHelper;
 import de.telekom.testframework.selenium.WebDriverWrapper;
 import java.util.concurrent.TimeUnit;
 import org.hamcrest.Matcher;
@@ -89,7 +89,7 @@ public class Assert {
             Reporter.reportException(ex);
 
             if (actual instanceof WebDriverWrapper) {
-                Reporter.reportScreenshot(ActionHandler.getScreenshotAs((WebDriverWrapper) actual, OutputType.BYTES));
+                Reporter.reportScreenshot(ActionHelper.getScreenshotAs((WebDriverWrapper) actual, OutputType.BYTES));
             }
 
             throw ex;
@@ -133,7 +133,7 @@ public class Assert {
                 Reporter.reportException(ex);
 
                 if (actual instanceof WebDriverWrapper) {
-                    Reporter.reportScreenshot(ActionHandler.getScreenshotAs((WebDriverWrapper) actual, OutputType.BYTES));
+                    Reporter.reportScreenshot(ActionHelper.getScreenshotAs((WebDriverWrapper) actual, OutputType.BYTES));
                 }
 
                 throw ex;
@@ -160,7 +160,7 @@ public class Assert {
                 if (message == null) {
                     ex = new AssertionError();
                 } else {
-                    ex = new AssertionError(message);
+                    ex = new AssertionError("Assert that " + message);
                 }
             }
 
@@ -209,7 +209,7 @@ public class Assert {
                 Reporter.reportException(ex);
 
                 if (actual instanceof WebDriverWrapper) {
-                    Reporter.reportScreenshot(ActionHandler.getScreenshotAs((WebDriverWrapper) actual, OutputType.BYTES));
+                    Reporter.reportScreenshot(ActionHelper.getScreenshotAs((WebDriverWrapper) actual, OutputType.BYTES));
                 }
             }
 

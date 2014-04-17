@@ -1,13 +1,13 @@
 package de.telekom.testframework.selenium;
 
+import de.telekom.testframework.RunnableFunction;
 import com.google.common.base.Function;
-import com.google.common.base.Predicate;
 import de.telekom.testframework.Wait;
 import de.telekom.testframework.reporting.Reporter;
-import java.util.concurrent.Callable;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.remote.Augmenter;
@@ -16,7 +16,7 @@ import org.openqa.selenium.remote.Augmenter;
  *
  * @author Daniel Biehl
  */
-public class ActionHandler {
+public class ActionHelper {
 
     public static <X> X getScreenshotAs(WebDriverWrapper wrapper, OutputType<X> target) throws WebDriverException {
 
@@ -64,7 +64,27 @@ public class ActionHandler {
             return;
         }
 
-        //Reporter.entering(null, "waitUntilPageLoaded", context);
+        waitUntilPageLoaded(driver);
+    }
+
+    public static void waitUntilPageLoaded(WebDriver driver, boolean throwException) {
+        if (!throwException) {
+            try {
+                waitUntilPageLoaded(driver);
+            } catch (TimeoutException e) {
+
+            }
+            return;
+        }
+        waitUntilPageLoaded(driver);
+    }
+
+    public static void waitUntilPageLoaded(WebDriver driver) {
+
+        if (isInWaitForPageLoaded) {
+            return;
+        }
+
         isInWaitForPageLoaded = true;
         try {
             Wait.until("Page loaded", driver, new Function<WebDriver, Boolean>() {
@@ -73,17 +93,10 @@ public class ActionHandler {
                 public Boolean apply(WebDriver input) {
                     return ((JavascriptExecutor) input).executeScript("return document.readyState").equals("complete");
                 }
-            });
+            }, SeleniumConfiguration.current.pageLoadTimeout);
         } finally {
             isInWaitForPageLoaded = false;
-            //Reporter.exiting(null, "waitUntilPageLoaded");
         }
-
-    }
-
-    public interface RunnableFunction<T> {
-
-        T run();
     }
 
     public static void handle(WebDriverWrapper wrapper, String contextName, String actionName, final Runnable r, Object... args) {

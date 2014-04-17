@@ -1,12 +1,6 @@
 package de.telekom.testframework.selenium;
 
-import static de.telekom.testframework.selenium.WebElementContainer.findAll;
-import de.telekom.testframework.selenium.internal.FieldElementLocator;
 import de.telekom.testframework.selenium.internal.FieldSearchContextGetter;
-import de.telekom.testframework.selenium.internal.ListOfWebElementProxy;
-import de.telekom.testframework.selenium.internal.WebElementProxy;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -39,7 +33,7 @@ public abstract class Application implements SearchContext, FieldSearchContextGe
     }
 
     void handle(String action, Runnable r, Object... args) {
-        ActionHandler.handle(this, this.getClass().getSimpleName(), action, r, args);
+        ActionHelper.handle(this, this.getClass().getSimpleName(), action, r, args);
     }
 
     public void quit() {
@@ -81,7 +75,7 @@ public abstract class Application implements SearchContext, FieldSearchContextGe
 
                 getWebDriver().navigate().to(u);
 
-                ActionHandler.waitUntilPageLoaded(webDriver, this);
+                ActionHelper.waitUntilPageLoaded(webDriver, this);
 
             }
         }, url);

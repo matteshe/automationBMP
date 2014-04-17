@@ -100,7 +100,7 @@ public abstract class WebElementContainer implements WebDriverWrapper {
     }
 
     void handle(String action, Runnable r, Object... args) {
-        ActionHandler.handle(this, this.getClass().getSimpleName(), action, r, args);
+        ActionHelper.handle(this, this.getClass().getSimpleName(), action, r, args);
     }
 
     public ResourceBundle getResourceBundle() {

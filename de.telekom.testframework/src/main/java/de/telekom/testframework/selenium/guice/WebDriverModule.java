@@ -30,6 +30,7 @@ public class WebDriverModule extends AbstractModule {
 
         driver = new FirefoxDriver();
 
+       
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().implicitlyWait(SeleniumConfiguration.current.implicitlyWait, TimeUnit.SECONDS);
         driver.manage().timeouts().pageLoadTimeout(SeleniumConfiguration.current.pageLoadTimeout, TimeUnit.SECONDS);

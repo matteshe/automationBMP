@@ -30,7 +30,7 @@ public abstract class Page extends Mask {
 
     public boolean isCurrentPage() {
 
-        ActionHandler.waitUntilPageLoaded(webDriver, this);
+        ActionHelper.waitUntilPageLoaded(webDriver, this);
 
         String u = getWebDriver().getCurrentUrl();
 
@@ -70,7 +70,7 @@ public abstract class Page extends Mask {
     }
 
     public void reportScreenShot() {
-        Reporter.reportScreenshot(ActionHandler.getScreenshotAs(this, OutputType.BYTES));
+        Reporter.reportScreenshot(ActionHelper.getScreenshotAs(this, OutputType.BYTES));
     }
 
     public boolean isLoaded() {

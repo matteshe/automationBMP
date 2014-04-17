@@ -1,5 +1,6 @@
 package de.telekom.bmp.data.helpers;
 
+import de.telekom.bmp.data.gmail.GMailAccount;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
 import de.telekom.bmp.data.Company;
