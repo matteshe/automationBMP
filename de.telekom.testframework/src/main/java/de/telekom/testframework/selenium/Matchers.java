@@ -295,6 +295,13 @@ public class Matchers {
         };
     }
 
+    /**
+     * Creates a matcher that matches if the examined Browsers current page 
+     * matches the given <code>matcher</code>.     
+     * 
+     * @param matcher
+     * @return 
+     */
     @Factory
     public static Matcher<Browser> currentUrl(Matcher<String> matcher) {
         return new CachedElementTypeSafeMatcher<Browser, String>("current url", matcher) {
@@ -306,6 +313,13 @@ public class Matchers {
         };
     }
 
+    /**
+     * Creates a matcher that matches if the examined CheckBox checked state
+     * matches the given <code>matcher</code>.     
+     * 
+     * @param matcher
+     * @return 
+     */
     @Factory
     public static Matcher<CheckBox> checked(final Matcher<Boolean> matcher) {
         return new CachedElementTypeSafeMatcher<CheckBox, Boolean>("checked", matcher) {
@@ -317,6 +331,11 @@ public class Matchers {
         };
     }
 
+    /**
+     * Creates a matcher that matches if the examined CheckBox is checked.     
+     * 
+     * @return 
+     */
     @Factory
     public static Matcher<CheckBox> checked() {
         return new CachedElementTypeSafeMatcher<CheckBox, Boolean>("checked") {
@@ -328,6 +347,11 @@ public class Matchers {
         };
     }
 
+    /**
+     * Creates a matcher that matches if the examined string is a valid absolute url.     
+     * 
+     * @return 
+     */
     @Factory
     public static Matcher<String> url() {
         return new CachedElementTypeSafeMatcher<String, Boolean>("an url") {
