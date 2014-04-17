@@ -5,6 +5,7 @@ import de.telekom.bmp.pages.Home;
 
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
+import static de.telekom.testframework.annotations.QCState.Ready;
 import static de.telekom.testframework.selenium.Matchers.value;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import javax.inject.Inject;
@@ -19,7 +20,7 @@ import org.testng.annotations.Test;
  */
 @Deprecated
 @UseWebDriver
-@QCId("5509")
+@QCId(value = "5509", state = Ready)
 public class TC001_Verify_Release_version_in_Sourcecode {
 
     @Inject

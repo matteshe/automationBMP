@@ -63,11 +63,11 @@ public class TC012_Mosi_Ping_Test {
     public void test_012_Mosi_Ping_Test() {
 
         try {
-            set(login.usernameInput, user.email);
+            set(login.username, user.email);
 
-            set(login.passwordInput, user.password);
+            set(login.password, user.password);
 
-            click(login.signinBtn);
+            click(login.signin);
 
             navigateTo(mosiPage);
             assertThat(mosiPage, isCurrentPage());
@@ -81,7 +81,7 @@ public class TC012_Mosi_Ping_Test {
             // before Nested Classed introduced
             //click(header.account);
             //click(header.logout);
-            click(header.accountMenu.logoutLnk);
+            click(header.accountMenu.logout);
 
             assertThat(home, isCurrentPage());
 

@@ -60,10 +60,10 @@ public class Header extends Page {
         }
 
         @FindBy(xpath = ".//a[@id='logout' or text()='Abmelden']")
-        public AccountLink logoutLnk;
+        public AccountLink logout;
 
         @FindBy(xpath = ".//a[@id='myProfile' or text()='Mein Profil']")
-        public AccountLink myProfileLnk;
+        public AccountLink myProfile;
     }
 
     public static class SettingsLink extends Link {
@@ -128,13 +128,12 @@ public class Header extends Page {
     public Button register;
 
     //only for cms homepage
-    @FindBy(xpath = ".//div[@id='topbar-login']|.//button")
-    public Button loginBtn;
+    @FindBy(xpath = ".//a[contains(@href, './login')]")
+    public Button login;
 
     @FindBy(xpath = "//a[contains(text(),'EN')]")
     public Link toogle_EN_LanguageLnk;
 
     @FindBy(xpath = "//a[contains(text(),'DE')]")
     public Link toogle_DE_LanguageLnk;
-
 }

@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.data.UserRole;
 import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
@@ -11,13 +12,15 @@ import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.account.Dashboard;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
+import static de.telekom.testframework.annotations.QCState.NeedsReview;
 import static de.telekom.testframework.selenium.Matchers.*;
+import de.telekom.testframework.selenium.annotations.ResetWebDriver;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
-import static org.testng.Assert.*;
+import static org.hamcrest.Matchers.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-@QCId("4123")
+@QCId(value="4123", state = NeedsReview)
 @UseWebDriver
 public class TC003a_Login_as_Normal_User {
 
@@ -47,46 +50,28 @@ public class TC003a_Login_as_Normal_User {
 
     @BeforeMethod
     public void setup() {
-        user = datapool.users().field("valid").equal(true)
-                .field("registered").notEqual(false)
-                .field("email").equal("mybmptestuser+normaluser@gmail.com").get();
+        navigateTo(app);
 
-        assertNotNull(user, "cannot find a valid user");
-
-//        user.valid = false;
-        navigateTo(login);
-
-        //sets the german language in the browser instance
-        functionalAct.ensureGermLanguageIsSet();
+        user = datapool.validUsers()
+                .field(User.Fields.registered).equal(true)
+                .field(User.Fields.role).equal(UserRole.USER)
+                .field(User.Fields.applications).doesNotExist().get();
     }
 
     @Test
     public void test_003a_Login_as_Normal_User() throws InterruptedException {
+        assertThat("we have a user", user, is(not(nullValue())));
 
-        try {
+        click(header.login);
 
-            set(login.usernameInput, user.email);
+        set(login.username, user.email);
+        set(login.password, user.password);
+        click(login.signin);
 
-            //login.password.set(user.password);
-            set(login.passwordInput, user.password);
+        verifyThat(home, isCurrentPage());
 
-            //login.signin.click();
-            click(login.signinBtn);
-
-// WORKAROUND WEGEN CMS Redirect
-//          navigateTo(home);
-            assertThat(home, isCurrentPage());
-
-            //header.account.click();
-            click(header.accountMenu.logoutLnk);
-
-            assertThat(home, isCurrentPage());
-
-//            user.valid = true;
-        } finally {
-            datapool.save(user);
-        }
-
+        // TODO further verifications needed in manual test case description, see HP ALM
+        click(header.accountMenu.logout);
     }
 
 }

@@ -49,13 +49,13 @@ public class FunctionalActions2 {
     public void login(String username, String password) {
         navigateTo(login);
 
-        set(login.usernameInput, username);
-        set(login.passwordInput, password);
-        click(login.signinBtn);
+        set(login.username, username);
+        set(login.password, password);
+        click(login.signin);
     }
 
     public void logout() {
-        click(header.accountMenu.logoutLnk);
+        click(header.accountMenu.logout);
     }
 
     public void purchase(String appID, String editionName) {

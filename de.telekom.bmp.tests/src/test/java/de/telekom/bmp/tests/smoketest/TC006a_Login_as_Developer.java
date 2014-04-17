@@ -61,11 +61,11 @@ public class TC006a_Login_as_Developer {
     public void test_006a_Login_as_Developer() {
 
         try {
-            set(login.usernameInput,user.email);
+            set(login.username,user.email);
 
-            set(login.passwordInput, user.password);
+            set(login.password, user.password);
 
-            click(login.signinBtn);
+            click(login.signin);
             
             click(header.settingsMenu.developerLnk);
             
@@ -84,7 +84,7 @@ public class TC006a_Login_as_Developer {
             //click(header.account);
             //click(header.logout);
             
-            click(header.accountMenu.logoutLnk);
+            click(header.accountMenu.logout);
 
             assertThat(home, isCurrentPage());
             

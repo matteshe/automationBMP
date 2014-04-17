@@ -52,9 +52,9 @@ public class TC033_Set_Language_of_a_Logged_in_User {
             verifyThat("we have a registered user ",user.registered);
             navigateTo(login);
             String loginURL = browser.getCurrentUrl();
-            set(login.usernameInput, user.email);
-            set(login.passwordInput, user.password);
-            click(login.signinBtn);
+            set(login.username, user.email);
+            set(login.password, user.password);
+            click(login.signin);
             
             
 //          String currentTitle = browser.getCurrentTitle();
@@ -68,7 +68,7 @@ public class TC033_Set_Language_of_a_Logged_in_User {
             if (!(browser.getCurrentUrl().contains(loginURL))) {
                 //sets the german language in the browser instance
                 ensureGermLanguageIsSet();
-                click(header.accountMenu.logoutLnk);
+                click(header.accountMenu.logout);
             }
             
             

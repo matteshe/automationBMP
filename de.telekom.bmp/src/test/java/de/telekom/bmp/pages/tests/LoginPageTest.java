@@ -35,9 +35,9 @@ public class LoginPageTest extends BasePageTest {
 	
 	@Test
 	public void verifySimpleLocators() {
-		verifyThat(pg.usernameInput, exists());
-		verifyThat(pg.passwordInput, exists());
-		verifyThat(pg.signinBtn, exists());
+		verifyThat(pg.username, exists());
+		verifyThat(pg.password, exists());
+		verifyThat(pg.signin, exists());
 		verifyThat(pg.signuplink, exists());
 		verifyThat(pg.forgotPasswordLnk, exists());
 	}

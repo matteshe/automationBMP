@@ -61,11 +61,11 @@ public class TC007_Login_as_Chanel_Support {
     public void test_007_Login_as_ChannelSupport() {
 
         try {
-            set(login.usernameInput, user.email);
+            set(login.username, user.email);
 
-            set(login.passwordInput,user.password);
+            set(login.password,user.password);
 
-            click(login.signinBtn);
+            click(login.signin);
             
             click(header.settingsMenu.channelUserLnk);
             
@@ -76,7 +76,7 @@ public class TC007_Login_as_Chanel_Support {
             
             click(marketplacepage.evenlogsTab);            
             
-            click(header.accountMenu.logoutLnk);
+            click(header.accountMenu.logout);
 
             assertThat(home, isCurrentPage());
             

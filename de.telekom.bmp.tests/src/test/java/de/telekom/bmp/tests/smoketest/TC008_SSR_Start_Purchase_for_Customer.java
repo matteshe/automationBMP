@@ -68,11 +68,11 @@ public class TC008_SSR_Start_Purchase_for_Customer {
     public void test_008_SSR_Start_Purchase_for_Customer() {
 
         try {
-            set(login.usernameInput, user.email);
+            set(login.username, user.email);
 
-            set(login.passwordInput, user.password);
+            set(login.password, user.password);
 
-            click(login.signinBtn);
+            click(login.signin);
 
 // WORKAROUND NORMALES VERHALTEN
 //             
@@ -90,7 +90,7 @@ public class TC008_SSR_Start_Purchase_for_Customer {
             //click(header.account);
             //click(header.logout);
             
-            click(header.accountMenu.logoutLnk);
+            click(header.accountMenu.logout);
 
             assertThat(home, isCurrentPage());
 

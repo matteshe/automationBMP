@@ -61,11 +61,11 @@ public class TC005_Login_as_Chanel_Admin {
     public void test_005_Login_as_ChannelAdminUser() {
 
         try {
-            set(login.usernameInput, user.email);
+            set(login.username, user.email);
 
-            set(login.passwordInput, user.password);
+            set(login.password, user.password);
 
-            click(login.signinBtn);
+            click(login.signin);
             
             click(header.settingsMenu.channelUserLnk);
 
@@ -83,7 +83,7 @@ public class TC005_Login_as_Chanel_Admin {
             //click(header.account);
             //click(header.logout);
             
-            click(header.accountMenu.logoutLnk);
+            click(header.accountMenu.logout);
 
             assertThat(home, isCurrentPage());
 

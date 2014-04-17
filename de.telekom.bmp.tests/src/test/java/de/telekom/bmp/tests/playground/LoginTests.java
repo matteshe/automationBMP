@@ -56,10 +56,10 @@ public class LoginTests {
 
 //        set(login.username, "tester.bmp+user001@gmail.com");
 //        set(login.password, "tester123");
-        set(login.usernameInput, user.email);
-        set(login.passwordInput, user.password);
+        set(login.username, user.email);
+        set(login.password, user.password);
 
-        click(login.signinBtn);
+        click(login.signin);
 
         //verifyThat(myApps, page());
         set(header.searchInput, "test");
@@ -77,7 +77,7 @@ public class LoginTests {
 
         click(listing.appInfo.get("Test App 2012_SAK").appName);
 
-        click(header.accountMenu.logoutLnk);
+        click(header.accountMenu.logout);
     }
 
 }

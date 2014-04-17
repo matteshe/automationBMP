@@ -46,11 +46,11 @@ public class TC002_StartpageAfterLoginFromCMS {
         
         navigateTo(login);
         navigateTo(home);
-        click(header.loginBtn);
+        click(header.login);
         verifyThat(login.isCurrentPage());
-        set(login.usernameInput, "sysadmin4.0@test.com");
-        set(login.passwordInput, "password");
-        click(login.signinBtn);
+        set(login.username, "sysadmin4.0@test.com");
+        set(login.password, "password");
+        click(login.signin);
         verifyThat(launchpad.isCurrentPage());
         
               

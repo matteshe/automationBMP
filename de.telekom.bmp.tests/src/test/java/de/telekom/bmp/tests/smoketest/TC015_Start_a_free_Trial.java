@@ -69,12 +69,12 @@ public class TC015_Start_a_free_Trial {
     public void test_015_Start_a_free_Trial() {
 
         try {
-            //set(login.usernameInput, user.email);
-            //set(login.passwordInput, user.password);
+            //set(login.username, user.email);
+            //set(login.password, user.password);
             
-            set(login.usernameInput, "dtagtester01+reg138a@googlemail.com");
-            set(login.passwordInput, "baum1301");
-            click(login.signinBtn);
+            set(login.username, "dtagtester01+reg138a@googlemail.com");
+            set(login.password, "baum1301");
+            click(login.signin);
 
             //TODO configure search Text. Properties File?
             set(header.searchInput, "create");
@@ -95,7 +95,7 @@ public class TC015_Start_a_free_Trial {
             //click(header.account);
             //click(header.logout);
             
-            click(header.accountMenu.logoutLnk);
+            click(header.accountMenu.logout);
 
             assertThat(home, isCurrentPage());
 

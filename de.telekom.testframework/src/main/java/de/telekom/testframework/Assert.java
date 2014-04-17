@@ -78,9 +78,9 @@ public class Assert {
     public static <T> void waitUntil(String message, final T actual, final Matcher<? super T> matcher, long timeOut, TimeUnit timeOutUnit, long sleep, TimeUnit sleepUnit) {
 
         if (message != null) {
-            Reporter.entering(null, "wait until ", message, actual, matcher, timeOut, timeOutUnit, sleep, sleepUnit);
+            Reporter.entering(null, "wait until", message, actual, matcher, timeOut, timeOutUnit, sleep, sleepUnit);
         } else {
-            Reporter.entering(null, "wait until ", actual, matcher, timeOut, timeOutUnit, sleep, sleepUnit);
+            Reporter.entering(null, "wait until", actual, matcher, timeOut, timeOutUnit, sleep, sleepUnit);
         }
 
         try {
@@ -120,7 +120,7 @@ public class Assert {
         try {
             boolean result = MatcherHelper.match(actual, matcher, timeOutInSeconds, sleepInMillis);
 
-            String s = MatcherHelper.buildMatcherMessage("Assert that ", actual, matcher, message, result);
+            String s = MatcherHelper.buildMatcherMessage("Assert that", actual, matcher, message, result);
 
             AssertionError ex = null;
             if (!result) {
@@ -197,7 +197,7 @@ public class Assert {
         try {
             boolean result = MatcherHelper.match(actual, matcher, timeOutInSeconds, sleepInMillis);
 
-            String s = MatcherHelper.buildMatcherMessage("Verify that ", actual, matcher, message, result);
+            String s = MatcherHelper.buildMatcherMessage("Verify that", actual, matcher, message, result);
 
             Throwable ex = null;
             if (!result) {

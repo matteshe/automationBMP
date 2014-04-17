@@ -72,11 +72,11 @@ public class TC009_Create_Company_as_SSR {
 
         try {
 
-            set(login.usernameInput, user.email);
+            set(login.username, user.email);
 
-            set(login.passwordInput, user.password);
+            set(login.password, user.password);
 
-            click(login.signinBtn);
+            click(login.signin);
 
 // WORKAROUND NORMAL BEHAVIOUR
 //             
@@ -117,7 +117,7 @@ public class TC009_Create_Company_as_SSR {
             // before Nested Classed introduced
             //click(header.account);
             //click(header.logout);
-            click(header.accountMenu.logoutLnk);
+            click(header.accountMenu.logout);
 
             assertThat(home, isCurrentPage());
 

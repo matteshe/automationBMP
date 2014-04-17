@@ -70,9 +70,9 @@ public class TC05_Login_with_invalid_credentials {
 
         try {
 
-            set(login.usernameInput, user.email);
+            set(login.username, user.email);
 
-            set(login.passwordInput, user.password);
+            set(login.password, user.password);
             
             assertThat(login.iconInvalid, is(displayed()));
 

@@ -64,11 +64,11 @@ public class TC003b_Login_as_Normal_User_with_active_Subscriptions {
     public void test_003b_Login_as_User_with_active_Subscriptions() {
 
         try {
-            set(login.usernameInput,user.email);
+            set(login.username,user.email);
 
-            set(login.passwordInput,user.password);
+            set(login.password,user.password);
 
-            click(login.signinBtn);
+            click(login.signin);
 
 
 // WORKAROUND Because of CMS Redirect
@@ -76,7 +76,7 @@ public class TC003b_Login_as_Normal_User_with_active_Subscriptions {
             
             assertThat(myapps, isCurrentPage());
 
-            click(header.accountMenu.logoutLnk);
+            click(header.accountMenu.logout);
 
             assertThat(home, isCurrentPage());
             

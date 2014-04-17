@@ -64,11 +64,11 @@ public class TC004_Login_as_Superuser {
     public void test_004_Login_as_Superuser() throws InterruptedException {
 
         try {
-            set(login.usernameInput, user.email);
+            set(login.username, user.email);
 
-            set(login.passwordInput, user.password);
+            set(login.password, user.password);
 
-            click(login.signinBtn);
+            click(login.signin);
 
             click(header.settingsMenu.superuserLnk);
 
@@ -78,7 +78,7 @@ public class TC004_Login_as_Superuser {
 
             click(dashboardpage.exceptionsTab);
 
-            click(header.accountMenu.logoutLnk);
+            click(header.accountMenu.logout);
 
             assertThat(home, isCurrentPage());
 

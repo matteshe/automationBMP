@@ -47,14 +47,16 @@ public class TestNGTestListener implements IExecutionListener, IInvokedMethodLis
 
     }
 
+    List<Object> injectedInstances = new ArrayList<>();
+
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult, ITestContext context) {
         Reporter.setCurrentTestResult(testResult);
 
-        de.telekom.testframework.reporting.Reporter.startTest(testResult.getName());
+        de.telekom.testframework.reporting.Reporter.startTest(testResult.getInstanceName() + '.' + testResult.getName());
 
-        Object o = testResult.getMethod().getInstance();
-        if (o.getClass().isAnnotationPresent(UseWebDriver.class)) {
+        Object instance = testResult.getMethod().getInstance();
+        if (instance.getClass().isAnnotationPresent(UseWebDriver.class)) {
 
             AccessibleObject ac = method.getTestMethod().getConstructorOrMethod().getMethod();
             if (ac == null) {
@@ -63,10 +65,14 @@ public class TestNGTestListener implements IExecutionListener, IInvokedMethodLis
 
             WebDriver webDriver = (WebDriver) context.getAttribute("webDriver");
 
-            if (webDriver == null || ac.isAnnotationPresent(ResetWebDriver.class)) {
+            // if the instance is not injected or the webdriver is'nt started or the testmethod needs a restart of the webdriver
+            // (re)start the the webdriver and inject the members
+            if (!injectedInstances.contains(instance) || webDriver == null || ac.isAnnotationPresent(ResetWebDriver.class)) {
 
                 if (webDriver != null) {
                     try {
+                        injectedInstances.clear();
+                        context.setAttribute("webDriver", null);
                         webDriver.quit();
                     } catch (Throwable e) {
 
@@ -76,7 +82,8 @@ public class TestNGTestListener implements IExecutionListener, IInvokedMethodLis
                 WebDriverModule module = new WebDriverModule();
 
                 Injector injector = Guice.createInjector(module);
-                injector.injectMembers(o);
+                injector.injectMembers(instance);
+                injectedInstances.add(instance);
 
                 context.setAttribute("webDriver", module.getDriver());
             }
@@ -118,7 +125,7 @@ public class TestNGTestListener implements IExecutionListener, IInvokedMethodLis
             }
         }
 
-        de.telekom.testframework.reporting.Reporter.endTest(testResult.getName());
+        de.telekom.testframework.reporting.Reporter.endTest(testResult.getInstanceName() + '.' + testResult.getName());
     }
 
     @Override
@@ -164,6 +171,7 @@ public class TestNGTestListener implements IExecutionListener, IInvokedMethodLis
         WebDriver webDriver = (WebDriver) context.getAttribute("webDriver");
         if (webDriver != null) {
             try {
+                context.setAttribute("webDriver", null);
                 webDriver.quit();
             } catch (Throwable e) {
 

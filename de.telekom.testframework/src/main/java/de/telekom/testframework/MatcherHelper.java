@@ -21,13 +21,17 @@ import org.openqa.selenium.support.ui.FluentWait;
 class MatcherHelper {
 
     protected static <T> String buildMatcherMessage(String start, T actual, Matcher<? super T> matcher, String message, boolean result) {
+        // TODO better matcher messages
+        
         Description expectedDescription = new StringDescription();
         expectedDescription.appendValue(actual);
 
         expectedDescription.appendText(" ");
 
         matcher.describeTo(expectedDescription);
-        String s = (message != null && !message.isEmpty() ? message + ": " : "") + start + expectedDescription;
+
+        String s = start + " " + (message != null && !message.isEmpty() ? message + " > " : "") + expectedDescription;
+
         if (!result) {
             Description failedDescription = new StringDescription();
 
@@ -70,8 +74,9 @@ class MatcherHelper {
 
                 } catch (TimeoutException e) {
                     Throwable cause = e.getCause();
-                    if (cause != null && cause instanceof WebDriverException)
+                    if (cause != null && cause instanceof WebDriverException) {
                         throw (WebDriverException) cause;
+                    }
                 }
                 return false;
             }

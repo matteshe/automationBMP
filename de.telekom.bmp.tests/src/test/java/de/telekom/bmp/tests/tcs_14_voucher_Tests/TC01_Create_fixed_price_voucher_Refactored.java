@@ -70,11 +70,11 @@ public class TC01_Create_fixed_price_voucher_Refactored {
     public void test_01_Create_fixed_price_voucher_Refactored() throws InterruptedException {
 
         try {
-            set(login.usernameInput, user.email);
+            set(login.username, user.email);
 
-            set(login.passwordInput, user.password);
+            set(login.password, user.password);
 
-            click(login.signinBtn);
+            click(login.signin);
 
 // WORKAROUND NORMALES VERHALTEN
 //             
@@ -104,7 +104,7 @@ public class TC01_Create_fixed_price_voucher_Refactored {
             // before Nested Classed introduced
             //click(header.account);
             //click(header.logout);
-            click(header.accountMenu.logoutLnk);
+            click(header.accountMenu.logout);
 
             assertThat(home, isCurrentPage());
 

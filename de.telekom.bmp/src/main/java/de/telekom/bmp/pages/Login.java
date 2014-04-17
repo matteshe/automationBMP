@@ -25,13 +25,13 @@ public class Login extends Page {
     }
  
     @FindBy (id = "username")
-    public TextField usernameInput;
+    public TextField username;
     
     @FindBy (id = "password")
-    public TextField passwordInput;
+    public TextField password;
     
     @FindBy(name = "signin")   
-    public Button signinBtn;
+    public Button signin;
     
     @FindBy(xpath = "//a[@href='./signup']")    
     public Link signuplink;

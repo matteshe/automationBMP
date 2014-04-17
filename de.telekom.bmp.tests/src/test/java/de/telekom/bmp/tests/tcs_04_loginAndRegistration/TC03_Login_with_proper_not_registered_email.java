@@ -71,12 +71,12 @@ public class TC03_Login_with_proper_not_registered_email {
 
         try {
 
-            set(login.usernameInput, user.email);
+            set(login.username, user.email);
 
-            set(login.passwordInput, user.password);
+            set(login.password, user.password);
 
             //login.signin.click();
-            click(login.signinBtn);
+            click(login.signin);
 
             assertThat(login.errorMsg, is(displayed()));
 

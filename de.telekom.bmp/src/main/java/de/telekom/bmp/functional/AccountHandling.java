@@ -146,7 +146,7 @@ public class AccountHandling {
     public void inviteUser(User user, User invitedUser) {
         assertThat(user, is(not(nullValue())));
         assertThat(invitedUser, is(not(nullValue())));
-        verifyThat(header.loginBtn, is(displayed()));
+        verifyThat(header.login, is(displayed()));
 
         fa.login(user.email, user.password);
         click(header.settingsMenu.accountLnk);
@@ -157,7 +157,7 @@ public class AccountHandling {
 
         Actions.navigateTo(home);
         fa.logout();
-        assertThat(header.loginBtn, is(displayed()));
+        assertThat(header.login, is(displayed()));
 
         gmail.setMailAccount(invitedUser.email);
         String confirmLink = gmail.checkGoogleMailAccountAndExtractConfirmLink(APP_DOMAIN, user.name);
@@ -168,7 +168,7 @@ public class AccountHandling {
         setupAccountInformations(invitedUser);
 
         fa.logout();
-        assertThat(header.loginBtn, is(displayed()));
+        assertThat(header.login, is(displayed()));
     }
 
     private void setupAccountInformations(User user) {

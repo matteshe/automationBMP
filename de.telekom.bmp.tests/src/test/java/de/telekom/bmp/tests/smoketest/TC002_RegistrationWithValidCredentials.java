@@ -11,6 +11,7 @@ import de.telekom.bmp.pages.Signup;
 import de.telekom.bmp.pages.accountsetup.AccountActivationPage;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
+import static de.telekom.testframework.annotations.QCState.NeedsReview;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.*;
@@ -19,7 +20,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @UseWebDriver
-@QCId("5506")
+@QCId(value = "5506", state = NeedsReview)
 public class TC002_RegistrationWithValidCredentials {
 
     @Inject
@@ -54,7 +55,9 @@ public class TC002_RegistrationWithValidCredentials {
 
     @AfterMethod
     public void tearDown() {
-        datapool.save(user);
+        if (user != null) {
+            datapool.save(user);
+        }
     }
 
     @Test
@@ -97,9 +100,8 @@ public class TC002_RegistrationWithValidCredentials {
 
         assertThat(home, is(currentPage()));
 
-        // TODO further verifications see HP ALM
-        
-        click(header.accountMenu.logoutLnk);
+        // TODO further verifications needed in manual test case description, see HP ALM
+        click(header.accountMenu.logout);
 
         user.registered = true;
         user.valid = true;
