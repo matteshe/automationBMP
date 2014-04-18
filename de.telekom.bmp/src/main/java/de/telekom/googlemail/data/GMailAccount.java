@@ -1,4 +1,4 @@
-package de.telekom.bmp.data.gmail;
+package de.telekom.googlemail.data;
 
 import com.google.common.base.Function;
 import com.google.inject.Inject;

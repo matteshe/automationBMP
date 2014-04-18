@@ -17,7 +17,6 @@ import org.testng.annotations.Test;
  *
  * @author Daniel
  */
-
 @UseWebDriver
 public class LoginTests {
 
@@ -41,7 +40,7 @@ public class LoginTests {
 
     @Inject
     Listing listing;
-    
+
     @Test
     public void theTest() {
         User user = datapool.users()
@@ -65,13 +64,13 @@ public class LoginTests {
         set(header.searchInput, "test");
         click(header.searchBtn);
 
-        waitUntil(listing, isCurrentPage());
+        waitUntil(listing, is(currentPage()));
 
-        waitUntil(listing.appInfos, not(empty()));
+        waitUntil(listing.results.rows, not(empty()));
 
         listing.reportScreenShot();
 
-        for (Listing.AppInfo appinfo : listing.appInfos) {
+        for (Listing.ListingTable.ListingRow appinfo : listing.appInfos) {
             System.out.println(appinfo.appName.getText() + " " + appinfo.prize.getText());
         }
 

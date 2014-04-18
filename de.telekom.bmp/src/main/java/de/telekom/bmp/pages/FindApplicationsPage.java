@@ -13,6 +13,7 @@ import org.openqa.selenium.support.FindBy;
  * @author Daniel
  */
 @Singleton
+@Deprecated
 public class FindApplicationsPage extends Page {
 
     @Inject

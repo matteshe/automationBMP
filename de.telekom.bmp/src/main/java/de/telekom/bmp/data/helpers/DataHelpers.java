@@ -1,13 +1,14 @@
 package de.telekom.bmp.data.helpers;
 
-import de.telekom.bmp.data.gmail.GMailAccount;
 import com.google.inject.Inject;
 import com.google.inject.name.Named;
+import de.telekom.bmp.data.Application;
 import de.telekom.bmp.data.Company;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.EMailAccount;
 import de.telekom.bmp.data.User;
 import de.telekom.bmp.data.UserRole;
+import de.telekom.googlemail.data.GMailAccount;
 import de.telekom.testframework.configuration.Configuration;
 import org.bson.types.ObjectId;
 
@@ -60,6 +61,10 @@ public final class DataHelpers {
         @Inject(optional = true)
         @Named("superUserPassword")
         String superUserPassword = "test12345";
+
+        @Named("testApplicationName")
+        String testApplicationName = "Automation_SAK1";
+
     }
 
     public static final MyConfiguration configuration = new MyConfiguration();
@@ -128,6 +133,12 @@ public final class DataHelpers {
         result.password = configuration.superUserPassword;
         result.role = UserRole.SUPERUSER;
 
+        return result;
+    }
+
+    public Application getTestApplication() {
+        Application result = new Application();
+        result.name = configuration.testApplicationName;
         return result;
     }
 
