@@ -27,7 +27,10 @@
             
             <class name="de.telekom.bmp.tests.smoketest.TC004_Login_as_Superuser"/> 
             
-            <class name="de.telekom.bmp.tests.smoketest.TC022_Invite_Colleague"/>                          
+            <class name="de.telekom.bmp.tests.smoketest.TC022_Invite_Colleague"/>   
+            
+            <class name="de.telekom.bmp.tests.smoketest.TC010_Search_in_Shop"/>   
+                                   
         </classes>
     </test>
 

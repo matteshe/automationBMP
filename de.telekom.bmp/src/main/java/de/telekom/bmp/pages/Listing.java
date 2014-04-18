@@ -7,7 +7,6 @@ import de.telekom.testframework.selenium.annotations.Path;
 import de.telekom.testframework.selenium.annotations.UseParent;
 import de.telekom.testframework.selenium.controls.Button;
 import de.telekom.testframework.selenium.controls.Column;
-import de.telekom.testframework.selenium.controls.Container;
 import de.telekom.testframework.selenium.controls.Link;
 import de.telekom.testframework.selenium.controls.Row;
 import de.telekom.testframework.selenium.controls.Table;

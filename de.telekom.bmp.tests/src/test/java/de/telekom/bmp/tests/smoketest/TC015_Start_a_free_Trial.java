@@ -12,6 +12,7 @@ import de.telekom.bmp.pages.FindApplicationsPage;
 
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
+import de.telekom.testframework.annotations.QCState;
 import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.testng.Assert.*;
@@ -20,7 +21,7 @@ import org.testng.annotations.Test;
 
 @UseWebDriver
 //@Test(groups = {"qcid-5506"})
-@QCId("4133")
+@QCId(value = "4133", state = QCState.Ongoing)
 public class TC015_Start_a_free_Trial {
 
     @Inject
@@ -62,7 +63,6 @@ public class TC015_Start_a_free_Trial {
 //        if (header.languageToogleEN.isDisplayed()) {
 //            click(header.languageToogleEN);
 //        }
-
     }
 
     @Test
@@ -71,7 +71,7 @@ public class TC015_Start_a_free_Trial {
         try {
             //set(login.username, user.email);
             //set(login.password, user.password);
-            
+
             set(login.username, "dtagtester01+reg138a@googlemail.com");
             set(login.password, "baum1301");
             click(login.signin);
@@ -94,7 +94,6 @@ public class TC015_Start_a_free_Trial {
             // before Nested Classed introduced
             //click(header.account);
             //click(header.logout);
-            
             click(header.account.logout);
 
             assertThat(home, isCurrentPage());
