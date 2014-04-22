@@ -88,6 +88,12 @@ public class Reporter {
             handler.reportVerification(message, result, exception);
         }
     }
+    
+    public static void reportCheck(String message, boolean result) {
+        for (ReportHandler handler : handlers) {
+            handler.reportCheck(message, result);
+        }
+    }
 
     public static void reportAssertion(String message, boolean result, Throwable exception) {
         for (ReportHandler handler : handlers) {

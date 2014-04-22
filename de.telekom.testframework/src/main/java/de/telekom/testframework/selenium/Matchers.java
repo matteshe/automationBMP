@@ -46,6 +46,17 @@ public class Matchers {
     }
 
     @Factory
+    public static Matcher<WebElement> innerHTML(final Matcher<String> matcher) {
+        return new CachedElementTypeSafeMatcher<WebElement, String>("innerHTML", matcher) {
+
+            @Override
+            protected Object getValue(WebElement item) {
+                return item.getAttribute("innerHTML");
+            }
+        };
+    }
+
+    @Factory
     public static <T> Matcher<WebElement> value(final Matcher<T> matcher) {
         return new CachedElementTypeSafeMatcher<WebElement, T>("value", matcher) {
 
@@ -296,11 +307,11 @@ public class Matchers {
     }
 
     /**
-     * Creates a matcher that matches if the examined Browsers current page 
-     * matches the given <code>matcher</code>.     
-     * 
+     * Creates a matcher that matches if the examined Browsers current page
+     * matches the given <code>matcher</code>.
+     *
      * @param matcher
-     * @return 
+     * @return
      */
     @Factory
     public static Matcher<Browser> currentUrl(Matcher<String> matcher) {
@@ -315,10 +326,10 @@ public class Matchers {
 
     /**
      * Creates a matcher that matches if the examined CheckBox checked state
-     * matches the given <code>matcher</code>.     
-     * 
+     * matches the given <code>matcher</code>.
+     *
      * @param matcher
-     * @return 
+     * @return
      */
     @Factory
     public static Matcher<CheckBox> checked(final Matcher<Boolean> matcher) {
@@ -332,9 +343,9 @@ public class Matchers {
     }
 
     /**
-     * Creates a matcher that matches if the examined CheckBox is checked.     
-     * 
-     * @return 
+     * Creates a matcher that matches if the examined CheckBox is checked.
+     *
+     * @return
      */
     @Factory
     public static Matcher<CheckBox> checked() {
@@ -348,9 +359,10 @@ public class Matchers {
     }
 
     /**
-     * Creates a matcher that matches if the examined string is a valid absolute url.     
-     * 
-     * @return 
+     * Creates a matcher that matches if the examined string is a valid absolute
+     * url.
+     *
+     * @return
      */
     @Factory
     public static Matcher<String> url() {

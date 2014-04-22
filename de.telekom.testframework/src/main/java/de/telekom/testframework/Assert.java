@@ -248,4 +248,44 @@ public class Assert {
     public static void fail(String message) {
         throw new AssertionError(message);
     }
+
+    public final static long DEFAULT_CHECK_TIMEOUT = 5;
+    
+    public static <T> boolean checkThat(T actual, Matcher<? super T> matcher) {
+        return checkThat("", actual, matcher, DEFAULT_CHECK_TIMEOUT, DEFAULT_SLEEP_TIMEOUT);
+    }
+
+    public static <T> boolean checkThat(T actual, Matcher<? super T> matcher, long timeOutInSeconds) {
+        return checkThat("", actual, matcher, timeOutInSeconds, DEFAULT_SLEEP_TIMEOUT);
+    }
+
+    public static <T> boolean checkThat(String message, T actual, Matcher<? super T> matcher) {
+        return checkThat(message, actual, matcher, DEFAULT_CHECK_TIMEOUT, DEFAULT_SLEEP_TIMEOUT);
+    }
+
+    public static <T> boolean checkThat(String message, T actual, Matcher<? super T> matcher, long timeOutInSeconds) {
+        return checkThat(message, actual, matcher, timeOutInSeconds, DEFAULT_SLEEP_TIMEOUT);
+    }
+
+    public static <T> boolean checkThat(String message, T actual, Matcher<? super T> matcher, long timeOutInSeconds, long sleepInMillis) {
+        Reporter.entering(null, "check that", message, actual, matcher);
+        try {
+            boolean result = MatcherHelper.match(actual, matcher, timeOutInSeconds, sleepInMillis);
+
+            String s = MatcherHelper.buildMatcherMessage("Check that", actual, matcher, message, result);
+
+            Reporter.reportCheck(s, result);
+
+            if (!result) {
+                if (actual instanceof WebDriverWrapper) {
+                    Reporter.reportScreenshot(ActionHelper.getScreenshotAs((WebDriverWrapper) actual, OutputType.BYTES));
+                }
+            }
+
+            return result;
+        } finally {
+            Reporter.exiting(null, "check that");
+        }
+    }
+
 }

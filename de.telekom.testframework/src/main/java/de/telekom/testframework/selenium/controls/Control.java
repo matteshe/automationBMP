@@ -26,9 +26,13 @@ public class Control extends DelegatedWebElement {
     public String getValue() {
         return getAttribute("value");
     }
-    
+
     public String getId() {
         return getAttribute("id");
+    }
+
+    public String getInnerHTML() {
+        return getAttribute("innerHTML");
     }
 
     protected void internalSet(Object value) {

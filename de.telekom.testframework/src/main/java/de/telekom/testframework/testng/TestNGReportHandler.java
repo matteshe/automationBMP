@@ -19,7 +19,7 @@ import org.testng.util.Strings;
 
 /**
  * The Report Handler for ReportNG
- * 
+ *
  * @author Daniel Biehl
  */
 class TestNGReportHandler implements ReportHandler {
@@ -112,6 +112,18 @@ class TestNGReportHandler implements ReportHandler {
     @Override
     public void reportWarning(String message) {
         log("warning", "WARNING: " + message);
+    }
+
+    @Override
+    public void reportCheck(String message, boolean result) {
+
+        if (message == null) {
+            message = "";
+        }
+
+        String s = Strings.escapeHtml(message);
+
+        log("check" + (result ? " passed" : " failed"), (result ? "PASSED" : " FAILED") + ": " + s, false);
     }
 
     public static final String VERIFICATION_ATTRIBUTE = "verification";

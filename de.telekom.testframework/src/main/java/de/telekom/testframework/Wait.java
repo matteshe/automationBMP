@@ -17,7 +17,7 @@ public final class Wait {
 
     public final static long DEFAULT_SLEEP_TIMEOUT = 500;
     public final static long DEFAULT_TIMEOUT = 30;
-
+       
     public static <T> void until(final T actual, final Matcher<? super T> matcher, long timeOutInSeconds, long sleepInMillis) {
         Wait.until(null, actual, matcher, timeOutInSeconds, sleepInMillis);
     }

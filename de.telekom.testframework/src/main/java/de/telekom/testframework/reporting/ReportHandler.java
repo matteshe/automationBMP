@@ -1,4 +1,3 @@
-
 package de.telekom.testframework.reporting;
 
 /**
@@ -6,11 +5,13 @@ package de.telekom.testframework.reporting;
  * @author Daniel Biehl
  */
 public interface ReportHandler {
-    
+
     void startTest(String name);
+
     void endTest(String name);
-    
-    void entering(String contextName, String actionName, Object ...args);
+
+    void entering(String contextName, String actionName, Object... args);
+
     void exiting(String contextName, String actionName);
 
     public void reportMessage(String message);
@@ -26,6 +27,8 @@ public interface ReportHandler {
     public void reportVerification(String message, boolean result, Throwable exception);
 
     public void reportAssertion(String message, boolean result, Throwable exception);
+
+    public void reportCheck(String message, boolean result);
 
     public void reportException(Throwable t);
 

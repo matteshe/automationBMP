@@ -106,6 +106,17 @@ public class ConsoleReportHandler implements ReportHandler {
 
         System.out.println(getIndentString() + (result ? "PASSED" : " FAILED") + ": " + s);
     }
+    
+    @Override
+    public void reportCheck(String message, boolean result) {
+        if (message == null) {
+            message = "";
+        }
+
+        String s = message;
+
+        System.out.println(getIndentString() + (result ? "PASSED" : " FAILED") + ": " + s);
+    }
 
     @Override
     public void reportAssertion(String message, boolean result, Throwable exception) {

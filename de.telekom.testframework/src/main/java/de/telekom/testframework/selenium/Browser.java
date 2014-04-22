@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebDriver;
@@ -41,8 +42,6 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
     @Inject
     public Browser(WebDriver driver) {
         this.webDriver = driver;
-
-        //setThisInstance();
     }
 
     void handle(String action, final Runnable r, Object... args) {
@@ -317,6 +316,10 @@ public class Browser implements WebDriverWrapper, FieldSearchContextGetter {
 
     public String getCurrentTitle() {
         return webDriver.getTitle();
+    }
+
+    public void executeScript(String script, Object... args) {
+        ((JavascriptExecutor) getWebDriver()).executeScript(script, args);
     }
 
 }
