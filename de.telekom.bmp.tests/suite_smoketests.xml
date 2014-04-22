@@ -30,6 +30,8 @@
             <class name="de.telekom.bmp.tests.smoketest.TC022_Invite_Colleague"/>   
             
             <class name="de.telekom.bmp.tests.smoketest.TC010_Search_in_Shop"/>   
+            
+            <class name="de.telekom.bmp.tests.smoketest.TC033_Set_Language_of_a_Logged_in_User" />
                                    
         </classes>
     </test>
