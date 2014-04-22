@@ -4,14 +4,16 @@ import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.MyApps;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
-import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
+import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
+import static org.hamcrest.Matchers.*;
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -22,6 +24,9 @@ public class TC003b_Login_as_Normal_User_with_active_Subscriptions {
     
     @Inject
     BmpApplication app;
+    
+    @Inject
+    FunctionalActions fa;
     
     @Inject
     Login login;
@@ -64,21 +69,17 @@ public class TC003b_Login_as_Normal_User_with_active_Subscriptions {
     public void test_003b_Login_as_User_with_active_Subscriptions() {
 
         try {
-            set(login.username,user.email);
-
-            set(login.password,user.password);
-
-            click(login.signin);
+            fa.login(user);
 
 
 // WORKAROUND Because of CMS Redirect
 //            navigateTo(myapps);
             
-            assertThat(myapps, isCurrentPage());
+            assertThat(myapps, is(currentPage()));
 
-            click(header.account.logout);
+            fa.logout();
 
-            assertThat(home, isCurrentPage());
+            assertThat(home, is(currentPage()));
             
 //            user.valid = true;
         } finally {

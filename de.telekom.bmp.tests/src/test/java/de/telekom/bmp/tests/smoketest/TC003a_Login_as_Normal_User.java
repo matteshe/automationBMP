@@ -5,6 +5,7 @@ import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
 import de.telekom.bmp.data.UserRole;
+import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
@@ -23,6 +24,9 @@ public class TC003a_Login_as_Normal_User {
 
     @Inject
     BmpApplication app;
+    
+    @Inject
+    FunctionalActions fa;
 
     @Inject
     Login login;
@@ -55,14 +59,12 @@ public class TC003a_Login_as_Normal_User {
 
         click(header.login);
 
-        set(login.username, user.email);
-        set(login.password, user.password);
-        click(login.signin);
+        fa.login(user);
 
-        verifyThat(home, isCurrentPage());
+        verifyThat(home, is(currentPage()));
 
         // TODO further verifications needed in manual test case description, see HP ALM
-        click(header.account.logout);
+        fa.logout();
     }
 
 }

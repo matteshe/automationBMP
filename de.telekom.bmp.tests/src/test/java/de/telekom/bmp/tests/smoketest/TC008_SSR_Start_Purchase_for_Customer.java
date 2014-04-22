@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
@@ -12,8 +13,10 @@ import de.telekom.bmp.pages.channel.MarketPlacePage;
 import static de.telekom.testframework.Actions.*;
 import static de.telekom.testframework.Assert.*;
 import de.telekom.testframework.annotations.QCId;
+import de.telekom.testframework.reporting.Reporter;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
+import static org.hamcrest.Matchers.is;
 
 import org.testng.Assert;
 
@@ -28,6 +31,9 @@ public class TC008_SSR_Start_Purchase_for_Customer {
 
     @Inject
     BmpApplication app;
+    
+    @Inject
+    FunctionalActions fa;
 
     @Inject
     Login login;
@@ -68,11 +74,7 @@ public class TC008_SSR_Start_Purchase_for_Customer {
     public void test_008_SSR_Start_Purchase_for_Customer() {
 
         try {
-            set(login.username, user.email);
-
-            set(login.password, user.password);
-
-            click(login.signin);
+            fa.login(user);
 
 // WORKAROUND NORMALES VERHALTEN
 //             
@@ -81,18 +83,16 @@ public class TC008_SSR_Start_Purchase_for_Customer {
 
 // WORKAROUND
             navigateTo(marketPlacePage);
-            assertThat(marketPlacePage, isCurrentPage());
+            assertThat(marketPlacePage, is(currentPage()));
 
             // TODO Automation Test Steps
-            Assert.fail("Automations Test Steps are missing....");
+            Reporter.reportMessage("Automations Test Steps are missing....");
             
-            // before Nested Classed introduced
-            //click(header.account);
-            //click(header.logout);
-            
-            click(header.account.logout);
+            fa.logout();
 
-            assertThat(home, isCurrentPage());
+            assertThat(home, is(currentPage()));
+            
+            fail("Automations Test Steps are missing....");
 
         } finally {
             datapool.save(user);

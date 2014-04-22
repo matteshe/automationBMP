@@ -5,6 +5,7 @@ import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
 import de.telekom.bmp.data.UserRole;
+import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
@@ -25,6 +26,9 @@ public class TC004_Login_as_Superuser {
 
     @Inject
     BmpApplication app;
+    
+    @Inject
+    FunctionalActions fa;
 
     @Inject
     Login login;
@@ -57,19 +61,17 @@ public class TC004_Login_as_Superuser {
     }
 
     @Test
-    public void test_004_Login_as_Superuser() throws InterruptedException {
+    public void test_004_Login_as_Superuser() {
         assertThat("we have a user", user, is(not(nullValue())));
 
         click(header.login);
 
-        set(login.username, user.email);
-        set(login.password, user.password);
-        click(login.signin);
+        fa.login(user);
 
         click(header.settings.superUser);
 
         verifyThat(dashboard, is(currentPage()));
 
-        click(header.account.logout);
+        fa.logout();
     }
 }

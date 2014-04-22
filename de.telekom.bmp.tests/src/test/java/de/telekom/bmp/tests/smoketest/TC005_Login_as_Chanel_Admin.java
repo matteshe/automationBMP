@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
@@ -14,6 +15,7 @@ import static de.telekom.testframework.Assert.*;
 import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
+import static org.hamcrest.Matchers.is;
 import static org.testng.Assert.*;
 
 import org.testng.annotations.BeforeMethod;
@@ -25,6 +27,9 @@ public class TC005_Login_as_Chanel_Admin {
 
     @Inject
     BmpApplication app;
+    
+    @Inject
+    FunctionalActions fa;
 
     @Inject
     Login login;
@@ -61,11 +66,7 @@ public class TC005_Login_as_Chanel_Admin {
     public void test_005_Login_as_ChannelAdminUser() {
 
         try {
-            set(login.username, user.email);
-
-            set(login.password, user.password);
-
-            click(login.signin);
+            fa.login(user);
             
             click(header.settings.channelUser);
 
@@ -74,18 +75,14 @@ public class TC005_Login_as_Chanel_Admin {
 //            navigateTo(marketplacepage);
             
             
-            assertThat(marketplacepage, isCurrentPage());
+            assertThat(marketplacepage, is(currentPage()));
 
             click(marketplacepage.productsTab);
             click(marketplacepage.settingsTab);
 
-            // before Nested Classed introduced
-            //click(header.account);
-            //click(header.logout);
-            
-            click(header.account.logout);
+            fa.logout();
 
-            assertThat(home, isCurrentPage());
+            assertThat(home, is(currentPage()));
 
 //            user.valid = true;
         } finally {

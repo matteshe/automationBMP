@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.CreateProductPage;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
@@ -13,6 +14,7 @@ import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.*;
 import static org.testng.Assert.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -23,6 +25,9 @@ public class TC006a_Login_as_Developer {
     
     @Inject
     BmpApplication app;
+    
+    @Inject
+    FunctionalActions fa;
     
     @Inject
     Login login;
@@ -61,11 +66,7 @@ public class TC006a_Login_as_Developer {
     public void test_006a_Login_as_Developer() {
 
         try {
-            set(login.username,user.email);
-
-            set(login.password, user.password);
-
-            click(login.signin);
+            fa.login(user);
             
             click(header.settings.developer);
             
@@ -75,18 +76,14 @@ public class TC006a_Login_as_Developer {
 //            navigateTo(createproductpage);
             
             
-            assertThat(createproductpage,isCurrentPage());
+            assertThat(createproductpage,is(currentPage()));
             
             click(createproductpage.billsTab);
             
             
-            // before Nested Classed introduced
-            //click(header.account);
-            //click(header.logout);
-            
-            click(header.account.logout);
+            fa.logout();
 
-            assertThat(home, isCurrentPage());
+            assertThat(home, is(currentPage()));
             
 //            user.valid = true;
         } finally {

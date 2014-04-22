@@ -5,6 +5,7 @@ import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
@@ -12,6 +13,7 @@ import de.telekom.bmp.pages.channel.MarketPlacePage;
 import static de.telekom.testframework.Actions.*;
 import static de.telekom.testframework.Assert.*;
 import de.telekom.testframework.annotations.QCId;
+import de.telekom.testframework.reporting.Reporter;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 
@@ -29,6 +31,9 @@ public class TC009_Create_Company_as_SSR {
 
     @Inject
     BmpApplication app;
+
+    @Inject
+    FunctionalActions fa;
 
     @Inject
     Login login;
@@ -59,10 +64,9 @@ public class TC009_Create_Company_as_SSR {
 //        user.valid = false;
         navigateTo(login);
 
-//        // sets the englisch language
-//        if (header.languageToogleEN.isDisplayed()) {
-//            click(header.languageToogleEN);
-//        }
+        // sets the englisch language
+//        fa.ensureGermLanguageIsSet();
+
         mailTimeStamp = new Date();
 
     }
@@ -72,20 +76,15 @@ public class TC009_Create_Company_as_SSR {
 
         try {
 
-            set(login.username, user.email);
+            fa.login(user);
 
-            set(login.password, user.password);
+//  NORMAL BEHAVIOUR
+             
+            click(header.settings.channelUser);
+// WORKAROUND BECAUSE OF CMS
+//            navigateTo(marketPlacePage);
 
-            click(login.signin);
-
-// WORKAROUND NORMAL BEHAVIOUR
-//             
-//            click(header.settings);
-//            click(header.channelUser);
-// WORKAROUND
-            navigateTo(marketPlacePage);
-
-            assertThat(marketPlacePage, isCurrentPage());
+            assertThat(marketPlacePage, is(currentPage()));
 
             click(marketPlacePage.browseByCompBtn);
             click(marketPlacePage.createNewCompBtn);
@@ -103,7 +102,7 @@ public class TC009_Create_Company_as_SSR {
             // THE EMAIL should not be registered before.
             set(marketPlacePage.emailAdress, "dtagtester+ssr" + mailTimeStamp.getTime() + "@gmail.com");
 
-            System.out.println("dtagtester+ssr" + mailTimeStamp + "@gmail.com");
+            Reporter.reportMessage("dtagtester+ssr" + mailTimeStamp + "@gmail.com");
 
             // Click Checkboxes
             click(marketPlacePage.dataPermMarketingChBox);
@@ -119,7 +118,7 @@ public class TC009_Create_Company_as_SSR {
             //click(header.logout);
             click(header.account.logout);
 
-            assertThat(home, isCurrentPage());
+            assertThat(home, is(currentPage()));
 
             //TODO Steps to confirm Company creation in Gmail 
         } finally {

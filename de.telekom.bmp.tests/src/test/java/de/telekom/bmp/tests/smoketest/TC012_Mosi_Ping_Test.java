@@ -4,25 +4,29 @@ import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.data.UserRole;
+import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.MosiPage;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
-import static de.telekom.testframework.selenium.Matchers.isCurrentPage;
+import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 @UseWebDriver
-//@Test(groups = {"qcid-5506"})
 @QCId("5495")
 public class TC012_Mosi_Ping_Test {
 
     @Inject
     BmpApplication app;
+    
+    @Inject
+    FunctionalActions fa;
 
     @Inject
     Login login;
@@ -44,9 +48,13 @@ public class TC012_Mosi_Ping_Test {
 
     @BeforeMethod
     public void setup() {
-        user = datapool.users().field("valid").equal(true)
-                .field("registered").notEqual(false)
-                .field("email").equal("bmptestuser@gmail.com").get();
+        user = datapool.validUsers()
+                .field(User.Fields.registered).notEqual(false)
+                .field(User.Fields.role).equal(UserRole.SUPERUSER).get();
+
+        if (user == null) {
+            user = datapool.helpers().getSuperuser();
+        }
 
         assertThat("we have a valid user", user, is(not(nullValue())));
 
@@ -63,27 +71,18 @@ public class TC012_Mosi_Ping_Test {
     public void test_012_Mosi_Ping_Test() {
 
         try {
-            set(login.username, user.email);
-
-            set(login.password, user.password);
-
-            click(login.signin);
+           fa.login(user);
 
             navigateTo(mosiPage);
-            assertThat(mosiPage, isCurrentPage());
+            assertThat(mosiPage, is(currentPage()));
 
             click(mosiPage.pingMOSIBtn);
 
-            if (!mosiPage.pingMOSISuccessfullTxt.isDisplayed()) {
-                fail("Text: " + mosiPage.pingMOSISuccessfullTxt.getText() + "not displayed!");
-            }
+            assertThat(mosiPage.pingMOSISuccessfullTxt, is(displayed()));
+            
+            fa.logout();
 
-            // before Nested Classed introduced
-            //click(header.account);
-            //click(header.logout);
-            click(header.account.logout);
-
-            assertThat(home, isCurrentPage());
+            assertThat(home, is(currentPage()));
 
 //            user.valid = true;
         } finally {
