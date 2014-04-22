@@ -25,6 +25,11 @@ import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ *
+ * @author Pierre Nomo
+ */
+
 @QCId("5492")
 @UseWebDriver
 public class TC009_Create_Company_as_SSR {

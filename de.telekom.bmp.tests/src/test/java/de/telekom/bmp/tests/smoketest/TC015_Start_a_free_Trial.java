@@ -21,6 +21,11 @@ import static org.testng.Assert.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ *
+ * @author Pierre Nomo
+ */
+
 @UseWebDriver
 //@Test(groups = {"qcid-5506"})
 @QCId(value = "4133", state = QCState.Ongoing)

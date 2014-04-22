@@ -18,6 +18,11 @@ import static org.testng.Assert.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ *
+ * @author Pierre Nomo
+ */
+
 @QCId("5525")
 @UseWebDriver
 public class TC003b_Login_as_Normal_User_with_active_Subscriptions {

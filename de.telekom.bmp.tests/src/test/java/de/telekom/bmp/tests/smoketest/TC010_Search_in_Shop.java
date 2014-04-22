@@ -15,6 +15,11 @@ import static org.hamcrest.Matchers.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ *
+ * @author Pierre Nomo
+ *         Daniel Biehl
+ */
 @UseWebDriver
 @QCId(value = "5502", state = QCState.Ready)
 public class TC010_Search_in_Shop {

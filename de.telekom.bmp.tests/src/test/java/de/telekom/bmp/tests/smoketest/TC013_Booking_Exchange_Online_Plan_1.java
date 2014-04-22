@@ -22,8 +22,12 @@ import static org.testng.Assert.assertNotNull;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ *
+ * @author Pierre Nomo
+ */
+
 @UseWebDriver
-//@Test(groups = {"qcid-5506"})
 @QCId("5493")
 public class TC013_Booking_Exchange_Online_Plan_1 {
 

@@ -19,6 +19,11 @@ import static org.testng.Assert.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ *
+ * @author Pierre Nomo
+ */
+
 @QCId("5533")
 @UseWebDriver
 public class TC006b_Login_as_Developer_With_Apps {

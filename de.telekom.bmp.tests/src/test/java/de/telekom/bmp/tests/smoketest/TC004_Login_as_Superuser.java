@@ -20,6 +20,11 @@ import static org.hamcrest.Matchers.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ *
+ * @author Pierre Nomo
+ */
+
 @QCId(value = "5496", state = Ready)
 @UseWebDriver
 public class TC004_Login_as_Superuser {

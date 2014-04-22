@@ -13,20 +13,25 @@ import de.telekom.bmp.pages.channel.MarketPlacePage;
 import static de.telekom.testframework.Actions.*;
 import static de.telekom.testframework.Assert.*;
 import de.telekom.testframework.annotations.QCId;
+import static de.telekom.testframework.annotations.QCState.*;
 import de.telekom.testframework.reporting.Reporter;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.is;
 
-import org.testng.Assert;
 
 import static org.testng.Assert.assertNotNull;
 
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ *
+ * @author Pierre Nomo
+ */
+
+@QCId(value = "5491", state = Ongoing)
 @UseWebDriver
-@QCId("5491")
 public class TC008_SSR_Start_Purchase_for_Customer {
 
     @Inject
@@ -76,13 +81,12 @@ public class TC008_SSR_Start_Purchase_for_Customer {
         try {
             fa.login(user);
 
-// WORKAROUND NORMALES VERHALTEN
-//             
-//            click(header.settings);
-//            click(header.channelUser);
+//  NORMALES VERHALTEN
+             
+            click(header.settings.channelUser);
 
 // WORKAROUND
-            navigateTo(marketPlacePage);
+//            navigateTo(marketPlacePage);
             assertThat(marketPlacePage, is(currentPage()));
 
             // TODO Automation Test Steps

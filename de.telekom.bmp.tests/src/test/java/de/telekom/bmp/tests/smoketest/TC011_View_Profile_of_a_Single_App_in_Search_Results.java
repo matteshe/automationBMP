@@ -13,8 +13,13 @@ import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ *
+ * @author Pierre Nomo
+ *         Daniel Biehl
+ */
+
 @UseWebDriver
-//@Test(groups = {"qcid-5506"})
 @QCId("5503")
 public class TC011_View_Profile_of_a_Single_App_in_Search_Results {
 

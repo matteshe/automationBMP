@@ -21,6 +21,11 @@ import static org.testng.Assert.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ *
+ * @author Pierre Nomo
+ */
+
 @QCId("4125")
 @UseWebDriver
 public class TC005_Login_as_Chanel_Admin {

@@ -12,14 +12,20 @@ import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.MosiPage;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
+import static de.telekom.testframework.annotations.QCState.*;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.*;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ *
+ * @author Pierre Nomo
+ */
+
 @UseWebDriver
-@QCId("5495")
+@QCId(value ="5495", state = Ready)
 public class TC012_Mosi_Ping_Test {
 
     @Inject
