@@ -2,6 +2,7 @@ package de.telekom.testframework.selenium.tests.testapplication;
 
 import com.google.inject.Inject;
 import de.telekom.testframework.selenium.Application;
+import de.telekom.testframework.selenium.tutorial.application.TutorialApplication;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
@@ -22,8 +23,8 @@ public class TestApplication extends Application {
             try {
                 ResourceHandler resourceHandler = new ResourceHandler();
 
-                String rb = TestApplication.class.getResource("pages").toString();
-                        
+                String rb = TutorialApplication.class.getResource("pages").toString();
+
                 resourceHandler.setResourceBase(rb);
                 resourceHandler.setDirectoriesListed(true);
                 resourceHandler.setWelcomeFiles(new String[]{"index.html"});
@@ -31,7 +32,7 @@ public class TestApplication extends Application {
                 HandlerList handlers = new HandlerList();
                 handlers.setHandlers(new Handler[]{resourceHandler, new DefaultHandler()});
 
-                server.setHandler(resourceHandler);
+                server.setHandler(handlers);
 
                 server.start();
 

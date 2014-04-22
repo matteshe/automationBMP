@@ -8,6 +8,7 @@ import de.telekom.testframework.selenium.controls.Button;
 import de.telekom.testframework.selenium.controls.Container;
 import de.telekom.testframework.selenium.controls.Form;
 import de.telekom.testframework.selenium.controls.Link;
+import de.telekom.testframework.selenium.controls.Text;
 import de.telekom.testframework.selenium.controls.TextField;
 import de.telekom.testframework.selenium.internal.FieldElementLocator;
 import javax.inject.Inject;
@@ -132,9 +133,17 @@ public class Header extends Page {
     @FindBy(xpath = ".//a[contains(@href, './login')]")
     public Button login;
 
-    @FindBy(xpath = "//a[contains(text(),'EN')]")
+    @Deprecated
+    @FindBy(xpath = ".//a[contains(text(),'EN')]")
     public Link toogle_EN_LanguageLnk;
 
+    @Deprecated
     @FindBy(xpath = "//a[contains(text(),'DE')]")
     public Link toogle_DE_LanguageLnk;
+
+    @FindBy(xpath = ".//li[@class='current-language']")
+    public Text currentLanguage;
+
+    @FindBy(xpath = ".//a[contains(@href, 'languageToggle') and not(contains(@style, 'display:none'))]")
+    public Link toggleLanguage;
 }

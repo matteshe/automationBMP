@@ -1,0 +1,4 @@
+# The {classID} here must match the classID in mycomponent.js
+component {9cf5f3df-2505-42dd-9094-c1631bd1be1c} components/dtseleniumhelper.js
+contract @dt/dtseleniumhelper;1 {9cf5f3df-2505-42dd-9094-c1631bd1be1c}
+category profile-after-change DTSeleniumHelper @dt/dtseleniumhelper;1

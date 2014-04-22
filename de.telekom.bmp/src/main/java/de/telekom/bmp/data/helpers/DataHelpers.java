@@ -83,13 +83,13 @@ public final class DataHelpers {
     protected Company createTestCompany() {
         String id = ObjectId.get().toString();
 
-        Company result = new Company(configuration.testCompanyName);
+        Company result = new Company(configuration.testCompanyName + "_" + id);
 
         return result;
     }
 
     public Company getTestCompany() {
-        Company result = datapool.companies().field(Company.Fields.name).equal(configuration.testCompanyName).get();
+        Company result = datapool.validCompanies().field(Company.Fields.name).startsWith(configuration.testCompanyName).get();
         if (result == null) {
             result = createTestCompany();
             datapool.save(result);

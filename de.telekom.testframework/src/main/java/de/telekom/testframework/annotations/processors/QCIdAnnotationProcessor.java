@@ -95,7 +95,7 @@ public class QCIdAnnotationProcessor extends AbstractProcessor {
             }
 
             if (onGoingCount > 0) {
-                processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "found " + onGoingCount + " on going QCId's");
+                //processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "found " + onGoingCount + " on going QCId's");
                 System.out.println("found " + onGoingCount + " on going QCId's");
             }
 
