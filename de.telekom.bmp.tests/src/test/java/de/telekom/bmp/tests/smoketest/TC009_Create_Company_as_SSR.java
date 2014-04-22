@@ -13,6 +13,7 @@ import de.telekom.bmp.pages.channel.MarketPlacePage;
 import static de.telekom.testframework.Actions.*;
 import static de.telekom.testframework.Assert.*;
 import de.telekom.testframework.annotations.QCId;
+import de.telekom.testframework.annotations.QCState;
 import de.telekom.testframework.reporting.Reporter;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
@@ -30,7 +31,7 @@ import org.testng.annotations.Test;
  * @author Pierre Nomo
  */
 
-@QCId("5492")
+@QCId(value="5492",state = QCState.Ongoing)
 @UseWebDriver
 public class TC009_Create_Company_as_SSR {
 
@@ -118,14 +119,13 @@ public class TC009_Create_Company_as_SSR {
 
             assertThat(marketPlacePage.companyCreatedMsg, is(displayed()));
 
-            // before Nested Classed introduced
-            //click(header.account);
-            //click(header.logout);
-            click(header.account.logout);
+            fa.logout();
 
             assertThat(home, is(currentPage()));
 
-            //TODO Steps to confirm Company creation in Gmail 
+            //TODO Steps to confirm Company creation in Gmail
+            Reporter.reportMessage("Steps to confirm Company creation in Gmail");
+            fail("TODO: Steps to confirm Company creation in Gmail or Test must be splitted!!");
         } finally {
             datapool.save(user);
         }
