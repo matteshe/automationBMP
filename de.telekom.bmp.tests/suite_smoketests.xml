@@ -20,7 +20,7 @@
     
     <test name="smoke tests">
         <classes>
-            <class name="de.telekom.bmp.tests.initialization.SetTestEnvironment"/>
+            <class name="de.telekom.bmp.tests.initialization.SetupTestEnvironment"/>
             
             <class name="de.telekom.bmp.tests.smoketest.TC002_RegistrationWithValidCredentials"/>
             <class name="de.telekom.bmp.tests.smoketest.TC003a_Login_as_Normal_User"/>  

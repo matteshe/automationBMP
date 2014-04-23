@@ -14,13 +14,13 @@ import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.Signup;
 import de.telekom.bmp.pages.account.Dashboard;
 import de.telekom.bmp.pages.accountsetup.AccountActivationPage;
-import de.telekom.testframework.Actions;
 import de.telekom.testframework.selenium.Browser;
 
 /**
  * @author Mathias Herkt
  *
  */
+@Deprecated
 public class AccountHandling {
 
     public static final String APP_DOMAIN = "testcloud.bmptest.de";

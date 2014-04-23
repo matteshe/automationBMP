@@ -22,16 +22,15 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Pierre Nomo
+ * @author Pierre Nomo, Daniel Biehl
  */
-
 @QCId(value = "5496", state = Ready)
 @UseWebDriver
 public class TC004_Login_as_Superuser {
 
     @Inject
     BmpApplication app;
-    
+
     @Inject
     FunctionalActions fa;
 
@@ -71,7 +70,9 @@ public class TC004_Login_as_Superuser {
 
         click(header.login);
 
-        fa.login(user);
+        set(login.username, user.email);
+        set(login.password, user.password);
+        click(login.signin);
 
         click(header.settings.superUser);
 

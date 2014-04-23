@@ -49,7 +49,7 @@ public class TC002_RegistrationWithValidCredentials {
 
         user = datapool.validUsers().field(User.Fields.registered).equal(false).get();
         if (user == null) {
-            user = datapool.helpers().createTestUser();
+            user = datapool.helpers().defineNewTestUser();
         }
     }
 
@@ -61,7 +61,7 @@ public class TC002_RegistrationWithValidCredentials {
     }
 
     @Test
-    public void registrationWithValidCredentials() throws InterruptedException {
+    public void registrationWithValidCredentials() {
         assertThat("we have a user", user, is(not(nullValue())));
         user.valid = false;
 

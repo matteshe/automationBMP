@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
  * @author Daniel
  */
 @Guice
-public class SetTestEnvironment {
+public class SetupTestEnvironment {
 
     @Inject
     Datapool datapool;

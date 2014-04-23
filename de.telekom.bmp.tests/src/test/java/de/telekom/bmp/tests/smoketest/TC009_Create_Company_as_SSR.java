@@ -71,7 +71,7 @@ public class TC009_Create_Company_as_SSR {
         navigateTo(login);
 
         // sets the englisch language
-//        fa.ensureGermLanguageIsSet();
+//        fa.ensureGermanLanguageIsSet();
 
         mailTimeStamp = new Date();
 

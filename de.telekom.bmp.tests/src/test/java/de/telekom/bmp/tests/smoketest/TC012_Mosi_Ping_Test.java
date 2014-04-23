@@ -9,28 +9,27 @@ import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
-import de.telekom.bmp.pages.MosiPage;
+import de.telekom.bmp.pages.Mosi;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
-import static de.telekom.testframework.annotations.QCState.*;
+import de.telekom.testframework.annotations.QCState;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.*;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
  *
- * @author Pierre Nomo
+ * @author Pierre Nomo, Daniel Biehl
+ *
  */
-
 @UseWebDriver
-@QCId(value ="5495", state = Ready)
+@QCId(value = "5495", state = QCState.ReadyButNeedsReview)
 public class TC012_Mosi_Ping_Test {
 
     @Inject
     BmpApplication app;
-    
+
     @Inject
     FunctionalActions fa;
 
@@ -41,7 +40,7 @@ public class TC012_Mosi_Ping_Test {
     Home home;
 
     @Inject
-    MosiPage mosiPage;
+    Mosi mosiPage;
 
     @Inject
     Datapool datapool;
@@ -52,8 +51,8 @@ public class TC012_Mosi_Ping_Test {
     // Needed user
     User user;
 
-    @BeforeMethod
-    public void setup() {
+    @Test
+    public void preparation() {
         user = datapool.validUsers()
                 .field(User.Fields.registered).notEqual(false)
                 .field(User.Fields.role).equal(UserRole.SUPERUSER).get();
@@ -64,38 +63,23 @@ public class TC012_Mosi_Ping_Test {
 
         assertThat("we have a valid user", user, is(not(nullValue())));
 
-//        user.valid = false;
-        navigateTo(login);
-
-        // sets the englisch language
-//        if (header.languageToogleEN.isDisplayed()) {
-//            click(header.languageToogleEN);
-//        }
+        fa.login(user);
     }
 
-    @Test
-    public void test_012_Mosi_Ping_Test() {
+    @Test(dependsOnMethods = "preparation")
+    public void theTest() {
 
-        try {
-           fa.login(user);
+        navigateTo(mosiPage);
+        assertThat(mosiPage, is(currentPage()));
 
-            navigateTo(mosiPage);
-            assertThat(mosiPage, is(currentPage()));
+        click(mosiPage.pingMOSI);
 
-            click(mosiPage.pingMOSIBtn);
+        assertThat(mosiPage.feedbackPanel.info, text(is("Successfully called MOSI ping API. Received response: \"true\".")));
+    }
 
-            assertThat(mosiPage.pingMOSISuccessfullTxt, is(displayed()));
-            
-            fa.logout();
-
-            assertThat(home, is(currentPage()));
-
-//            user.valid = true;
-        } finally {
-            user.registered = true;
-            datapool.save(user);
-        }
-
+    @Test(dependsOnMethods = "theTest", alwaysRun = true)
+    public void finalization() {
+        fa.logout();
     }
 
 }

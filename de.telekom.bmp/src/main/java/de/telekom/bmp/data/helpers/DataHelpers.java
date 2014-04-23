@@ -80,7 +80,7 @@ public final class DataHelpers {
         return result;
     }
 
-    protected Company createTestCompany() {
+    protected Company defineNewTestCompany() {
         String id = ObjectId.get().toString();
 
         Company result = new Company(configuration.testCompanyName + "_" + id);
@@ -91,18 +91,18 @@ public final class DataHelpers {
     public Company getTestCompany() {
         Company result = datapool.validCompanies().field(Company.Fields.name).startsWith(configuration.testCompanyName).get();
         if (result == null) {
-            result = createTestCompany();
+            result = defineNewTestCompany();
             datapool.save(result);
         }
 
         return result;
     }
 
-    public User createTestUser() {
-        return createTestUser(null);
+    public User defineNewTestUser() {
+        return defineNewTestUser(null);
     }
 
-    public User createTestUser(String postFix) {
+    public User defineNewTestUser(String postFix) {
 
         String id = ObjectId.get().toString();
 

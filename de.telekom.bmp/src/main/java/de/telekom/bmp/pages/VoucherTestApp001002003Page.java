@@ -12,6 +12,7 @@ import org.openqa.selenium.support.FindBy;
  * @author Daniel
  */
 @Singleton
+@Deprecated
 public class VoucherTestApp001002003Page extends Page {
 
     @Inject
@@ -23,18 +24,17 @@ public class VoucherTestApp001002003Page extends Page {
     public String getPath() {
         return "/apps/2114";
     }
-    
+
     @FindBy(xpath = "//*[@id='overviewLi']/a")
     public Link overviewLnk;
-    
+
     @FindBy(xpath = "//*[@id='reviewsLi']/a")
     public Link reviewsLnk;
-    
+
     @FindBy(xpath = "//*[@id='questionsLi']/a")
     public Link questionsLnk;
-    
+
     @FindBy(xpath = "//*[@id='editionsLi']/a")
     public Link pricingLnk;
-    
-    
+
 }

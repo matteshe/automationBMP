@@ -6,7 +6,11 @@ import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.FunctionalActionsBase;
+import static de.telekom.testframework.selenium.Matchers.innerHTML;
+import static de.telekom.testframework.selenium.Matchers.loaded;
 import javax.inject.Inject;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.is;
 
 /**
  *
@@ -53,14 +57,16 @@ public class FunctionalActions extends FunctionalActionsBase {
         });
     }
 
-    public void ensureGermLanguageIsSet() {
-        handle("ensureGermLanguageIsSet", new Runnable() {
+    public void ensureGermanLanguageIsSet() {
+        handle("ensureGermanLanguageIsSet", new Runnable() {
 
             @Override
             public void run() {
-                // TODO
-                if (!header.toogle_EN_LanguageLnk.isDisplayed()) {
-                    click(header.toogle_EN_LanguageLnk);
+
+                // toggle the language till "deutsch" is the current language
+                while (!checkThat(header.currentLanguage, innerHTML(containsString("deutsch")))) {
+                    click(header.toggleLanguage);
+                    waitUntil(login, is(loaded()));
                 }
             }
         });

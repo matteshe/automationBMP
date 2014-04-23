@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Indexed;
+import org.mongodb.morphia.annotations.PostLoad;
 import org.mongodb.morphia.annotations.Reference;
 
 /**
@@ -21,7 +22,7 @@ public class User extends BaseEntity {
         public static final String companyName = "companyName";
         public static final String email = "email";
         public static final String password = "password";
-        
+
         public static final String role = "role";
 
         public static final String registered = "registered";
@@ -53,6 +54,7 @@ public class User extends BaseEntity {
     public boolean registered = false;
     public boolean invited;
 
+    @Deprecated
     public Set<String> apps = new HashSet<>();
 
     @Reference
@@ -60,6 +62,13 @@ public class User extends BaseEntity {
 
     @Reference
     public Set<Application> applications = new HashSet<>();
+
+    @PostLoad
+    protected void postload() {
+        if (applications == null) {
+            applications = new HashSet<>();
+        }
+    }
 
     public User() {
     }

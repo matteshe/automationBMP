@@ -1,12 +1,10 @@
 package de.telekom.bmp.pages.accountsetup;
 
 import de.telekom.bmp.BmpApplication;
-import de.telekom.testframework.selenium.Application;
 import de.telekom.testframework.selenium.Page;
 import de.telekom.testframework.selenium.annotations.Path;
 import de.telekom.testframework.selenium.controls.Button;
 import de.telekom.testframework.selenium.controls.CheckBox;
-import de.telekom.testframework.selenium.controls.Option;
 import de.telekom.testframework.selenium.controls.RadioGroup;
 import de.telekom.testframework.selenium.controls.Select;
 import de.telekom.testframework.selenium.controls.TextField;

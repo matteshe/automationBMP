@@ -1,7 +1,6 @@
 package de.telekom.bmp.tests.smoketest;
 
 import com.google.inject.Inject;
-import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.EMailAccount;
 import de.telekom.bmp.data.User;
@@ -11,7 +10,6 @@ import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Invitations;
 import de.telekom.bmp.pages.account.Account;
 import de.telekom.bmp.pages.account.Dashboard;
-import de.telekom.bmp.pages.account.Users;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
 import de.telekom.testframework.annotations.QCState;
@@ -25,13 +23,7 @@ import org.testng.annotations.Test;
 public class TC022_Invite_Colleague {
 
     @Inject
-    BmpApplication app;
-
-    @Inject
     FunctionalActions fa;
-
-    @Inject
-    Users acctUserPg;
 
     @Inject
     Home home;
@@ -59,7 +51,7 @@ public class TC022_Invite_Colleague {
         invitingUser = datapool.validUsers()
                 .field(User.Fields.registered).equal(true).get();
 
-        invitedUser = datapool.helpers().createTestUser("invited");
+        invitedUser = datapool.helpers().defineNewTestUser("invited");
     }
 
     @Test(dependsOnMethods = "setup")

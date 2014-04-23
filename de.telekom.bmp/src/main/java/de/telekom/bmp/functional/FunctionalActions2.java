@@ -46,18 +46,6 @@ public class FunctionalActions2 {
     @Inject
     OrderReceipt orderReceipt;
 
-    public void login(String username, String password) {
-        navigateTo(login);
-
-        set(login.username, username);
-        set(login.password, password);
-        click(login.signin);
-    }
-
-    public void logout() {
-        click(header.account.logout);
-    }
-
     public void purchase(String appID, String editionName) {
         navigateTo(createOrder, "/" + appID);
 

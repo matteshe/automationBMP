@@ -11,33 +11,28 @@ import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
-import static de.telekom.testframework.annotations.QCState.ReadyButNeedsReview;
+import de.telekom.testframework.annotations.QCState;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.*;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
  *
- * @author Pierre Nomo
+ * @author Pierre Nomo, Daniel Biehl
  */
-
-@QCId(value="4123", state = ReadyButNeedsReview)
+@QCId(value = "4123", state = QCState.Ready)
 @UseWebDriver
 public class TC003a_Login_as_Normal_User {
 
     @Inject
     BmpApplication app;
-    
+
     @Inject
     FunctionalActions fa;
 
     @Inject
     Login login;
-   
-    @Inject
-    Datapool datapool;
 
     @Inject
     Header header;
@@ -45,11 +40,14 @@ public class TC003a_Login_as_Normal_User {
     @Inject
     Home home;
 
+    @Inject
+    Datapool datapool;
+
     // Needed user
     User user;
 
-    @BeforeMethod
-    public void setup() {
+    @Test
+    public void preparation() {
         navigateTo(app);
 
         user = datapool.validUsers()
@@ -58,17 +56,17 @@ public class TC003a_Login_as_Normal_User {
                 .field(User.Fields.applications).doesNotExist().get();
     }
 
-    @Test
-    public void test_003a_Login_as_Normal_User() throws InterruptedException {
+    @Test(dependsOnMethods = "preparation")
+    public void theTest() throws InterruptedException {
         assertThat("we have a user", user, is(not(nullValue())));
 
         click(header.login);
-
-        fa.login(user);
+        set(login.username, user.email);
+        set(login.password, user.password);
+        click(login.signin);
 
         verifyThat(home, is(currentPage()));
 
-        // TODO further verifications needed in manual test case description, see HP ALM
         fa.logout();
     }
 

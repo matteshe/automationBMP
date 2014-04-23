@@ -23,28 +23,28 @@ public class Login extends Page {
     public Login(BmpApplication app) {
         super(app);
     }
- 
-    @FindBy (id = "username")
+
+    @FindBy(id = "username")
     public TextField username;
-    
-    @FindBy (id = "password")
+
+    @FindBy(id = "password")
     public TextField password;
-    
-    @FindBy(name = "signin")   
+
+    @FindBy(name = "signin")
     public Button signin;
-    
-    @FindBy(xpath = "//a[@href='./signup']")    
+
+    @FindBy(xpath = "//a[@href='./signup']")
     public Link signuplink;
-    
+
     @FindBy(xpath = "//span[@class='icon valid']")
     public WebElement iconValid;
 
     @FindBy(xpath = "//span[@class='icon invalid']")
     public WebElement iconInvalid;
-    
-    @FindBy(xpath = "//span[@class='feedbackPanelERROR']")
-    public WebElement errorMsg;
-    
-    @FindBy(xpath = "//a[@href='./forgotPassword']")    
+
+    @FindBy(className = "feedbackPanel")
+    public FeedbackPanel feedbackPanel;
+
+    @FindBy(xpath = "//a[@href='./forgotPassword']")
     public Link forgotPasswordLnk;
 }

@@ -27,7 +27,7 @@ public class DataHelpersTests {
 
     @Test(dependsOnMethods = "setupDatapool")
     public void createTestUser() {
-        testUser = dataHelpers.createTestUser();
+        testUser = dataHelpers.defineNewTestUser();
         datapool.save(testUser);
     }
 
@@ -39,7 +39,7 @@ public class DataHelpersTests {
 
     @Test(dependsOnMethods = "createTestUser")
     public void createASecondTestUser() {
-        User user = dataHelpers.createTestUser();
+        User user = dataHelpers.defineNewTestUser();
         datapool.save(user);
 
         user = datapool.validUsers().field(User.Fields.email).equal(user.email).get();
@@ -48,13 +48,13 @@ public class DataHelpersTests {
     
     @Test(dependsOnMethods = "setupDatapool")
     public void createTestUserWithPostFix() {
-        testUser = dataHelpers.createTestUser("user");
+        testUser = dataHelpers.defineNewTestUser("user");
         datapool.save(testUser);
     }
     
     @Test(dependsOnMethods = "createTestUserWithPostFix")
     public void createAnotherTestUserWithPostFix() {
-        testUser = dataHelpers.createTestUser("user");
+        testUser = dataHelpers.defineNewTestUser("user");
         datapool.save(testUser);
     }
 
