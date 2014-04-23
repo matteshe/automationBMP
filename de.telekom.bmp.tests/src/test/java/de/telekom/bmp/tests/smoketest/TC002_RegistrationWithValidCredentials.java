@@ -62,9 +62,7 @@ public class TC002_RegistrationWithValidCredentials {
     public void theTest() {
         assertThat("we have a user", user, is(not(nullValue())));
         user.valid = false;
-
-        navigateTo(signup);
-
+        
         click(header.register);
 
         set(signup.signupForm.emailAddress, user.email);

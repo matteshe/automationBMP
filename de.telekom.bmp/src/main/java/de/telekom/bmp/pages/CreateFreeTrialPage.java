@@ -13,6 +13,7 @@ import org.openqa.selenium.support.FindBy;
  *
  * @author Daniel
  */
+@Deprecated
 @Singleton
 @Path("/apps/2025")
 public class CreateFreeTrialPage extends Page {
