@@ -44,7 +44,7 @@ public class TC002_RegistrationWithValidCredentials {
     User user;
 
     @BeforeMethod
-    public void setup() {
+    public void preparation() {
         navigateTo(app);
 
         user = datapool.validUsers().field(User.Fields.registered).equal(false).get();
@@ -54,14 +54,12 @@ public class TC002_RegistrationWithValidCredentials {
     }
 
     @AfterMethod
-    public void tearDown() {
-        if (user != null) {
-            datapool.save(user);
-        }
+    public void finalization() {
+        datapool.save(user);
     }
 
     @Test
-    public void registrationWithValidCredentials() {
+    public void theTest() {
         assertThat("we have a user", user, is(not(nullValue())));
         user.valid = false;
 
@@ -106,4 +104,5 @@ public class TC002_RegistrationWithValidCredentials {
         user.registered = true;
         user.valid = true;
     }
+
 }

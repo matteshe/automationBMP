@@ -31,7 +31,7 @@ public class TC001_Verify_Release_version_in_Sourcecode {
 
     @Test
     @Deprecated
-    public void checkReleaseVersion() {
+    public void theTest() {
         navigateTo(homePage);
         verifyThat("BMP Version: ", homePage.bodyFooterDescribe, value(is(app.configuration.version)));
     }

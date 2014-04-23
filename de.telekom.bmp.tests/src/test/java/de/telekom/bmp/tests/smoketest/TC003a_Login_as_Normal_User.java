@@ -15,6 +15,7 @@ import de.telekom.testframework.annotations.QCState;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.*;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -46,7 +47,7 @@ public class TC003a_Login_as_Normal_User {
     // Needed user
     User user;
 
-    @Test
+    @BeforeMethod
     public void preparation() {
         navigateTo(app);
 
@@ -56,7 +57,7 @@ public class TC003a_Login_as_Normal_User {
                 .field(User.Fields.applications).doesNotExist().get();
     }
 
-    @Test(dependsOnMethods = "preparation")
+    @Test
     public void theTest() throws InterruptedException {
         assertThat("we have a user", user, is(not(nullValue())));
 

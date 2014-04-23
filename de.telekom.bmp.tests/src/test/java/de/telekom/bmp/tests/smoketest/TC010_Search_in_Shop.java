@@ -17,8 +17,7 @@ import org.testng.annotations.Test;
 
 /**
  *
- * @author Pierre Nomo
- *         Daniel Biehl
+ * @author Pierre Nomo, Daniel Biehl
  */
 @UseWebDriver
 @QCId(value = "5502", state = QCState.Ready)
@@ -39,7 +38,7 @@ public class TC010_Search_in_Shop {
     Application appInfo;
 
     @BeforeMethod
-    public void setup() {
+    public void preparation() {
         appInfo = datapool.applications().get();
         if (appInfo == null) {
             appInfo = datapool.helpers().getTestApplication();
@@ -48,7 +47,7 @@ public class TC010_Search_in_Shop {
     }
 
     @Test
-    public void test_010_Search_in_Shop() {
+    public void theTest() {
         assertThat("we have a valid application", appInfo != null);
 
         header.searchInput.set(appInfo.name);

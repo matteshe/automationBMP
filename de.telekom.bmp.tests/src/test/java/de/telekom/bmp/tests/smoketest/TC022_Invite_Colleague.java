@@ -16,6 +16,7 @@ import de.telekom.testframework.annotations.QCState;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.*;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 @QCId(value = "5145", state = QCState.ReadyButNeedsReview)
@@ -46,24 +47,18 @@ public class TC022_Invite_Colleague {
     User invitingUser;
     User invitedUser;
 
-    @Test
-    public void setup() {
+    @BeforeClass
+    public void preparation() {
         invitingUser = datapool.validUsers()
                 .field(User.Fields.registered).equal(true).get();
 
         invitedUser = datapool.helpers().defineNewTestUser("invited");
     }
 
-    @Test(dependsOnMethods = "setup")
-    public void loginInvitingUser() {
-        assertThat("we have an inviting user", invitingUser != null && invitingUser.valid);
-        assertThat("we have an invited user", invitedUser != null && invitedUser.valid && !invitedUser.invited);
-
-        fa.login(invitingUser);
-    }
-
-    @Test(dependsOnMethods = "loginInvitingUser")
+    @Test
     public void inviteColleague() {
+        fa.login(invitingUser);
+
         invitedUser.valid = false;
         invitedUser.invited = false;
 
@@ -81,14 +76,11 @@ public class TC022_Invite_Colleague {
         invitedUser.valid = true;
 
         datapool.save(invitedUser);
-    }
 
-    @Test(dependsOnMethods = "inviteColleague")
-    public void logoutInvitingUser() {
         fa.logout();
     }
 
-    @Test(dependsOnMethods = "logoutInvitingUser")
+    @Test(dependsOnMethods = "inviteColleague")
     public void confirmEmail() {
         assertThat("we have an invited user", invitedUser != null && invitedUser.valid && invitedUser.invited);
         invitedUser.valid = false;
@@ -113,16 +105,13 @@ public class TC022_Invite_Colleague {
 
         invitedUser.registered = true;
         invitedUser.valid = true;
-    }
 
-    @Test(dependsOnMethods = "confirmEmail")
-    public void logoutInvitedUser() {
         datapool.save(invitedUser);
         // TODO some checks, but none defined in HP ALM
         fa.logout();
     }
 
-    @Test(dependsOnMethods = "logoutInvitedUser")
+    @Test(dependsOnMethods = "confirmEmail")
     public void loginAndOutTheInvitedUser() {
         fa.login(invitedUser);
         // TODO some checks, but none defined in HP ALM

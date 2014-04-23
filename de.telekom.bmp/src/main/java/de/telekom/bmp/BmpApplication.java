@@ -18,7 +18,7 @@ public class BmpApplication extends Application {
 
         @Inject(optional = true)
         @Named("BmpApplication.version")
-        public String version = "138.4";
+        public String version = "139.6";
 
         @Inject(optional = true)
         @Named("BmpApplication.url")

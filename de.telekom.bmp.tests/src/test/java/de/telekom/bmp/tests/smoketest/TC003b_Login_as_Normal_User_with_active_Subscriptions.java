@@ -16,6 +16,7 @@ import de.telekom.testframework.annotations.QCState;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.*;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -39,9 +40,6 @@ public class TC003b_Login_as_Normal_User_with_active_Subscriptions {
     Header header;
 
     @Inject
-    Home home;
-
-    @Inject
     MyApps myApps;
 
     @Inject
@@ -50,7 +48,7 @@ public class TC003b_Login_as_Normal_User_with_active_Subscriptions {
     // Needed user
     User user;
 
-    @Test
+    @BeforeMethod
     public void preparation() {
         user = datapool.validUsers().field(User.Fields.registered).equal(true)
                 .field(User.Fields.role).equal(UserRole.USER)
@@ -60,7 +58,7 @@ public class TC003b_Login_as_Normal_User_with_active_Subscriptions {
         navigateTo(app);
     }
 
-    @Test(dependsOnMethods = "preparation")
+    @Test
     public void theTest() {
         assertThat("we have a user", user, is(not(nullValue())));
 

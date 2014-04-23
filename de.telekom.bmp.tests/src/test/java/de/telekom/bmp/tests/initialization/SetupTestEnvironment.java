@@ -1,5 +1,6 @@
 package de.telekom.bmp.tests.initialization;
 
+import de.telekom.bmp.data.Application;
 import de.telekom.bmp.data.Datapool;
 import javax.inject.Inject;
 import org.testng.annotations.Guice;
@@ -18,6 +19,15 @@ public class SetupTestEnvironment {
     @Test
     public void dropDataStore() {
         datapool.dropDatastore();
+    }
+
+    @Test(dependsOnMethods = "dropDataStore")
+    public void defineTestApplications() {
+        // TODO define test applications
+
+        Application app = new Application();
+        app.name = "Create Free Trial";
+        datapool.save(app);
     }
 
 }

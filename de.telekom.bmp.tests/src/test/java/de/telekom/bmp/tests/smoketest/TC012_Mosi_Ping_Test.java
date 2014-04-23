@@ -16,6 +16,8 @@ import de.telekom.testframework.annotations.QCState;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.*;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
@@ -51,7 +53,7 @@ public class TC012_Mosi_Ping_Test {
     // Needed user
     User user;
 
-    @Test
+    @BeforeMethod
     public void preparation() {
         user = datapool.validUsers()
                 .field(User.Fields.registered).notEqual(false)
@@ -66,20 +68,19 @@ public class TC012_Mosi_Ping_Test {
         fa.login(user);
     }
 
-    @Test(dependsOnMethods = "preparation")
-    public void theTest() {
+    @AfterMethod
+    public void finalization() {
+        fa.logout();
+    }
 
+    @Test
+    public void theTest() {
         navigateTo(mosiPage);
         assertThat(mosiPage, is(currentPage()));
 
         click(mosiPage.pingMOSI);
 
         assertThat(mosiPage.feedbackPanel.info, text(is("Successfully called MOSI ping API. Received response: \"true\".")));
-    }
-
-    @Test(dependsOnMethods = "theTest", alwaysRun = true)
-    public void finalization() {
-        fa.logout();
     }
 
 }

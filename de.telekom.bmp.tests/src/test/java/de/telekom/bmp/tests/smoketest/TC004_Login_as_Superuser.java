@@ -53,7 +53,7 @@ public class TC004_Login_as_Superuser {
     User user;
 
     @BeforeMethod
-    public void setup() {
+    public void preparation() {
         navigateTo(app);
         user = datapool.validUsers()
                 .field(User.Fields.registered).notEqual(false)
@@ -64,8 +64,8 @@ public class TC004_Login_as_Superuser {
         }
     }
 
-    @Test
-    public void test_004_Login_as_Superuser() {
+    @Test(description = "this is the test")
+    public void theTest() {
         assertThat("we have a user", user, is(not(nullValue())));
 
         click(header.login);

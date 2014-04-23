@@ -22,6 +22,8 @@
         <classes>
             <class name="de.telekom.bmp.tests.initialization.SetupTestEnvironment"/>
             
+            <!--class name="de.telekom.bmp.tests.smoketest.TC001_Verify_Release_version_in_Sourcecode"/-->
+            
             <class name="de.telekom.bmp.tests.smoketest.TC002_RegistrationWithValidCredentials"/>
             <class name="de.telekom.bmp.tests.smoketest.TC003a_Login_as_Normal_User"/>  
             
@@ -32,7 +34,15 @@
             <class name="de.telekom.bmp.tests.smoketest.TC010_Search_in_Shop"/>   
             
             <class name="de.telekom.bmp.tests.smoketest.TC033_Set_Language_of_a_Logged_in_User" />
-                                   
+            
+            <class name="de.telekom.bmp.tests.smoketest.TC012_Mosi_Ping_Test" /> 
+            
+            <!--
+            need to add a testcase where we by an app
+            -->
+            <class name="de.telekom.bmp.tests.smoketest.TC003b_Login_as_Normal_User_with_active_Subscriptions"/>                     
+
+            
         </classes>
     </test>
 

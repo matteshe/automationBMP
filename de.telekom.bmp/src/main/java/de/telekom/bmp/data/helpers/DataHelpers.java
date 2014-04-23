@@ -64,7 +64,6 @@ public final class DataHelpers {
 
         @Named("testApplicationName")
         String testApplicationName = "Automation_SAK1";
-
     }
 
     public static final MyConfiguration configuration = new MyConfiguration();
