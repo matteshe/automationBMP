@@ -32,37 +32,37 @@ public final class DataHelpers {
         }
 
         @Inject(optional = true)
-        @Named("testEMailAccountEmail")
-        String testEMailAccountEmail = "mybmptestuser@gmail.com";
+        @Named("testEMailAccount.email")
+        String testEMailAccountEmail = "maxtestdt@gmail.com";
 
         @Inject(optional = true)
-        @Named("testEMailAccountPassword")
-        String testEMailAccountPassword = "galerien3?";
+        @Named("testEMailAccount.password")
+        String testEMailAccountPassword = "TestA1234";
 
         @Inject(optional = true)
-        @Named("testCompanyName")
-        String testCompanyName = "testcompany";
+        @Named("testCompany.name")
+        String testCompanyName = "t-company";
 
         @Inject(optional = true)
-        @Named("testUserName")
-        String testUserName = "Tester";
+        @Named("testUser.name")
+        String testUserName = "Test";
         @Inject(optional = true)
-        @Named("testUserFirstName")
+        @Named("testUser.firstName")
         String testUserFirstName = "Max";
         @Inject(optional = true)
-        @Named("testUserEMail")
-        String testUserEMail = "mybmptestuser@gmail.com";
+        @Named("testUser.eMail")
+        String testUserEMail = "maxtestdt@gmail.com";
         @Inject(optional = true)
-        @Named("testUserPassword")
-        String testUserPassword = "Abcdefg1234";
+        @Named("testUser.password")
+        String testUserPassword = "ARandomPW1234";
 
-        @Named("superUserEMail")
+        @Named("superUser.eMail")
         String superUserEMail = "testmax90+sup@gmail.com";
         @Inject(optional = true)
-        @Named("superUserPassword")
+        @Named("superUser.password")
         String superUserPassword = "test12345";
 
-        @Named("testApplicationName")
+        @Named("testApplication.name")
         String testApplicationName = "Automation_SAK1";
     }
 

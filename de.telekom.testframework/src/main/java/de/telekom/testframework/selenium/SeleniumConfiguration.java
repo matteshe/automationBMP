@@ -17,19 +17,19 @@ public class SeleniumConfiguration extends Configuration {
     public static final SeleniumConfiguration current = new SeleniumConfiguration();
 
     @Inject(optional = true)
-    @Named("Selenium.implicitlyWait")
+    @Named("selenium.implicitlyWait")
     public long implicitlyWait = 30;
 
     @Inject(optional = true)
-    @Named("Selenium.pageLoadTimeout")
+    @Named("selenium.pageLoadTimeout")
     public long pageLoadTimeout = 30;
 
     @Inject(optional = true)
-    @Named("Selenium.scriptTimeout")
+    @Named("selenium.scriptTimeout")
     public long scriptTimeout = 30;
 
     @Inject(optional = true)
-    @Named("Selenium.existsTimeout")
+    @Named("selenium.existsTimeout")
     public long existsTimeout = 2;
 
 }
