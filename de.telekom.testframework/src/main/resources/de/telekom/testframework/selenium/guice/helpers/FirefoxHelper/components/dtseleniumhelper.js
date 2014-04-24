@@ -7,14 +7,11 @@ function LOG(text)
 }
 
 headerName = "X-Selenium";
-headerValue = "selenium";
+headerValue = "sonne";
 
 function DTSeleniumHelper() {
 }
 DTSeleniumHelper.prototype = {
-    // this must match whatever is in chrome.manifest!
-    //xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-
     classID: Components.ID("{9cf5f3df-2505-42dd-9094-c1631bd1be1c}"),
     contractID: "@dt/dtseleniumhelper;1",
     QueryInterface: XPCOMUtils.generateQI([Components.interfaces.nsIObserver, Components.interfaces.nsISupports]),
