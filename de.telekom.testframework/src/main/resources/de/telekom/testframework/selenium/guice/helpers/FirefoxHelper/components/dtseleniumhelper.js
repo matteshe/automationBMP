@@ -6,8 +6,8 @@ function LOG(text)
     consoleService.logStringMessage(text);
 }
 
-headerName = "X-Selenium";
-headerValue = "selenium";
+var headerName = "X-Selenium";
+var headerValue = "selenium";
 
 function DTSeleniumHelper() {
 }
@@ -28,6 +28,12 @@ DTSeleniumHelper.prototype = {
 
             LOG("-> install DTSeleniumHelper");
 
+            var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+                    .getService(Components.interfaces.nsIPrefService)
+                    .getBranch("extensions.selenium.firefoxhelper.");
+            headerValue = prefs.getCharPref("XheaderValue");
+            LOG("-> DTSeleniumHelper using headerValue = '" + headerValue +"'");
+            
             var os = Components.classes["@mozilla.org/observer-service;1"]
                     .getService(Components.interfaces.nsIObserverService);
 

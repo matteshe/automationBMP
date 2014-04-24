@@ -33,6 +33,7 @@ public class WebDriverModule extends AbstractModule {
         // TODO enable/disable setting for HelperProfile
         FirefoxProfile profile = new FirefoxProfile();
         try {
+            //rofile.setPreference("extensions.selenium.firefoxhelper.XheaderValue", "sonne");
             profile.addExtension(WebDriverModule.class, "helpers/FirefoxHelper.xpi");
         } catch (IOException ex) {
 
