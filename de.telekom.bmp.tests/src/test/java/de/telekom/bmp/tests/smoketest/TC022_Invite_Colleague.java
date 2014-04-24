@@ -8,7 +8,7 @@ import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Invitations;
-import de.telekom.bmp.pages.account.Account;
+import de.telekom.bmp.pages.account.AccountHeader;
 import de.telekom.bmp.pages.account.Dashboard;
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
@@ -33,7 +33,7 @@ public class TC022_Invite_Colleague {
     Header header;
 
     @Inject
-    Account account;
+    AccountHeader account;
 
     @Inject
     Dashboard dashboard;

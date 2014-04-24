@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
-import de.telekom.bmp.data.UserRole;
 import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
@@ -54,14 +53,9 @@ public class TC004_Login_as_Superuser {
 
     @BeforeMethod
     public void preparation() {
-        navigateTo(app);
-        user = datapool.validUsers()
-                .field(User.Fields.registered).notEqual(false)
-                .field(User.Fields.role).equal(UserRole.SUPERUSER).get();
+        user = datapool.helpers().getSuperUser();
 
-        if (user == null) {
-            user = datapool.helpers().getSuperuser();
-        }
+        navigateTo(app);
     }
 
     @Test(description = "this is the test")

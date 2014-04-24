@@ -9,11 +9,8 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hamcrest.Factory;
 import org.hamcrest.Matcher;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.is;
 import org.openqa.selenium.WebElement;
 
@@ -52,6 +49,17 @@ public class Matchers {
             @Override
             protected Object getValue(WebElement item) {
                 return item.getAttribute("innerHTML");
+            }
+        };
+    }
+
+    @Factory
+    public static Matcher<WebElement> textContent(final Matcher<String> matcher) {
+        return new CachedElementTypeSafeMatcher<WebElement, String>("textContent", matcher) {
+
+            @Override
+            protected Object getValue(WebElement item) {
+                return item.getAttribute("textContent");
             }
         };
     }

@@ -5,8 +5,6 @@ import de.telekom.testframework.selenium.Browser;
 import de.telekom.testframework.selenium.SeleniumConfiguration;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;

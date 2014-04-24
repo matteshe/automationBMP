@@ -5,17 +5,21 @@ import com.google.inject.Inject;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
+import de.telekom.bmp.data.UserRole;
 import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.Home;
 import de.telekom.bmp.pages.Login;
 import de.telekom.bmp.pages.channel.MarketPlacePage;
+import de.telekom.bmp.pages.superuser.old.DashboardOld;
 import static de.telekom.testframework.Actions.*;
 import static de.telekom.testframework.Assert.*;
 import de.telekom.testframework.annotations.QCId;
 import static de.telekom.testframework.selenium.Matchers.*;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.nullValue;
 import static org.testng.Assert.*;
 
 import org.testng.annotations.BeforeMethod;
@@ -25,14 +29,13 @@ import org.testng.annotations.Test;
  *
  * @author Pierre Nomo
  */
-
 @QCId("4125")
 @UseWebDriver
-public class TC005_Login_as_Chanel_Admin {
+public class TC005_Login_as_Channel_Admin {
 
     @Inject
     BmpApplication app;
-    
+
     @Inject
     FunctionalActions fa;
 
@@ -43,7 +46,7 @@ public class TC005_Login_as_Chanel_Admin {
     Home home;
 
     @Inject
-    MarketPlacePage marketplacepage;
+    DashboardOld dashboard;
 
     @Inject
     Datapool datapool;
@@ -55,46 +58,29 @@ public class TC005_Login_as_Chanel_Admin {
     User user;
 
     @BeforeMethod
-    public void setup() {
-        user = datapool.users().field("valid").equal(true)
-                .field("registered").notEqual(false)
-                .field("email").equal("mybmptestuser+chanadmin@gmail.com").get();
+    public void preparation() {
+        user = datapool.validUsers()
+                .field(User.Fields.registered).notEqual(false)
+                .field(User.Fields.role).equal(UserRole.CHANNELADMIN).get();
 
-        assertNotNull(user, "cannot find a valid user");
-
-//        user.valid = false;
-        navigateTo(login);
-
+        navigateTo(app);
     }
 
-    @Test
-    public void test_005_Login_as_ChannelAdminUser() {
+    @Test(description = "this is the test")
+    public void theTest() {
+        assertThat("we have a user", user, is(not(nullValue())));
 
-        try {
-            fa.login(user);
-            
-            click(header.settings.channelUser);
+        click(header.login);
 
+        set(login.username, user.email);
+        set(login.password, user.password);
+        click(login.signin);
 
-// WORKAROUND
-//            navigateTo(marketplacepage);
-            
-            
-            assertThat(marketplacepage, is(currentPage()));
+        click(header.settings.channelUser);
 
-            click(marketplacepage.productsTab);
-            click(marketplacepage.settingsTab);
+        verifyThat(dashboard, is(currentPage()));
 
-            fa.logout();
-
-            assertThat(home, is(currentPage()));
-
-//            user.valid = true;
-        } finally {
-            user.registered = true;
-            datapool.save(user);
-        }
-
+        fa.logout();
     }
 
 }

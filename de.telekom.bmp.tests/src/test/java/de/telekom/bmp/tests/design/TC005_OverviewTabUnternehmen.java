@@ -5,7 +5,7 @@ import de.telekom.bmp.data.Datapool;
 
 import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
-import de.telekom.bmp.pages.account.Account;
+import de.telekom.bmp.pages.account.AccountHeader;
 
 import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
@@ -34,7 +34,7 @@ public class TC005_OverviewTabUnternehmen {
     Header header;
        
     @Inject 
-    Account account;
+    AccountHeader account;
         
     @Test
     public void test1() throws InterruptedException {

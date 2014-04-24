@@ -1,4 +1,4 @@
-package de.telekom.bmp.pages.superuser;
+package de.telekom.bmp.pages.superuser.old;
 
 import javax.inject.Singleton;
 
@@ -12,11 +12,12 @@ import de.telekom.testframework.selenium.annotations.Path;
  * @author Mathias Herkt
  */
 @Singleton
-@Path("/superuser/reportProcess")
-public class RebuildIndexPage extends SubNavHeaderPage {
+@Path("/superuser/exceptions")
+@Deprecated
+public class ExceptionPage extends SubNavHeaderPage {
 
 	@Inject
-	public RebuildIndexPage(BmpApplication app) {
+	public ExceptionPage(BmpApplication app) {
 		super(app);
 	}
 }

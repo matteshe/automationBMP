@@ -24,13 +24,13 @@ import de.telekom.bmp.functional.AccountHandling;
 import de.telekom.bmp.functional.AssignRoles;
 import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
-import de.telekom.bmp.pages.superuser.BillingAdminPage;
-import de.telekom.bmp.pages.superuser.BillsPage;
-import de.telekom.bmp.pages.superuser.Dashboard;
-import de.telekom.bmp.pages.superuser.ExceptionPage;
-import de.telekom.bmp.pages.superuser.MarketplacesPage;
-import de.telekom.bmp.pages.superuser.RebuildIndexPage;
-import de.telekom.bmp.pages.superuser.ReportProcessPage;
+import de.telekom.bmp.pages.superuser.old.BillingAdminPage;
+import de.telekom.bmp.pages.superuser.old.BillsPage;
+import de.telekom.bmp.pages.superuser.old.DashboardOld;
+import de.telekom.bmp.pages.superuser.old.ExceptionPage;
+import de.telekom.bmp.pages.superuser.old.MarketplacesPage;
+import de.telekom.bmp.pages.superuser.old.RebuildIndexPage;
+import de.telekom.bmp.pages.superuser.old.ReportProcessPage;
 import de.telekom.testframework.annotations.QCId;
 import de.telekom.testframework.reporting.Reporter;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
@@ -60,7 +60,7 @@ public class T02_AssignSuperuserRole {
 	Header headerPage;
 	
 	@Inject
-	Dashboard suDashboardPg;
+	DashboardOld suDashboardPg;
 
 	@Inject
 	ExceptionPage suExPg;

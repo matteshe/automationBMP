@@ -1,7 +1,7 @@
 /**
  *
  */
-package de.telekom.bmp.pages.superuser;
+package de.telekom.bmp.pages.superuser.old;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;

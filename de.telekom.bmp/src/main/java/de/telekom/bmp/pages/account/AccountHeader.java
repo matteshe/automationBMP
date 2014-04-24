@@ -3,7 +3,6 @@ package de.telekom.bmp.pages.account;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.testframework.selenium.Page;
 import de.telekom.testframework.selenium.annotations.Path;
-import de.telekom.testframework.selenium.annotations.UseParent;
 import de.telekom.testframework.selenium.controls.*;
 import de.telekom.testframework.selenium.internal.FieldElementLocator;
 import javax.inject.Inject;
@@ -18,10 +17,10 @@ import org.openqa.selenium.support.FindBy;
  */
 @Singleton
 @Path("/account")
-public class Account extends Page {
+public class AccountHeader extends Page {
 
     @Inject
-    public Account(BmpApplication app) {
+    public AccountHeader(BmpApplication app) {
         super(app);
     }
 

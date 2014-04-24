@@ -1,4 +1,4 @@
-package de.telekom.bmp.pages.superuser;
+package de.telekom.bmp.pages.superuser.old;
 
 import javax.inject.Singleton;
 
@@ -12,11 +12,12 @@ import de.telekom.testframework.selenium.annotations.Path;
  * @author Mathias Herkt
  */
 @Singleton
-@Path("/superuser/bills")
-public class BillsPage extends SubNavHeaderPage {
+@Path("/superuser/reportProcess")
+@Deprecated
+public class RebuildIndexPage extends SubNavHeaderPage {
 
 	@Inject
-	public BillsPage(BmpApplication app) {
+	public RebuildIndexPage(BmpApplication app) {
 		super(app);
 	}
 }

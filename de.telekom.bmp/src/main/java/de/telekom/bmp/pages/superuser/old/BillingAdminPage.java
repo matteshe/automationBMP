@@ -1,5 +1,6 @@
-package de.telekom.bmp.pages.superuser;
+package de.telekom.bmp.pages.superuser.old;
 
+import de.telekom.bmp.pages.superuser.old.SubNavHeaderPage;
 import javax.inject.Singleton;
 
 import com.google.inject.Inject;
@@ -13,6 +14,7 @@ import de.telekom.testframework.selenium.annotations.Path;
  */
 @Singleton
 @Path("/superuser/billingAdmin")
+@Deprecated
 public class BillingAdminPage extends SubNavHeaderPage {
 
 	@Inject

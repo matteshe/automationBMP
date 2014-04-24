@@ -1,89 +1,83 @@
 /**
- * 
+ *
  */
 package de.telekom.bmp.tests.tcs_13_roles.assignroles;
-
-import javax.inject.Inject;
-
-
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Test;
 
 import de.telekom.bmp.data.Datapool;
 import de.telekom.bmp.data.User;
 import de.telekom.bmp.data.UserRole;
-import de.telekom.bmp.functional.AccountHandling;
-import de.telekom.bmp.functional.AssignRoles;
 import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
-import de.telekom.testframework.Actions;
-import de.telekom.testframework.Assert;
+import de.telekom.bmp.pages.superuser.Dashboard;
+import de.telekom.bmp.pages.superuser.SuperuserHeader;
+import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.annotations.QCId;
-import de.telekom.testframework.reporting.Reporter;
+import de.telekom.testframework.annotations.QCState;
 import de.telekom.testframework.selenium.annotations.UseWebDriver;
+import static java.util.concurrent.TimeUnit.SECONDS;
+import javax.inject.Inject;
+import static org.hamcrest.Matchers.*;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
 /**
- * @author Mathias Herkt
- * 
+ * @author Mathias Herkt, Daniel Biehl
+ *
  */
 @UseWebDriver
-@QCId("5612")
+@QCId(value = "5612", state = QCState.Ongoing)
 public class T01_AssignChannelAdminRole {
-	private static final String MAIL_PREFIX = "mybmptestuser";
 
-	@Inject
-	Datapool db;
+    @Inject
+    FunctionalActions fa;
 
-	@Inject
-	AccountHandling accHandling;
-	
-	@Inject
-	AssignRoles assignRoles;
+    @Inject
+    Datapool datapool;
 
-	@Inject
-	FunctionalActions fa;
+    @Inject
+    Header header;
 
-	@Inject
-	Header headerPage;
+    @Inject
+    SuperuserHeader superuserHeader;
 
-	User superUser;
-	User userForChannelAdmin;
+    @Inject
+    Dashboard dashboard;
 
-	@BeforeMethod
-	public void setup() {
-		superUser = db.users().filter("role", UserRole.SUPERUSER).get();
-		Assert.assertThat("We need a super user for this test case.",
-				superUser != null);
+    User superuser;
+    User user;
 
-		userForChannelAdmin = db.users().filter("role", UserRole.USER)
-				.filter("name", "AssignRole")
-				.filter("firstName", "CHANNELADMIN").filter("valid", true)
-				.get();
+    @BeforeClass
+    public void preparation() {
+        superuser = datapool.helpers().getSuperUser();
+        user = datapool.validUsers()
+                .field(User.Fields.registered).equal(true)
+                .field(User.Fields.role).notEqual(UserRole.CHANNELADMIN).get();
 
-		if (userForChannelAdmin == null) {
-			userForChannelAdmin = User.createUser(MAIL_PREFIX);
-			userForChannelAdmin.name = "AssignRole";
-			userForChannelAdmin.firstName = "CHANNELADMIN";
-			accHandling.registerAccount(userForChannelAdmin);
-			db.save(userForChannelAdmin);
-			Assert.assertThat("New User registered",
-					userForChannelAdmin.registered);
-		} else {
-			Reporter.reportMessage("Use registered user");
-		}
+    }
 
-	}
+    @AfterClass
+    public void finalization() {
+        if (user != null) {
+            datapool.save(user);
+        }
+    }
 
-	@Test
-	public void assignRole() {
-		assignRoles.assignChannelAdmin(superUser, userForChannelAdmin);
-		db.save(userForChannelAdmin);
+    @Test
+    public void theTest() {
+        //user.valid = false;
 
-		Reporter.reportMessage("Checks on new channel admin");
-		fa.login(userForChannelAdmin.email, userForChannelAdmin.password);
-		Actions.click(headerPage.settings.channelUser);
+        assertThat("we have a superuser", superuser, is(not(nullValue())));
+        assertThat("we have a user", user, is(not(nullValue())));
+        fa.login(superuser);
 
-		fa.logout();
+        click(header.settings.superUser);
+        click(superuserHeader.tabs.dashboard);
 
-	}
+        click(dashboard.tabs.companies);
+
+        System.out.println(dashboard.companies.table.rowByName.get(user.company.name).name.getTextContent());
+
+        fa.logout();
+    }
 }

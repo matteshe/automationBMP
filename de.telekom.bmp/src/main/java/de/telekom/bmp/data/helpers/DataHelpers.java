@@ -57,11 +57,12 @@ public final class DataHelpers {
         String testUserPassword = "ARandomPW1234";
 
         @Named("superUser.eMail")
-        String superUserEMail = "testmax90+sup@gmail.com";
+        String superUserEMail = "maxtestdt+superuser@gmail.com";
         @Inject(optional = true)
         @Named("superUser.password")
-        String superUserPassword = "test12345";
+        String superUserPassword = "TestA1234";
 
+        @Inject(optional = true)
         @Named("testApplication.name")
         String testApplicationName = "Automation_SAK1";
     }
@@ -125,7 +126,7 @@ public final class DataHelpers {
         return result;
     }
 
-    public User getSuperuser() {
+    protected User getDefaultSuperuser() {
         User result = new User();
 
         result.email = configuration.superUserEMail;
@@ -133,6 +134,18 @@ public final class DataHelpers {
         result.role = UserRole.SUPERUSER;
 
         return result;
+    }
+
+    public User getSuperUser() {
+        User user = datapool.validUsers()
+                .field(User.Fields.registered).notEqual(false)
+                .field(User.Fields.role).equal(UserRole.SUPERUSER).get();
+
+        if (user == null) {
+            user = getDefaultSuperuser();
+        }
+
+        return user;
     }
 
     public Application getTestApplication() {

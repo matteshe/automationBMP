@@ -55,13 +55,7 @@ public class TC012_Mosi_Ping_Test {
 
     @BeforeMethod
     public void preparation() {
-        user = datapool.validUsers()
-                .field(User.Fields.registered).notEqual(false)
-                .field(User.Fields.role).equal(UserRole.SUPERUSER).get();
-
-        if (user == null) {
-            user = datapool.helpers().getSuperuser();
-        }
+        user = datapool.helpers().getSuperUser();
 
         assertThat("we have a valid user", user, is(not(nullValue())));
 

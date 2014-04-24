@@ -17,7 +17,7 @@ import de.telekom.bmp.data.User;
 import de.telekom.bmp.functional.AccountHandling;
 import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
-import de.telekom.bmp.pages.account.Account;
+import de.telekom.bmp.pages.account.AccountHeader;
 import de.telekom.bmp.pages.account.Bills;
 import de.telekom.testframework.Assert;
 import de.telekom.testframework.annotations.QCId;
@@ -39,7 +39,7 @@ public class T040_Check_Billing_Info_Form {
     AccountHandling accHandling;
 
     @Inject
-    Account accountPage;
+    AccountHeader accountPage;
 
     @Inject
     Bills billPage;

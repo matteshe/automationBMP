@@ -35,6 +35,15 @@ public class Control extends DelegatedWebElement {
         return getAttribute("innerHTML");
     }
 
+    /**
+     * Gets the text content of a node and its descendents.
+     *
+     * @return the text
+     */
+    public String getTextContent() {
+        return getAttribute("textContent");
+    }
+
     protected void internalSet(Object value) {
         throw new UnsupportedOperationException();
     }

@@ -3,7 +3,7 @@ package de.telekom.bmp.tests.design;
 
 import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
-import de.telekom.bmp.pages.account.Account;
+import de.telekom.bmp.pages.account.AccountHeader;
 import de.telekom.bmp.pages.account.Dashboard;
 import de.telekom.bmp.pages.account.Users;
 
@@ -31,7 +31,7 @@ public class TC009_ApplikationenZuweisen {
     Header header;
        
     @Inject 
-    Account account;
+    AccountHeader account;
     
     @Inject
     Dashboard dashboard;

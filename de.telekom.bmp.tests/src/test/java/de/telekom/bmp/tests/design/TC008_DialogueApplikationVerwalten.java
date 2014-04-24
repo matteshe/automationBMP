@@ -3,7 +3,7 @@ package de.telekom.bmp.tests.design;
 
 import de.telekom.bmp.functional.FunctionalActions;
 import de.telekom.bmp.pages.Header;
-import de.telekom.bmp.pages.account.Account;
+import de.telekom.bmp.pages.account.AccountHeader;
 import de.telekom.bmp.pages.account.InvitePopup;
 import de.telekom.bmp.pages.account.Roles;
 import de.telekom.bmp.pages.account.Users;
@@ -32,7 +32,7 @@ public class TC008_DialogueApplikationVerwalten {
     Header header;
        
     @Inject 
-    Account account;
+    AccountHeader account;
     
     @Inject
     Users users;

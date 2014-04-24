@@ -8,6 +8,7 @@ import static de.telekom.testframework.Actions.*;
 import de.telekom.testframework.FunctionalActionsBase;
 import static de.telekom.testframework.selenium.Matchers.innerHTML;
 import static de.telekom.testframework.selenium.Matchers.loaded;
+import static de.telekom.testframework.selenium.Matchers.textContent;
 import javax.inject.Inject;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
@@ -63,10 +64,16 @@ public class FunctionalActions extends FunctionalActionsBase {
             @Override
             public void run() {
 
-                // toggle the language till "deutsch" is the current language
-                while (!checkThat(header.currentLanguage, innerHTML(containsString("deutsch")))) {
+                int tries = 0;
+                while (!checkThat(header.currentLanguage, textContent(containsString("deutsch")))) {
+
+                    if (tries > 10) {
+                        throw new RuntimeException("can't set the language to german");
+                    }
+
                     click(header.toggleLanguage);
                     waitUntil(login, is(loaded()));
+                    tries++;
                 }
             }
         });

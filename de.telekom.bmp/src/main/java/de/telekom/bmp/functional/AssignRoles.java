@@ -19,7 +19,7 @@ import de.telekom.bmp.pages.Header;
 import de.telekom.bmp.pages.channel.CompanyPage;
 import de.telekom.bmp.pages.channel.MarketPlacePage;
 import de.telekom.bmp.pages.channel.UserPage;
-import de.telekom.bmp.pages.superuser.Dashboard;
+import de.telekom.bmp.pages.superuser.old.DashboardOld;
 import de.telekom.testframework.Actions;
 import de.telekom.testframework.reporting.Reporter;
 
@@ -37,7 +37,7 @@ public class AssignRoles {
 	Header headPg;
 	
 	@Inject
-	Dashboard suDashboardPg;
+	DashboardOld suDashboardPg;
 	
 	@Inject
 	CompanyPage chCompPg;

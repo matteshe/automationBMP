@@ -1,17 +1,12 @@
 package de.telekom.bmp.pages.cms;
             
-import de.telekom.bmp.pages.cms.*;
 import de.telekom.bmp.BmpApplication;
 import de.telekom.testframework.selenium.Page;
-import de.telekom.testframework.selenium.Parameterized;
 import de.telekom.testframework.selenium.annotations.Path;
 import de.telekom.testframework.selenium.controls.*;
-import de.telekom.testframework.selenium.internal.FieldElementLocator;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 /**
