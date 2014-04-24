@@ -7,7 +7,7 @@ function LOG(text)
 }
 
 headerName = "X-Selenium";
-headerValue = "sonne";
+headerValue = "selenium";
 
 function DTSeleniumHelper() {
 }
